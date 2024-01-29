@@ -1,4 +1,4 @@
-# capstone20245
+# TechTinker
 
 MERN directory structure 
 
