@@ -1,16 +1,20 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import User from "./components/User.jsx";
+import { createRoot } from 'react-dom/client';
+import '../public/styles.css'; 
+import Header from './components/shared/Header.jsx';
+import Footer from './components/shared/Footer.jsx';
 
 class App extends React.Component {
     render() {
         return (
             <>
-            <div>Tech Tinker</div>
-            <User />
+                <Header />
+                <Footer />
             </>
         );
     }
 }
 
-ReactDOM.render(<App />, document.getElementById("contents"));
+const contents = document.getElementById("contents");
+const root = createRoot(contents);
+root.render(<App />);

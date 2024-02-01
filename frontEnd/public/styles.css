@@ -1,0 +1,42 @@
+/* styles.css */
+@import '@fontsource/nunito';
+@import '@fontsource/montserrat';
+@import '@fontsource/nunito-sans';
+
+:root {
+    --primary-color: #1C5679;
+    --secondary-color: #404041;
+    --tertiary-color: #1C796E;
+    --black: #000000;
+    --white: #FFFFFF;
+    --grey: #C9C9C9;
+}
+
+* {
+    font-family: "Nunito" !important;
+}
+
+.textPrimary {
+    color: var(--primary-color);
+}
+
+.textSecondary {
+    color: var(--black);
+}
+
+.MuiAppBar-root{
+    background-color: var(--primary-color) !important;
+}
+
+.MuiAppBar-root .MuiButton-root {
+    margin: 0 !important;
+}
+
+.MuiToolbar-root {
+    min-height: 48px !important;
+}
+
+footer {
+    background-color: var(--grey);
+    padding: 4rem !important;
+}
