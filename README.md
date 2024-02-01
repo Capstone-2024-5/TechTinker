@@ -2,7 +2,7 @@
 
 MERN directory structure 
 
-Root -> TechTinker 
+Root -> TechTinker
     frontend (UI components, .env files where environment variables using server and help secret port number and database name and secret keys)
     backend (Server connection, database connection, controls data, and rest APIs)
 
