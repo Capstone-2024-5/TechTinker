@@ -1,3 +1,5 @@
+
+
 /* styles.css */
 @import '@fontsource/nunito';
 @import '@fontsource/montserrat';
@@ -17,11 +19,52 @@
 }
 
 .textPrimary {
-    color: var(--primary-color);
+    color: var(--primary-color) !important;
 }
 
 .textSecondary {
-    color: var(--black);
+    color: var(--tertiary-color) !important;
+}
+
+.textWhite {
+    color: var(--white) !important;
+}
+
+.textBlack {
+    color: var(--black) !important;
+}
+
+.bgColorPrimary {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.fontMontserrat {
+    font-family: montserrat !important;
+}
+
+.fontWeight-600 {
+    font-weight: 600 !important;
+}
+
+.fontWeight-700 {
+    font-weight: 700 !important;
+}
+
+.fontWeight-800 {
+    font-weight: 800 !important;
+}
+
+.fontWeight-900 {
+    font-weight: 900 !important;
+}
+
+.fontWeight-1000 {
+    font-weight: 1000 !important;
+}
+
+.textCenter {
+    text-align: center !important;
 }
 
 .MuiAppBar-root{
@@ -35,6 +78,24 @@
 .MuiToolbar-root {
     min-height: 48px !important;
 }
+
+/* Swiper style */
+
+.swiper {
+    background-color: var(--white);
+}
+
+.swiper-button-prev, .swiper-button-next {
+    color: var(--primary-color) !important;
+}
+
+.swiper-pagination-bullet {
+    height: 12px !important;
+    width: 12px !important;
+    color: var(--primary-color) !important;
+}
+
+/* Footer style */
 
 footer {
     background-color: var(--grey);
