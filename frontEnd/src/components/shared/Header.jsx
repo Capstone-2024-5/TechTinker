@@ -33,8 +33,8 @@ function Header() {
           <Typography
             variant="h6"
             noWrap
-            component={Link}
-            to="/"
+            component="a"
+            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -79,9 +79,7 @@ function Header() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" component={Link} to={page.toLowerCase()}>
-                    {page}
-                  </Typography>
+                  <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -91,8 +89,8 @@ function Header() {
           <Typography
             variant="h5"
             noWrap
-            component={Link}
-            to="/"
+            component="a"
+            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -111,8 +109,7 @@ function Header() {
             {pages.map((page) => (
               <Button
                 key={page}
-                component={Link}
-                to={page.toLowerCase() === 'register' ? '/register' : `/${page.toLowerCase()}`}
+                onClick={handleCloseNavMenu}
                 sx={{ color: 'white', display: 'block' }}
               >
                 {page}

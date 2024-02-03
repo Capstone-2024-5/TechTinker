@@ -17,9 +17,8 @@ export default function Home() {
     };
 
     return (
-        <>
-          <div className="bgColorPrimary">
-          <Swiper
+        <div className="bgColorPrimary">
+            <Swiper
                 pagination={pagination}
                 modules={[Pagination, Autoplay, Navigation]}
                 className="mySwiper"
@@ -39,7 +38,11 @@ export default function Home() {
                             >
                                 Ignite your STEM Passion with Fun Learning!
                             </Typography>
-                            <Typography className="textBlack" variant="h5" sx={{ pt: 6, pb: 12 }}>
+                            <Typography
+                                className="textBlack"
+                                variant="h5"
+                                sx={{ pt: 6, pb: 12 }}
+                            >
                                 Join our dynamic STEM classes, weekdays or
                                 weekends, for hands-on coding and robotics fun.
                                 Unleash curiosity, embrace innovation – enroll
@@ -50,7 +53,7 @@ export default function Home() {
                     </Grid>
                 </SwiperSlide>
                 <SwiperSlide>
-                <Grid container sx={{ px: 12 }}>
+                    <Grid container sx={{ px: 12 }}>
                         <Grid item xs={12} md={8} sx={{ px: 6 }}>
                             <Typography
                                 sx={{ pt: 10 }}
@@ -59,7 +62,11 @@ export default function Home() {
                             >
                                 Ignite your STEM Passion with Fun Learning!
                             </Typography>
-                            <Typography className="textBlack" variant="h5" sx={{ pt: 6, pb: 12 }}>
+                            <Typography
+                                className="textBlack"
+                                variant="h5"
+                                sx={{ pt: 6, pb: 12 }}
+                            >
                                 Join our dynamic STEM classes, weekdays or
                                 weekends, for hands-on coding and robotics fun.
                                 Unleash curiosity, embrace innovation – enroll
@@ -139,7 +146,6 @@ export default function Home() {
                     </Grid>
                 </Grid>
             </Box>
-          </div>
-        </>
+        </div>
     );
 }
