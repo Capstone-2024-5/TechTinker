@@ -4,26 +4,21 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';  // U
 import '../public/styles.css';
 import Header from './components/shared/header.jsx';
 import Footer from './components/shared/Footer.jsx';
-import { Home } from "@mui/icons-material";
+import Home from "./components/Home.jsx";
 import CourseRegistration from './components/CourseRegistration.jsx';
 
 class App extends React.Component {
     render() {
         return (
+            <>
             <Router>
-                <>
                     <Header />
-                    <Routes>  
+                    <Routes>
                         <Route path="/register" element={<CourseRegistration />} />
-                       
+                        <Route path="" element={<Home />} />
                     </Routes>
                     <Footer />
-                </>
             </Router>
-            <>
-                <Header />
-                <Home />
-                <Footer />
             </>
         );
     }
