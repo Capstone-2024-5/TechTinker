@@ -1,6 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "../public/styles.css";
 import Header from "./components/shared/Header.jsx";
 import Footer from "./components/shared/Footer.jsx";
@@ -10,15 +10,12 @@ import CourseRegistration from "./components/CourseRegistration.jsx";
 const App = () => {
     return (
         <Router>
-            <div>
-                <Header />
-                <Switch>
-                    <Route path="/" exact component={Home} />
-                    <Route path="/course-registration" component={CourseRegistration} />
-                    {/* Add more routes as needed */}
-                </Switch>
-                <Footer />
-            </div>
+            <Header />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/course" element={<CourseRegistration />} />
+            </Routes>
+            <Footer />
         </Router>
     );
 };

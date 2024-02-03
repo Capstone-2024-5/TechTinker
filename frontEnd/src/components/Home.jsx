@@ -16,6 +16,8 @@ export default function Home() {
         },
     };
 
+    const myVideo = "https://www.youtube.com/watch?v=KT9IZLOF3hA";
+
     return (
         <div className="bgColorPrimary">
             <Swiper
@@ -77,6 +79,15 @@ export default function Home() {
                     </Grid>
                 </SwiperSlide>
             </Swiper>
+            <Grid container sx={{ p: 12 }}>
+                <Grid item xs={12} md={4}></Grid>
+                <Grid item xs={12} md={8} className="textCenter">
+                    <video width="640" height="360" controls>
+                        <source src={myVideo} type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </Grid>
+            </Grid>
             <Typography
                 variant="h3"
                 className="textCenter fontWeight-800"

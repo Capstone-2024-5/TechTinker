@@ -14,7 +14,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 
 const pages = ['Home', 'Courses', 'register', 'Contact us'];
 
-function Header() {
+export default function Header() {
   const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -121,5 +121,3 @@ function Header() {
     </AppBar>
   );
 }
-
-export default Header;
