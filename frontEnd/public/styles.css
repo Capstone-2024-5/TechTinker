@@ -79,6 +79,11 @@
     min-height: 48px !important;
 }
 
+.headerLink {
+    color: var(--white) !important;
+    text-decoration: none !important;
+}
+
 /* Swiper style */
 
 .swiper {

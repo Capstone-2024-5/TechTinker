@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
+import YouTube from "react-youtube";
 
 export default function Home() {
     const pagination = {
@@ -16,7 +17,13 @@ export default function Home() {
         },
     };
 
-    const myVideo = "https://www.youtube.com/watch?v=KT9IZLOF3hA";
+    const opts = {
+        height: "360",
+        width: "640",
+        playerVars: {
+            autoplay: 1,
+        },
+    };
 
     return (
         <div className="bgColorPrimary">
@@ -79,18 +86,31 @@ export default function Home() {
                     </Grid>
                 </SwiperSlide>
             </Swiper>
-            <Grid container sx={{ p: 12 }}>
-                <Grid item xs={12} md={4}></Grid>
-                <Grid item xs={12} md={8} className="textCenter">
-                    <video width="640" height="360" controls>
-                        <source src={myVideo} type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
+            <Grid container sx={{ px: 12, pt: 12 }}>
+                <Grid item xs={12} md={6}>
+                    <Typography
+                        variant="h3"
+                        className="fontWeight-800 fontMontserrat"
+                        sx={{ py: 1, mt: 8, mb: 2 }}
+                    >
+                        Get Inspired !
+                    </Typography>
+                    <Typography
+                        variant="h5"
+                        className=" fontWeight-500"
+                        sx={{ py: 1, mb: 2 }}
+                    >
+                        Explore, Experience, and Express with Our Modern Robotics Program.
+                    </Typography>
+                    <p></p>
+                </Grid>
+                <Grid item xs={12} md={6} className="textCenter">
+                    <YouTube videoId="KT9IZLOF3hA" opts={opts} />
                 </Grid>
             </Grid>
             <Typography
                 variant="h3"
-                className="textCenter fontWeight-800"
+                className="textCenter fontWeight-800 fontMontserrat"
                 sx={{ py: 1, mt: 8, mb: 2 }}
             >
                 Why choose us for STEM Education?
