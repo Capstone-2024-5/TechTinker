@@ -14,143 +14,143 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { Link as RouterLink } from "react-router-dom";
 
 const pages = [
-    { name: "Home", link: "" },
-    { name: "Courses", link: "course" },
-    { name: "Register", link: "register" },
-    { name: "Event", link: "events" },
-    ,
-    { name: "Contact Us", link: "contact-us" },
+  { name: "Home", link: "" },
+  { name: "Courses", link: "course" },
+  { name: "CourseList", link: "courselist" },
+  { name: "Register", link: "register" },
+  { name: "Event", link: "events" },
+  ,
+  { name: "Contact Us", link: "contact-us" },
 ];
 
 export default function Header() {
-    const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
 
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
-    };
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
 
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
 
-    return (
-        <AppBar position="static">
-            <Container maxWidth="xl">
-                <Toolbar disableGutters>
-                    <AdbIcon
-                        sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-                    />
+  return (
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="#app-bar-with-responsive-menu"
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            LOGO
+          </Typography>
+
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "flex", md: "none" },
+            }}
+          >
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+            >
+              {pages.map((page) => (
+                <Link key={page.name} component={RouterLink} to={page.link}>
+                  <MenuItem onClick={handleCloseNavMenu}>
                     <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="#app-bar-with-responsive-menu"
-                        sx={{
-                            mr: 2,
-                            display: { xs: "none", md: "flex" },
-                            fontFamily: "monospace",
-                            fontWeight: 700,
-                            letterSpacing: ".3rem",
-                            color: "inherit",
-                            textDecoration: "none",
-                        }}
+                      textAlign="center"
+                      className="headerLink fontWeight-800"
                     >
-                        LOGO
+                      {page.name}
                     </Typography>
+                  </MenuItem>
+                </Link>
+              ))}
+            </Menu>
+          </Box>
 
-                    <Box
-                        sx={{
-                            flexGrow: 1,
-                            display: { xs: "flex", md: "none" },
-                        }}
-                    >
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: "bottom",
-                                horizontal: "left",
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: "top",
-                                horizontal: "left",
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: "block", md: "none" },
-                            }}
-                        >
-                            {pages.map((page) => (
-                                <Link key={page.name} component={RouterLink} to={page.link}>
-                                    <MenuItem
-                                        onClick={handleCloseNavMenu}
-                                    >
-                                        <Typography
-                                            textAlign="center"
-                                            className="headerLink fontWeight-800"
-                                        >
-                                            {page.name}
-                                        </Typography>
-                                    </MenuItem>
-                                </Link>
-                            ))}
-                        </Menu>
-                    </Box>
+          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href="#app-bar-with-responsive-menu"
+            sx={{
+              mr: 2,
+              display: { xs: "flex", md: "none" },
+              flexGrow: 1,
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            LOGO
+          </Typography>
 
-                    <AdbIcon
-                        sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
-                    />
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href="#app-bar-with-responsive-menu"
-                        sx={{
-                            mr: 2,
-                            display: { xs: "flex", md: "none" },
-                            flexGrow: 1,
-                            fontFamily: "monospace",
-                            fontWeight: 700,
-                            letterSpacing: ".3rem",
-                            color: "inherit",
-                            textDecoration: "none",
-                        }}
-                    >
-                        LOGO
-                    </Typography>
-
-                    <Box
-                        sx={{
-                            flexGrow: 1,
-                            display: { xs: "none", md: "flex" },
-                        }}
-                    >
-                        {pages.map((page) => (
-                            <Link key={page.name} component={RouterLink} to={page.link} className="headerLink">
-                                <Button
-                                    onClick={handleCloseNavMenu}
-                                    sx={{ color: "white", display: "block" }}
-                                    className="headerLink fontWeight-800"
-                                >
-                                    {page.name}
-                                </Button>
-                            </Link>
-                        ))}
-                    </Box>
-                </Toolbar>
-            </Container>
-        </AppBar>
-    );
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+            }}
+          >
+            {pages.map((page) => (
+              <Link
+                key={page.name}
+                component={RouterLink}
+                to={page.link}
+                className="headerLink"
+              >
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ color: "white", display: "block" }}
+                  className="headerLink fontWeight-800"
+                >
+                  {page.name}
+                </Button>
+              </Link>
+            ))}
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
 }
