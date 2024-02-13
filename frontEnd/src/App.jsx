@@ -6,6 +6,7 @@ import Header from "./components/shared/Header.jsx";
 import Footer from "./components/shared/Footer.jsx";
 import Home from "./components/Home.jsx";
 import CourseRegistration from "./components/CourseRegistration.jsx";
+import Contact from "./components/Contact.jsx";
 
 const App = () => {
     return (
@@ -14,6 +15,7 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/course" element={<CourseRegistration />} />
+                <Route path="/contact-us" element={<Contact />} />
             </Routes>
             <Footer />
         </Router>

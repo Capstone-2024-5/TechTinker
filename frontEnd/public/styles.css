@@ -79,9 +79,35 @@
     min-height: 48px !important;
 }
 
+.MuiOutlinedInput-notchedOutline {
+    border-color: var(--primary-color) !important;
+}
+
+.MuiInputBase-input {
+    color: var(--primary-color) !important;
+}
+
+.MuiFormLabel-root {
+    color: var(--primary-color) !important;
+}
+
+.btnPrimary {
+    color: var(--white) !important;
+    background-color: var(--tertiary-color) !important;
+}
+
 .headerLink {
     color: var(--white) !important;
     text-decoration: none !important;
+}
+
+.googleMap {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+.btnLink {
+    color:#1C5679 !important;
 }
 
 /* Swiper style */
@@ -103,6 +129,10 @@
 /* Footer style */
 
 footer {
-    background-color: var(--grey);
-    padding: 4rem !important;
+    background-color: var(--white);
+}
+
+.copyright {
+    background-color: var(--tertiary-color);
+    color: var(--white);
 }
