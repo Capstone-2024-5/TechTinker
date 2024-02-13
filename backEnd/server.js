@@ -8,7 +8,12 @@ app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 const userRouter = require("./routes/users_route");
+const contactRouter = require("./routes/contacts_route");
+const newsletterRouter = require("./routes/newsletters_route");
+
 app.use("/user", userRouter);
+app.use("/contact", contactRouter);
+app.use("/subscribe", newsletterRouter);
 
 const PORT = process.env.API_SERVER_PORT || 5000;
 
