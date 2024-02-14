@@ -7,6 +7,7 @@ import Footer from "./components/shared/Footer.jsx";
 import Home from "./components/Home.jsx";
 import CourseRegistration from "./components/CourseRegistration.jsx";
 import Contact from "./components/Contact.jsx";
+import Register from "./components/Register.jsx";
 
 const App = () => {
     return (
@@ -16,6 +17,7 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/course" element={<CourseRegistration />} />
                 <Route path="/contact-us" element={<Contact />} />
+                <Route path="/register" element={<Register />} />
             </Routes>
             <Footer />
         </Router>
