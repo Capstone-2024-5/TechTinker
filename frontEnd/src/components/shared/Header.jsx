@@ -16,6 +16,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
+
 const pages = [
     { name: "Home", link: "" },
     { name: "Courses", link: "course" },
@@ -27,7 +28,7 @@ const pages = [
 
 const webpages = [
     {name: "Home", link: ""},
-    { name: "Science", link: "science" },
+    { name: "Science", link: "science", sublinks: ["Elementary School Science", "Middle School Science", "High Scool Science", "Activity Books", "Experiments", "LAb Equipment"] },
     { name: "Technology", link: "technology" },
     { name: "Engineering", link: "engineering" },
     { name: "Mathematics", link: "mathematics" },
@@ -189,6 +190,7 @@ export default function Header() {
                             
                         </Box>
                     )}
+
                    {!isHomePage && !isCoursePage && !isRegisterPage && !isEventPage && !isContactUsPage && (
                      
                         <Box
@@ -223,7 +225,7 @@ export default function Header() {
                                 </Box>
                             </Box> 
                         </Box>
-                    )} 
+                    )}  
                 
                 </Toolbar>
                 
