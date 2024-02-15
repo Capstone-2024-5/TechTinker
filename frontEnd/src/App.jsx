@@ -8,7 +8,6 @@ import Home from "./components/Home.jsx";
 import Contact from "./components/Contact.jsx";
 import Register from "./components/Register.jsx";
 import Webstore from "./components/Webstore.jsx";
-import CourseRegistration from "./components/CourseRegistration.jsx";
 import CourseList from "./components/CourseList.jsx";
 
 const App = () => {
@@ -17,11 +16,11 @@ const App = () => {
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
+                {/* <Route path="/course" element={<Course />} /> */}
+                <Route path="/courselist" element={<CourseList />} />
                 <Route path="/contact-us" element={<Contact />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/webstore" element={<Webstore />} />
-                <Route path="/course" element={<CourseRegistration />} />
-                <Route path="/courselist" element={<CourseList />} />
             </Routes>
             <Footer />
         </Router>
