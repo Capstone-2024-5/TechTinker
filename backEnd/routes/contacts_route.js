@@ -1,11 +1,10 @@
 const express = require("express");
-
 const {
-  getUsers
-} = require("../controllers/users_controller");
+  postContact
+} = require("../controllers/contacts_controller");
 
 const router = express.Router();
 
-router.get("", getUsers);
+router.post("", postContact);
 
 module.exports = router;
