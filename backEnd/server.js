@@ -20,6 +20,12 @@ app.use("/user", userRouter);
 app.use("/api", registrationRouter);
 app.post("/api/register", registerUser);
 
+const productRouter= require("./routes/products_route");
+app.use("/products", productRouter);
+
+const loadMoreRouter = require("./routes/products_route");
+app.use("/products/loadMore", loadMoreRouter);
+
 const PORT = process.env.API_SERVER_PORT || 5000;
 
 app.listen(PORT, console.log(`Server API running on port ${PORT}`));

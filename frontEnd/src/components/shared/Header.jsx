@@ -10,20 +10,56 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
+import { Drawer, List, ListItemButton, ListItemText } from '@mui/material';
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link as RouterLink } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
 
 const pages = [
     { name: "Home", link: "" },
     { name: "Courses", link: "course" },
     { name: "Register", link: "register" },
     { name: "Event", link: "events" },
-    ,
     { name: "Contact Us", link: "contact-us" },
+    {name: "Webstore", link: "webstore"},
 ];
+
+const webpages = [
+    {name: "Home", link: ""},
+    { name: "Science", link: "science", sublinks: ["Elementary School Science", "Middle School Science", "High Scool Science", "Activity Books", "Experiments", "LAb Equipment"] },
+    { name: "Technology", link: "technology" },
+    { name: "Engineering", link: "engineering" },
+    { name: "Mathematics", link: "mathematics" },
+    { name: "Robotics", link: "robotics" },
+    { name: "Contact Us", link: "contact-us"},
+];
+
+
 
 export default function Header() {
     const [anchorElNav, setAnchorElNav] = useState(null);
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
+    const location = useLocation();
+
+    const isHomePage = location.pathname === '/';
+    const isCoursePage = location.pathname === '/course';
+    const isRegisterPage = location.pathname === '/register';
+    const isEventPage = location.pathname === '/events';
+    const isContactUsPage = location.pathname === '/contact-us';
+    const isWebstorePage = location.pathname === '/webstore';
+
+    const isSciencePage = location.pathname === '/science';
+    const isTechnologyPage = location.pathname === '/technology';
+    const isEngineeringPage = location.pathname === '/engineering';
+    const isMathematicsPage = location.pathname === '/mathematics';
+    const isRoboticsPage = location.pathname === '/robotics';
+
+    const toggleDrawer = () => {
+        setDrawerOpen(!drawerOpen);
+      };
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -36,7 +72,9 @@ export default function Header() {
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
+            <Box>           
                 <Toolbar disableGutters>
+                    
                     <AdbIcon
                         sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
                     />
@@ -130,27 +168,86 @@ export default function Header() {
                     >
                         LOGO
                     </Typography>
+                    
+                    {!isWebstorePage && !isSciencePage && !isTechnologyPage && !isEngineeringPage && !isMathematicsPage && !isRoboticsPage && (
+                        <Box
+                            sx={{
+                                flexGrow: 1,
+                                display: { xs: "none", md: "flex" },
+                            }}
+                        >
+                            {pages.map((page) => (
+                                <Link key={page.name} component={RouterLink} to={page.link} className="headerLink">
+                                    <Button
+                                        onClick={handleCloseNavMenu}
+                                        sx={{ color: "white", display: "block" }}
+                                        className="headerLink fontWeight-800"
+                                    >
+                                        {page.name}
+                                    </Button>
+                                </Link>
+                            ))}
+                            
+                        </Box>
+                    )}
 
-                    <Box
-                        sx={{
-                            flexGrow: 1,
-                            display: { xs: "none", md: "flex" },
-                        }}
-                    >
-                        {pages.map((page) => (
-                            <Link key={page.name} component={RouterLink} to={page.link} className="headerLink">
-                                <Button
-                                    onClick={handleCloseNavMenu}
-                                    sx={{ color: "white", display: "block" }}
-                                    className="headerLink fontWeight-800"
-                                >
-                                    {page.name}
-                                </Button>
-                            </Link>
-                        ))}
-                    </Box>
+                   {!isHomePage && !isCoursePage && !isRegisterPage && !isEventPage && !isContactUsPage && (
+                     
+                        <Box
+                            sx={{
+                                flexGrow: 1,
+                                display: { xs: "none", md: "flex" },
+                            }}
+                        >
+                            {webpages.map((webpage) => (
+                                <Link key={webpage.name} component={RouterLink} to={webpage.link} className="headerLink">
+                                    <Button
+                                        onClick={handleCloseNavMenu}
+                                        sx={{ color: "white", display: "block" }}
+                                        className="headerLink fontWeight-800"
+                                    >
+                                        {webpage.name}
+                                    </Button>
+
+                                </Link>
+                            ))}
+                            
+                            <Box sx={{ display: 'flex', marginLeft: 'auto' }}>                       
+                                <Box>
+                                    <Button sx={{ color: "white", display: "block"}}>
+                                        <ShoppingCartIcon/>
+                                    </Button>
+                                </Box>
+                                <Box> 
+                                    <Button sx={{ color: "white", display: "block", ml: 1}}>
+                                        <MenuIcon onClick={() => setDrawerOpen(true)}/>
+                                </Button>    
+                                </Box>
+                            </Box> 
+                        </Box>
+                    )}  
+                
                 </Toolbar>
+                
+            </Box>
             </Container>
+            
+
+            {/* Side Navigation Bar */}
+      
+            <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer}>
+                <List>
+                <ListItemButton>
+                    <ListItemText primary="Category 1" />
+                </ListItemButton>
+                <ListItemButton>
+                    <ListItemText primary="Category 2" />
+                </ListItemButton>
+                <ListItemButton>
+                    <ListItemText primary="Category 3" />
+                </ListItemButton>
+                </List>
+            </Drawer>
         </AppBar>
     );
 }
