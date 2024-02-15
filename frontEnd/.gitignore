@@ -1,1 +1,10 @@
 node_modules/
+
+# Ignore package lock file
+frontEnd/package-lock.json
+
+# Ignore all files in the frontEnd/public directory
+frontEnd/public/*
+
+# Except for index.html
+!frontEnd/public/index.html
