@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import "../public/styles.css";
+import "../styles.css";
 import Header from "./components/shared/Header.jsx";
 import Footer from "./components/shared/Footer.jsx";
 import Home from "./components/Home.jsx";
@@ -27,5 +27,5 @@ const App = () => {
     );
 };
 
-const root = ReactDOM.createRoot(document.getElementById("contents"));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);
