@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
@@ -6,9 +6,72 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { Typography } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
+import axios from "axios";
+import {
+    Typography,
+    Button,
+    TextField,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+} from "@mui/material";
+import YouTube from "react-youtube";
 
 export default function Home() {
+    const [open, setOpen] = useState(false);
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [nameTouched, setNameTouched] = useState(false);
+    const [emailTouched, setEmailTouched] = useState(false);
+    const formRef = useRef(null);
+
+    const isValidEmail = (email) => {
+        return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+    };    
+
+    const handleNameBlur = () => {
+        setNameTouched(true);
+    };
+
+    const handleEmailBlur = () => {
+        setEmailTouched(true);
+    };
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setOpen(true);
+        }, 10000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleSubmit = async (e) => {
+        console.log("Name:", name);
+        console.log("Email:", email);
+        e.preventDefault();
+        const formData = new FormData(formRef.current);
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+        try {
+            const response = await axios.post(
+                "http://localhost:4000/subscribe",
+                data
+            );
+            setOpen(false);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const pagination = {
         clickable: true,
         renderBullet: function (index, className) {
@@ -16,10 +79,63 @@ export default function Home() {
         },
     };
 
-    const myVideo = "https://www.youtube.com/watch?v=KT9IZLOF3hA";
+    const opts = {
+        height: "360",
+        width: "640",
+        playerVars: {
+            autoplay: 1,
+        },
+    };
 
     return (
         <div className="bgColorPrimary">
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle mt={2} className="fontWeight-700 fontMontserrat textPrimary">
+                    Join Our Community
+                    <Button onClick={handleClose} sx={{ position: 'absolute', right: 16, top: 24 }} className="textPrimary"><CloseIcon /></Button>
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText mb={2}>
+                        Enter your name and email to stay updated with our
+                        latest programs, events and promotions.
+                    </DialogContentText>
+                    <form ref={formRef} onSubmit={handleSubmit}>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        name="name"
+                        label="Name"
+                        type="text"
+                        fullWidth
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        onBlur={handleNameBlur}
+                        error={nameTouched && name === ''}
+                        helperText={(nameTouched && name === '') ? 'Name is required' : ''}
+                    />
+                    <TextField
+                        margin="dense"
+                        id="email"
+                        name="email"
+                        label="Email Address"
+                        type="email"
+                        fullWidth
+                        value={email}
+                        inputProps={{ pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" }}
+                        onChange={(e) => setEmail(e.target.value)}
+                        onBlur={handleEmailBlur}
+                        error={emailTouched && !isValidEmail(email)}
+                        helperText={(emailTouched && !isValidEmail(email)) ? 'Invalid email format' : ''}
+                    />
+                                        </form>
+
+                </DialogContent>
+                <DialogActions sx={{ p: 3 }}>
+                    <Button onClick={handleClose} className="btnLink">Later</Button>
+                    <Button type="submit" onClick={handleSubmit} className="btnPrimary" disabled={!name || !email || !isValidEmail(email)}>Subscribe</Button>
+                </DialogActions>
+            </Dialog>
             <Swiper
                 pagination={pagination}
                 modules={[Pagination, Autoplay, Navigation]}
@@ -79,18 +195,32 @@ export default function Home() {
                     </Grid>
                 </SwiperSlide>
             </Swiper>
-            <Grid container sx={{ p: 12 }}>
-                <Grid item xs={12} md={4}></Grid>
-                <Grid item xs={12} md={8} className="textCenter">
-                    <video width="640" height="360" controls>
-                        <source src={myVideo} type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
+            <Grid container sx={{ px: 12, pt: 12 }}>
+                <Grid item xs={12} md={6}>
+                    <Typography
+                        variant="h3"
+                        className="fontWeight-800 fontMontserrat"
+                        sx={{ py: 1, mt: 8, mb: 2 }}
+                    >
+                        Get Inspired !
+                    </Typography>
+                    <Typography
+                        variant="h5"
+                        className="fontWeight-500"
+                        sx={{ py: 1, mb: 2 }}
+                    >
+                        Explore, Experience, and Express with Our Modern
+                        Robotics Program.
+                    </Typography>
+                    <p></p>
+                </Grid>
+                <Grid item xs={12} md={6} className="textCenter">
+                    <YouTube videoId="KT9IZLOF3hA" opts={opts} />
                 </Grid>
             </Grid>
             <Typography
                 variant="h3"
-                className="textCenter fontWeight-800"
+                className="textCenter fontWeight-800 fontMontserrat"
                 sx={{ py: 1, mt: 8, mb: 2 }}
             >
                 Why choose us for STEM Education?

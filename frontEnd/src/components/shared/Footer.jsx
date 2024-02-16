@@ -7,65 +7,82 @@ import { Facebook, Instagram, Twitter } from "@mui/icons-material";
 import { Box } from "@mui/material";
 
 export default function Footer() {
-  return (
-    <Box
-      component="footer"
-    >
-      <Container maxWidth="lg">
-        <Grid container spacing={5}>
-          <Grid item xs={12} sm={4}>
-            <Typography variant="h6" className="textPrimary" gutterBottom>
-              About Us
-            </Typography>
-            <Typography variant="body2" className="textSecondary">
-              We are XYZ company, dedicated to providing the best service to our
-              customers.
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Typography variant="h6" className="textPrimary" gutterBottom>
-              Contact Us
-            </Typography>
-            <Typography variant="body2" className="textSecondary">
-              123 Main Street, Anytown, USA
-            </Typography>
-            <Typography variant="body2" className="textSecondary">
-              Email: info@example.com
-            </Typography>
-            <Typography variant="body2" className="textSecondary">
-              Phone: +1 234 567 8901
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Typography variant="h6" className="textPrimary" gutterBottom>
-              Follow Us
-            </Typography>
-            <Link href="https://www.facebook.com/" color="inherit">
-              <Facebook />
-            </Link>
-            <Link
-              href="https://www.instagram.com/"
-              color="inherit"
-              sx={{ pl: 1, pr: 1 }}
-            >
-              <Instagram />
-            </Link>
-            <Link href="https://www.twitter.com/" color="inherit">
-              <Twitter />
-            </Link>
-          </Grid>
-        </Grid>
-        <Box mt={5}>
-          <Typography variant="body2" className="textSecondary" align="center">
-            {"Copyright © "}
-            <Link color="inherit" href="https://your-website.com/">
-              Your Website
-            </Link>{" "}
-            {new Date().getFullYear()}
-            {"."}
-          </Typography>
+    return (
+        <Box component="footer">
+            <Container maxWidth="lg" sx={{ pt: 4 }}>
+                <Grid container spacing={5}>
+                    <Grid item xs={12} sm={6}>
+                        <Typography
+                            variant="h6"
+                            className="textPrimary fontWeight-700"
+                            gutterBottom
+                        >
+                            About Us
+                        </Typography>
+                        <Typography variant="body2" className="textSecondary">
+                            Igniting young minds with hands-on robotics
+                            education, fostering creativity and STEM skills for
+                            a future of innovation and collaboration. Join us in
+                            shaping tomorrow's engineers and leaders in science
+                            and technology.
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <Typography
+                            variant="h6"
+                            className="textPrimary fontWeight-700"
+                            gutterBottom
+                        >
+                            Contact Us
+                        </Typography>
+                        <Typography variant="body2" className="textSecondary">
+                            23, ABC street, Kitchener, ON N6F 6S
+                        </Typography>
+                        <Typography variant="body2" className="textSecondary">
+                            Email: abc@gmail.com
+                        </Typography>
+                        <Typography variant="body2" className="textSecondary">
+                            Phone: +1 123 123 1234
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={2}>
+                        <Typography
+                            variant="h6"
+                            className="textPrimary fontWeight-700"
+                            gutterBottom
+                        >
+                            Follow Us
+                        </Typography>
+                        <Link href="https://www.facebook.com/" color="inherit">
+                            <Facebook />
+                        </Link>
+                        <Link
+                            href="https://www.instagram.com/"
+                            color="inherit"
+                            sx={{ pl: 1, pr: 1 }}
+                        >
+                            <Instagram />
+                        </Link>
+                        <Link href="https://www.twitter.com/" color="inherit">
+                            <Twitter />
+                        </Link>
+                    </Grid>
+                </Grid>
+            </Container>
+            <Box mt={5} p={2} className="copyright">
+                    <Typography
+                        variant="body2"
+                        className="fontWeight-700"
+                        align="center"
+                    >
+                        {"Copyright © "}
+                        <Link color="inherit" href="https://your-website.com/">
+                            Your Website
+                        </Link>{" "}
+                        {new Date().getFullYear()}
+                        {"."}
+                    </Typography>
+                </Box>
         </Box>
-      </Container>
-    </Box>
-  );
+    );
 }
