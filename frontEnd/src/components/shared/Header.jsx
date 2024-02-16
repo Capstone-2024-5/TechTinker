@@ -24,7 +24,7 @@ const pages = [
     { name: "Home", link: "" },
     // { name: "Courses", link: "course" },  
     { name: "CourseList", link: "courselist" },
-    { name: "Event", link: "events" },
+    { name: "Events", link: "events" },
     { name: "Contact Us", link: "contact-us" },
     { name: "Register", link: "register" }, 
     {name: "Webstore", link: "webstore"},

@@ -9,6 +9,7 @@ import Contact from "./components/Contact.jsx";
 import Register from "./components/Register.jsx";
 import Webstore from "./components/Webstore.jsx";
 import CourseList from "./components/CourseList.jsx";
+import Events from "./components/events.jsx";
 
 const App = () => {
     return (
@@ -18,6 +19,7 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 {/* <Route path="/course" element={<Course />} /> */}
                 <Route path="/courselist" element={<CourseList />} />
+                <Route path="/events" element={<Events />} />
                 <Route path="/contact-us" element={<Contact />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/webstore" element={<Webstore />} />

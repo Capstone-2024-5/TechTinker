@@ -14,6 +14,8 @@ const contactRouter = require("./routes/contacts_route");
 const newsletterRouter = require("./routes/newsletters_route");
 const registrationRouter = require("./routes/registration_route");
 const { registerUser } = require("./controllers/registration_controller");
+const productRouter= require("./routes/products_route");
+const eventRouter = require("./routes/events_route");
 
 app.use("/user", userRouter);
 app.use("/contact", contactRouter);
@@ -21,9 +23,8 @@ app.use("/subscribe", newsletterRouter);
 app.use("/user", userRouter);
 app.use("/api", registrationRouter);
 app.post("/api/register", registerUser);
-
-const productRouter= require("./routes/products_route");
 app.use("/products", productRouter);
+app.use("/events", eventRouter);
 
 const loadMoreRouter = require("./routes/products_route");
 app.use("/products/loadMore", loadMoreRouter);
