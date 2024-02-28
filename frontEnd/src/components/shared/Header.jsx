@@ -32,6 +32,7 @@ const pages = [
         ],
     },
     { name: "CourseList", link: "courselist" },
+<<<<<<< HEAD
     { name: "Event", link: "events" },
     { name: "Register", link: "register" },
     {
@@ -46,6 +47,12 @@ const pages = [
             { name: "Contact Us", link: "contact-us" },
         ],
     },
+=======
+    { name: "Events", link: "events" },
+    { name: "Contact Us", link: "contact-us" },
+    { name: "Register", link: "register" }, 
+    {name: "Webstore", link: "webstore"},
+>>>>>>> 5de60f7a54bba684debc27957e94d0868f6d96c7
 ];
 
 const webpages = [
