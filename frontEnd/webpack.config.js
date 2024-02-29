@@ -19,6 +19,18 @@ module.exports = {
             test: /\.css$/,
             use: ['style-loader', 'css-loader'],
           },
+          {
+            test: /\.(png|jpe?g|gif|svg|jpg)$/i,
+            use: [
+               {
+                  loader: 'file-loader',
+                  options: {
+                     name: '[name].[ext]',
+                     outputPath: 'images/', // Specify the output directory for the processed images
+                  },
+               },
+            ],
+          },
       ],
    },
    optimization: {
@@ -38,4 +50,6 @@ module.exports = {
    plugins: [
       new DotenvWebpackPlugin(),
    ],
+
+   
 };
