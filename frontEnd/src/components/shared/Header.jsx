@@ -25,34 +25,18 @@ const pages = [
         link: "",
         submenus: [
             { name: "Home", link: "" },
-            { name: "About", link: "about" },
+            { name: "About Us", link: "aboutus" },
             { name: "Data privacy", link: "data-privacy" },
             { name: "FAQ's", link: "faqs" },
             { name: "Contact Us", link: "contact-us" }
         ],
     },
     { name: "CourseList", link: "courselist" },
-<<<<<<< HEAD
-    { name: "Event", link: "events" },
-    { name: "Register", link: "register" },
-    {
-        name: "Webstore",
-        link: "webstore",
-        submenus: [
-            { name: "Science", link: "science" },
-            { name: "Technology", link: "technology" },
-            { name: "Engineering", link: "engineering" },
-            { name: "Mathematics", link: "mathematics" },
-            { name: "Robotics", link: "robotics" },
-            { name: "Contact Us", link: "contact-us" },
-        ],
-    },
-=======
     { name: "Events", link: "events" },
     { name: "Contact Us", link: "contact-us" },
-    { name: "Register", link: "register" }, 
+    { name: "Register", link: "register" },
+    { name: "About Us", link: "aboutus" }, // cab be deleted afterwards as link is inside techticke main
     {name: "Webstore", link: "webstore"},
->>>>>>> 5de60f7a54bba684debc27957e94d0868f6d96c7
 ];
 
 const webpages = [
@@ -66,7 +50,7 @@ const webpages = [
             "High Scool Science",
             "Activity Books",
             "Experiments",
-            "LAb Equipment",
+            "Lab Equipment",
         ],
     },
     { name: "Technology", link: "technology" },
@@ -99,67 +83,6 @@ export default function Header() {
             <Container maxWidth="xl">
                 <Box>
                     <Toolbar disableGutters>
-                        {/* <AdbIcon
-                            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-                        />
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="a"
-                            href="#app-bar-with-responsive-menu"
-                            sx={{
-                                mr: 2,
-                                display: { xs: "none", md: "flex" },
-                                fontFamily: "monospace",
-                                fontWeight: 700,
-                                letterSpacing: ".3rem",
-                                color: "inherit",
-                                textDecoration: "none",
-                            }}
-                        >
-                            TECHTINKERS
-                        </Typography>
-
-                        <Box
-                            sx={{
-                                flexGrow: 1,
-                                display: { xs: "flex", md: "none" },
-                            }}
-                        >
-                            <IconButton
-                                size="large"
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleOpenNavMenu}
-                                color="inherit"
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                        </Box>
-
-                        <AdbIcon
-                            sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
-                        />
-                        <Typography
-                            variant="h5"
-                            noWrap
-                            component="a"
-                            href="#app-bar-with-responsive-menu"
-                            sx={{
-                                mr: 2,
-                                display: { xs: "flex", md: "none" },
-                                flexGrow: 1,
-                                fontFamily: "monospace",
-                                fontWeight: 700,
-                                letterSpacing: ".3rem",
-                                color: "inherit",
-                                textDecoration: "none",
-                            }}
-                        >
-                            LOGO
-                        </Typography> */}
-
                         <Box
                             sx={{
                                 flexGrow: 1,
