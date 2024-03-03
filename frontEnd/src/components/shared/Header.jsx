@@ -49,6 +49,7 @@ export default function Header() {
 
     const isHomePage = location.pathname === '/';
     const isCourseList = location.pathname === '/courselist';
+    const isCourseDetails = new RegExp("/courselist/.*").test(location.pathname);
     const isRegisterPage = location.pathname === '/register';
     const isEventPage = location.pathname === '/events';
     const isContactUsPage = location.pathname === '/contact-us';
@@ -196,7 +197,7 @@ export default function Header() {
                     </Box>
                 )}
 
-               {!isHomePage && !isCourseList && !isRegisterPage && !isEventPage && !isContactUsPage && (
+               {!isHomePage && !isCourseList && !isRegisterPage && !isEventPage && !isContactUsPage && !isCourseDetails && (
                  
                     <Box
                         sx={{
