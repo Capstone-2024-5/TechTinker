@@ -10,6 +10,7 @@ import Register from "./components/Register.jsx";
 import Webstore from "./components/Webstore.jsx";
 import CourseList from "./components/CourseList.jsx";
 import CourseDetails from "./components/CourseDetails.jsx";
+import CourseAdd from "./components/CourseAdd.jsx";
 
 const App = () => {
     return (
@@ -20,6 +21,7 @@ const App = () => {
                 {/* <Route path="/course" element={<Course />} /> */}
                 <Route path="/courselist" element={<CourseList />} />
                 <Route path="/courselist/:courseid" element={<CourseDetails />} />
+                <Route path="/courseadd" element={<CourseAdd />} />
                 <Route path="/contact-us" element={<Contact />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/webstore" element={<Webstore />} />

@@ -24,6 +24,7 @@ const pages = [
     { name: "Home", link: "" },
     // { name: "Courses", link: "course" },  
     { name: "CourseList", link: "courselist" },
+    { name: "CourseAdd", link: "courseadd" },
     { name: "Event", link: "events" },
     { name: "Contact Us", link: "contact-us" },
     { name: "Register", link: "register" }, 
@@ -51,6 +52,7 @@ export default function Header() {
     const isCourseList = location.pathname === '/courselist';
     const isCourseDetails = new RegExp("/courselist/.*").test(location.pathname);
     const isRegisterPage = location.pathname === '/register';
+    const isCourseAdd = location.pathname === '/courseadd';
     const isEventPage = location.pathname === '/events';
     const isContactUsPage = location.pathname === '/contact-us';
     const isWebstorePage = location.pathname === '/webstore';
@@ -197,7 +199,7 @@ export default function Header() {
                     </Box>
                 )}
 
-               {!isHomePage && !isCourseList && !isRegisterPage && !isEventPage && !isContactUsPage && !isCourseDetails && (
+               {!isHomePage && !isCourseList && !isRegisterPage && !isEventPage && !isContactUsPage && !isCourseDetails && !isCourseAdd && (
                  
                     <Box
                         sx={{

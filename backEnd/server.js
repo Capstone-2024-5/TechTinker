@@ -4,6 +4,7 @@ const app = express();
 require("./common/db")();
 const mongoose = require('mongoose');
 const CourseListModel = require('./models/courseList')
+const CourseModel = require('./models/course')
 
 app.use(cors({ origin: "*" }));
 
@@ -21,6 +22,11 @@ app.use("/subscribe", newsletterRouter);
 app.use("/user", userRouter);
 app.use("/api", registrationRouter);
 app.post("/api/register", registerUser);
+app.post("/addcourse", (req, res) =>{
+    CourseModel.create(req.body)
+    .then(courses => res.json(courses))
+    .catch(err => res.json(err))
+})
 
 const productRouter= require("./routes/products_route");
 app.use("/products", productRouter);
