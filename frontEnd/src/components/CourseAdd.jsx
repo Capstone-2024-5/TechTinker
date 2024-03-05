@@ -34,6 +34,7 @@ const style = {
 export default function CourseAdd() {
   const editor = useRef(null);
   const [courseName, setCourseName] = useState("");
+  const [courseCode, setCourseCode] = useState("");
   const [content, setContent] = useState("");
   const [courseAge, setCourseAge] = useState("");
   const [courseFees, setCourseFees] = useState("");
@@ -67,9 +68,9 @@ export default function CourseAdd() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(courseName, content, courseAge, courseFees, courseIntroFees, slots, courseDuration);
+    console.log(courseName, courseCode, content, courseAge, courseFees, courseIntroFees, slots, courseDuration);
 
-    axios.post("http://localhost:4000/addcourse", {courseName, content, courseAge, courseFees, courseIntroFees, slots, courseDuration})
+    axios.post("http://localhost:4000/addcourse", {courseName, courseCode, content, courseAge, courseFees, courseIntroFees, slots, courseDuration})
     .then(res => console.log(res))
     .catch(err => console.log(err));
 
@@ -97,6 +98,18 @@ export default function CourseAdd() {
                 required
                 sx={{ flex: "1" }}
                 onChange={(e) => setCourseName(e.target.value)}
+              ></TextField>
+            </Stack>
+
+            <Stack direction={"row"} flexWrap={"wrap"} alignItems={"center"} marginBottom={3}>
+              <FormLabel sx={{ flex: "1" }}>Course Code</FormLabel>
+              <TextField
+                type="text"
+                variant="outlined"
+                color="primary"
+                required
+                sx={{ flex: "1" }}
+                onChange={(e) => setCourseCode(e.target.value)}
               ></TextField>
             </Stack>
 

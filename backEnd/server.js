@@ -35,7 +35,7 @@ const loadMoreRouter = require("./routes/products_route");
 app.use("/products/loadMore", loadMoreRouter);
 const PORT = process.env.API_SERVER_PORT || 5000;
 app.get('/getcourseList', (req, res) =>{
-    CourseListModel.find()
+    CourseModel.find()
     .then(courseList => res.json(courseList))
     .catch(err => res.json(err))
 });

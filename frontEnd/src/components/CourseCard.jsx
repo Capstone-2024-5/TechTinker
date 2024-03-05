@@ -19,8 +19,8 @@ export default function CourseCard({ course }) {
     >
       <Stack direction="column" spacing={1} useFlexGap width={300}>
         <img src="#" width={300} height={150} alt="blank" />
-        <Typography variant="h5">{course.CourseName}</Typography>
-        <Typography variant="body1">{course.CourseCode}</Typography>
+        <Typography variant="h5">{course.courseName}</Typography>
+        <Typography variant="body1">{course.courseCode}</Typography>
       </Stack>
     </Paper>
   );
