@@ -177,3 +177,11 @@ footer {
     cursor: pointer;
 
 }
+
+.courseSchedule{
+    transition: all .3s;
+}
+
+.courseSchedule:hover{
+    background-color: #e3e3e3;
+}

@@ -17,7 +17,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { nanoid } from "nanoid";
 import { Delete } from "@mui/icons-material";
-import axios from 'axios';
+import axios from "axios";
+import Alert from "@mui/material/Alert";
+import CheckIcon from "@mui/icons-material/Check";
 
 const style = {
   position: "absolute",
@@ -44,6 +46,7 @@ export default function CourseAdd() {
   const [courseEndTime, setCourseEndTime] = useState(null);
   const [courseDuration, setCourseDuration] = useState("");
   const [slots, setSlots] = useState([]);
+  const [submissionStatus, setSubmissionStatus] = useState("");
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -68,12 +71,31 @@ export default function CourseAdd() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(courseName, courseCode, content, courseAge, courseFees, courseIntroFees, slots, courseDuration);
+    console.log(
+      courseName,
+      courseCode,
+      content,
+      courseAge,
+      courseFees,
+      courseIntroFees,
+      slots,
+      courseDuration
+    );
 
-    axios.post("http://localhost:4000/addcourse", {courseName, courseCode, content, courseAge, courseFees, courseIntroFees, slots, courseDuration})
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
-
+    axios
+      .post("http://localhost:4000/addcourse", {
+        courseName,
+        courseCode,
+        content,
+        courseAge,
+        courseFees,
+        courseIntroFees,
+        slots,
+        courseDuration,
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+    setSubmissionStatus("Course Added successfully!");
   }
 
   return (
@@ -82,14 +104,14 @@ export default function CourseAdd() {
         <h2>Add a Course</h2>
       </Box>
       <form onSubmit={handleSubmit}>
-        <Stack
-          margin={"auto"}
-          direction={"column"}
-          width={700}
-          padding={4}
-        >
+        <Stack margin={"auto"} direction={"column"} width={700} padding={4}>
           <FormControl>
-            <Stack direction={"row"} flexWrap={"wrap"} alignItems={"center"} marginBottom={3}>
+            <Stack
+              direction={"row"}
+              flexWrap={"wrap"}
+              alignItems={"center"}
+              marginBottom={3}
+            >
               <FormLabel sx={{ flex: "1" }}>Course Name</FormLabel>
               <TextField
                 type="text"
@@ -101,7 +123,12 @@ export default function CourseAdd() {
               ></TextField>
             </Stack>
 
-            <Stack direction={"row"} flexWrap={"wrap"} alignItems={"center"} marginBottom={3}>
+            <Stack
+              direction={"row"}
+              flexWrap={"wrap"}
+              alignItems={"center"}
+              marginBottom={3}
+            >
               <FormLabel sx={{ flex: "1" }}>Course Code</FormLabel>
               <TextField
                 type="text"
@@ -163,40 +190,44 @@ export default function CourseAdd() {
                 onChange={(e) => setCourseIntroFees(e.target.value)}
               ></TextField>
             </Stack>
-            
+
             <Stack direction={"row"} alignItems={"center"} marginBottom={3}>
               <FormLabel sx={{ flex: "1" }}>Add Slot</FormLabel>
               <Button margin={"auto"} variant="outlined" onClick={handleOpen}>
                 Add slot
               </Button>
             </Stack>
-            <Box border={"1px solid darkgrey"} padding={"10px"} >
-            <Typography>Slots:</Typography>
-            {slots.length===0 && <Typography>No slots have been created</Typography>}
-            {slots.map((slot) => (
-              <Stack
-                key={slot.id}
-                direction={"row"}
-                textAlign={"center"}
-                alignItems={"center"}
-                marginY={1}
-                padding={2}
-                border={"1px solid black"}
-              >
-                <>
-                  <Box sx={{ flex: "1" }}>{slot.cDay}</Box>
-                  <Box sx={{ flex: "1" }}>From: {slot.cStartTime}</Box>
-                  <Box sx={{ flex: "1" }}>To: {slot.cEndTime}</Box>
-                  <IconButton
-                    onClick={() => {
-                      setSlots((prev) => {
-                        return prev.filter((x) => x.id !== slot.id);
-                      });
-                    }}
-                  ><Delete /></IconButton>
-                </>
-              </Stack>
-            ))}
+            <Box border={"1px solid darkgrey"} padding={"10px"}>
+              <Typography>Slots:</Typography>
+              {slots.length === 0 && (
+                <Typography>No slots have been created</Typography>
+              )}
+              {slots.map((slot) => (
+                <Stack
+                  key={slot.id}
+                  direction={"row"}
+                  textAlign={"center"}
+                  alignItems={"center"}
+                  marginY={1}
+                  padding={2}
+                  border={"1px solid black"}
+                >
+                  <>
+                    <Box sx={{ flex: "1" }}>{slot.cDay}</Box>
+                    <Box sx={{ flex: "1" }}>From: {slot.cStartTime}</Box>
+                    <Box sx={{ flex: "1" }}>To: {slot.cEndTime}</Box>
+                    <IconButton
+                      onClick={() => {
+                        setSlots((prev) => {
+                          return prev.filter((x) => x.id !== slot.id);
+                        });
+                      }}
+                    >
+                      <Delete />
+                    </IconButton>
+                  </>
+                </Stack>
+              ))}
             </Box>
 
             <Stack
@@ -278,6 +309,12 @@ export default function CourseAdd() {
               Add
             </Button>
           </FormControl>
+
+          {submissionStatus && (
+            <Alert sx={{padding:"10px"}} icon={<CheckIcon fontSize="inherit" />} severity="success">
+              {submissionStatus}
+            </Alert>
+          )}
         </Stack>
       </form>
     </>
