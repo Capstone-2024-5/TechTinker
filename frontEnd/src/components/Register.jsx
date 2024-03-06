@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+
 import {
   TextField,
   FormControl,
@@ -12,7 +15,8 @@ import {
   Typography,
 } from '@mui/material';
 
-const Register = () => {
+const Register = ({ handleFormData }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     FirstName: '',
     LastName: '',
@@ -43,41 +47,6 @@ const Register = () => {
   const [formErrors, setFormErrors] = useState({});
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
-/*   const handleInputChange = event => {
-    const { name, value } = event.target;
-    let updatedFormData = { ...formData };
-
-    if (name === 'Age' || name.startsWith('Address.') || name.startsWith('Introductory_CourseDetails.') || name.startsWith('Regular_CourseDetails.')) {
-      const [section, subfield] = name.split('.');
-      updatedFormData[section][subfield] = value;
-    } else {
-      updatedFormData[name] = value;
-    }
-  
-    if (name === 'Regular_CourseDetails.StartDate') {
-      updatedFormData.Regular_CourseDetails.StartDate = value;
-    }
-
-    setFormData(updatedFormData);
-  }; */
-
- /*  const handleInputChange = event => {
-    const { name, value } = event.target;
-    let updatedFormData = { ...formData };
-  
-    // Update Age field directly
-    if (name === 'Age') {
-      updatedFormData.Age = value; // Update Age directly
-    } else if (name.startsWith('Address.') || name.startsWith('Introductory_CourseDetails.') || name.startsWith('Regular_CourseDetails.')) {
-      const [section, subfield] = name.split('.');
-      updatedFormData[section][subfield] = value;
-    } else {
-      updatedFormData[name] = value;
-    }
-  
-    setFormData(updatedFormData);
-  };
-   */
 
   useEffect(() => {
     if (formData.Age !== '') {
@@ -97,6 +66,16 @@ const Register = () => {
       .catch(error => {
         console.error('Error fetching course details:', error);
       });
+  };
+
+  const handleDateChange = (date, field) => {
+    setFormData(prevData => ({
+      ...prevData,
+      [field]: {
+        ...prevData[field],
+        SelectedDate: date,
+      },
+    }));
   };
 
   const handleInputChange = event => {
@@ -145,7 +124,7 @@ const Register = () => {
       Email: formData.Email,
       Age: formData.Age,
       Address: formData.Address,
-      RegistrationType: formData.RegistrationType,
+      RegistrationType: formData.RegistrationType === 'introductory' ? 'Introductory Workshop' : 'Regular Program',
     };
 
     // Set course details based on the selected registration type
@@ -164,14 +143,17 @@ const Register = () => {
     }
 
     axios.post('http://localhost:4000/api/register', requestData)
-      .then(response => {
-        console.log('Registration successful:', response.data);
-        setRegistrationSuccess(true);
-      })
-      .catch(error => {
-        console.error('Error registering:', error);
-      });
-  };
+    .then(response => {
+      console.log('Registration successful:', response.data);
+      setRegistrationSuccess(true);
+      handleFormData(formData); // Move this line here
+      navigate('/checkout'); // Use navigate function to redirect to '/checkout'
+    })
+    .catch(error => {
+      console.error('Error registering:', error);
+    });
+  
+};
 
   const validateForm = () => {
     let errors = {};
@@ -284,7 +266,7 @@ const Register = () => {
   return (
     <Grid container justifyContent="center">
       <Grid item xs={12} md={6}>
-        <Typography variant="h3" align="center" gutterBottom style={{ color: '#1C796E', marginTop: '20px' }}>
+        <Typography variant="h4" align="center" gutterBottom style={{ color: '#1C796E', marginTop: '20px' }}>
           Join TechTinkers: Register Here..!
         </Typography>
         <Paper className="course_registration_form" elevation={3} p={3}>
