@@ -158,6 +158,7 @@ const Register = ({ handleFormData }) => {
   const validateForm = () => {
     let errors = {};
     let formIsValid = true;
+    const nameRegex = /^[A-Za-z]+$/;
     const zipCodeRegex = /^[A-Za-z]\d[A-Za-z]\s\d[A-Za-z]\d$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneNumberRegex = /^\d{3}-\d{3}-\d{4}$/;
@@ -166,13 +167,18 @@ const Register = ({ handleFormData }) => {
     if (!formData.FirstName) {
       formIsValid = false;
       errors.FirstName = 'First Name is required';
+    } else if (!nameRegex.test(formData.FirstName)) {
+      formIsValid = false;
+      errors.FirstName = 'First Name should contain only alphabets';
     }
 
     if (!formData.LastName) {
       formIsValid = false;
       errors.LastName = 'Last Name is required';
+    } else if (!nameRegex.test(formData.LastName)) {
+      formIsValid = false;
+      errors.LastName = 'Last Name should contain only alphabets';
     }
-
     if (!formData.PhoneNumber) {
       formIsValid = false;
       errors.PhoneNumber = 'Phone Number is required';
