@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "../public/styles.css";
 import Header from "./components/shared/Header.jsx";
@@ -12,6 +12,8 @@ import CourseList from "./components/CourseList.jsx";
 import Faqs from "./components/techtinker/Faqs.jsx";
 import AboutUs from "./components/techtinker/AboutUs.jsx";
 import Events from "./components/events.jsx";
+import AdminLogin from "./components/techtinker/AdminLogin.jsx";
+import AdminMain from "./components/techtinker/AdminMain.jsx";
 
 const App = () => {
     return (
@@ -26,6 +28,8 @@ const App = () => {
                 <Route path="/faqs" element={<Faqs />} />
                 <Route path="/aboutus" element={<AboutUs />} />
                 <Route path="/webstore" element={<Webstore />} />
+                <Route path="/admin_login" element={<AdminLogin/> } />
+                <Route path="/admin_main" element={<AdminMain/>} />
             </Routes>
             <Footer />
         </Router>
