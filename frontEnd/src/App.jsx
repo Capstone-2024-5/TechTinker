@@ -1,3 +1,5 @@
+import React from "react";
+import ReactDOM from "react-dom";
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -12,6 +14,8 @@ import CourseList from "./components/CourseList.jsx";
 import Faqs from "./components/techtinker/Faqs.jsx";
 import AboutUs from "./components/techtinker/AboutUs.jsx";
 import Events from "./components/events.jsx";
+import AdminLogin from "./components/techtinker/AdminLogin.jsx";
+import AdminMain from "./components/techtinker/AdminMain.jsx";
 import CheckOut from "./components/CheckOut.jsx";
 
 const App = () => {
@@ -36,6 +40,9 @@ const App = () => {
                 <Route path="/faqs" element={<Faqs />} />
                 <Route path="/aboutus" element={<AboutUs />} />
                 <Route path="/webstore" element={<Webstore />} />
+                <Route path="/admin_login" element={<AdminLogin/> } />
+                <Route path="/admin_main" element={<AdminMain/>} />
+
                 {/* Pass formData as a prop to CheckOut component */}
               
         <Route path="/checkout" element={<CheckOut formData={formData} />} />

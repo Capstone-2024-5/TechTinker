@@ -28,7 +28,8 @@ const pages = [
             { name: "About Us", link: "aboutus" },
             { name: "Data privacy", link: "data-privacy" },
             { name: "FAQ's", link: "faqs" },
-            { name: "Contact Us", link: "contact-us" }
+            { name: "Contact Us", link: "contact-us" },
+            { name: "Admin Login", link: "admin_login"}
         ],
     },
     { name: "CourseList", link: "courselist" },
@@ -39,26 +40,26 @@ const pages = [
     {name: "Webstore", link: "webstore"},
 ];
 
-const webpages = [
-    { name: "Home", link: "" },
-    {
-        name: "Science",
-        link: "science",
-        sublinks: [
-            "Elementary School Science",
-            "Middle School Science",
-            "High Scool Science",
-            "Activity Books",
-            "Experiments",
-            "Lab Equipment",
-        ],
-    },
-    { name: "Technology", link: "technology" },
-    { name: "Engineering", link: "engineering" },
-    { name: "Mathematics", link: "mathematics" },
-    { name: "Robotics", link: "robotics" },
-    { name: "Contact Us", link: "contact-us" },
-];
+// const webpages = [
+//     { name: "Home", link: "" },
+//     {
+//         name: "Science",
+//         link: "science",
+//         sublinks: [
+//             "Elementary School Science",
+//             "Middle School Science",
+//             "High Scool Science",
+//             "Activity Books",
+//             "Experiments",
+//             "Lab Equipment",
+//         ],
+//     },
+//     { name: "Technology", link: "technology" },
+//     { name: "Engineering", link: "engineering" },
+//     { name: "Mathematics", link: "mathematics" },
+//     { name: "Robotics", link: "robotics" },
+//     { name: "Contact Us", link: "contact-us" },
+// ];
 
 export default function Header() {
     const [anchorElNav, setAnchorElNav] = useState(null);

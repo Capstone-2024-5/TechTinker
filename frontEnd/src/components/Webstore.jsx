@@ -43,8 +43,8 @@ const Webstore = () => {
         {products.map((product, index) => (
           <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
             <Box p={2} border={1} borderColor="grey.300" textAlign="center">
-              <Box display="flex" justifyContent="center" alignItems="center">
-                <img src={product.ImageUrl} alt={`Product ${product.Name}`} style={{ width: '70%', height: 'auto', objectFit: 'cover'}} />
+              <Box class="product-image-container" display="flex" justifyContent="center" alignItems="center">
+                <img src={product.ImageUrl} alt={`Product ${product.Name}`} style={{ width: '70%', height: 'auto', objectFit: 'cover',}} />
               </Box>
               <Typography variant="h6">{product.Name}</Typography>
               <Typography variant="body1">Price: {product.Price}</Typography>
