@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import React, { useState } from "react";
+import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "../public/styles.css";
 import Header from "./components/shared/Header.jsx";
@@ -14,8 +16,17 @@ import AboutUs from "./components/techtinker/AboutUs.jsx";
 import Events from "./components/events.jsx";
 import AdminLogin from "./components/techtinker/AdminLogin.jsx";
 import AdminMain from "./components/techtinker/AdminMain.jsx";
+import CheckOut from "./components/CheckOut.jsx";
 
 const App = () => {
+    // Define state to store form data
+    const [formData, setFormData] = useState(null);
+
+    // Callback function to receive form data from child component
+    const handleFormData = (data) => {
+        setFormData(data);
+    };
+
     return (
         <Router>
             <Header />
@@ -24,12 +35,17 @@ const App = () => {
                 <Route path="/courselist" element={<CourseList />} />
                 <Route path="/events" element={<Events />} />
                 <Route path="/contact-us" element={<Contact />} />
-                <Route path="/register" element={<Register />} />
+                {/* Pass handleFormData as a prop to Register component */}
+                <Route path="/register" element={<Register handleFormData={handleFormData} />} />
                 <Route path="/faqs" element={<Faqs />} />
                 <Route path="/aboutus" element={<AboutUs />} />
                 <Route path="/webstore" element={<Webstore />} />
                 <Route path="/admin_login" element={<AdminLogin/> } />
                 <Route path="/admin_main" element={<AdminMain/>} />
+
+                {/* Pass formData as a prop to CheckOut component */}
+              
+        <Route path="/checkout" element={<CheckOut formData={formData} />} />
             </Routes>
             <Footer />
         </Router>

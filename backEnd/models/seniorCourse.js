@@ -6,6 +6,6 @@ const seniorCourseSchema = new mongoose.Schema({
   PreRequisites: { type: String, required: true },
 });
 
-const SeniorCourse = mongoose.model('', seniorCourseSchema); // Add the missing '=' here
+const SeniorCourse = mongoose.model('senior_courses', seniorCourseSchema); // Add the missing '=' here
 
 module.exports = SeniorCourse;

@@ -5,6 +5,6 @@ const CourseListSchema = new mongoose.Schema({
     CourseName: String
 })
 
-const CourseListModel = mongoose.model("senior_courses", CourseListSchema)
+const CourseListModel = mongoose.model("junior_courses1", CourseListSchema)
 
 module.exports = CourseListModel
