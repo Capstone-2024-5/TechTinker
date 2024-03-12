@@ -47,11 +47,11 @@ app.get('/getcourseList', (req, res) =>{
     .catch(err => res.json(err))
 });
 
-// app.get('./singlecoursedetails', (req, res) =>{
-//     CourseModel.findOne('65e796eb466d66e46a408dcb')
-//     .then((singleCourse => res.json(singleCourse)))
-//     .catch(err => res.json(err))
-// })
+app.get('/singlecoursedetails', (req, res) =>{
+    CourseModel.findOne({_id: req.query.id})
+    .then((singleCourse => res.json(singleCourse)))
+    .catch(err => res.json(err))
+})
 
 app.get("/admin_login", cors(), (req, res) => {
 
