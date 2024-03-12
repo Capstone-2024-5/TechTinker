@@ -4,7 +4,7 @@ const app = express();
 require("./common/db")();
 const mongoose = require('mongoose');
 const CourseListModel = require('./models/courseList')
-
+const CourseModel = require('./models/course')
 
 app.use(cors({ origin: "*" }));
 
@@ -27,6 +27,12 @@ app.use("", techTinkerRouter);
 app.use("/user", userRouter);
 app.use("/api", registrationRouter);
 app.post("/api/register", registerUser);
+app.post("/addcourse", (req, res) =>{
+    CourseModel.create(req.body)
+    .then(courses => res.json(courses))
+    .catch(err => res.json(err))
+})
+
 app.use("/products", productRouter);
 app.use("/events", eventRouter);
 
@@ -36,10 +42,16 @@ const loadMoreRouter = require("./routes/products_route");
 app.use("/products/loadMore", loadMoreRouter);
 
 app.get('/getcourseList', (req, res) =>{
-    CourseListModel.find()
+    CourseModel.find()
     .then(courseList => res.json(courseList))
     .catch(err => res.json(err))
 });
+
+// app.get('./singlecoursedetails', (req, res) =>{
+//     CourseModel.findOne('65e796eb466d66e46a408dcb')
+//     .then((singleCourse => res.json(singleCourse)))
+//     .catch(err => res.json(err))
+// })
 
 app.get("/admin_login", cors(), (req, res) => {
 

@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import React, { useState } from "react";
-import ReactDOM from "react-dom/client";
+import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import "../public/styles.css";
+import "../styles.css";
 import Header from "./components/shared/Header.jsx";
 import Footer from "./components/shared/Footer.jsx";
 import Home from "./components/techtinker/Home.jsx";
@@ -17,6 +16,8 @@ import Events from "./components/events.jsx";
 import AdminLogin from "./components/techtinker/AdminLogin.jsx";
 import AdminMain from "./components/techtinker/AdminMain.jsx";
 import CheckOut from "./components/CheckOut.jsx";
+import CourseDetails from "./components/CourseDetails.jsx";
+import CourseAdd from "./components/CourseAdd.jsx";
 
 const App = () => {
     // Define state to store form data
@@ -34,6 +35,8 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/courselist" element={<CourseList />} />
                 <Route path="/events" element={<Events />} />
+                <Route path="/courselist/:courseid" element={<CourseDetails />} />
+                <Route path="/courseadd" element={<CourseAdd />} />
                 <Route path="/contact-us" element={<Contact />} />
                 {/* Pass handleFormData as a prop to Register component */}
                 <Route path="/register" element={<Register handleFormData={handleFormData} />} />
@@ -52,5 +55,5 @@ const App = () => {
     );
 };
 
-const root = ReactDOM.createRoot(document.getElementById("contents"));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);
