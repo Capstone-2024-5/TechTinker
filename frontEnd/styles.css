@@ -14,6 +14,11 @@
     --grey: #C9C9C9;
 }
 
+body{
+    margin:0;
+    padding: 0;
+}
+
 * {
     font-family: "Nunito" !important;
 }
@@ -91,6 +96,14 @@
     color: var(--primary-color) !important;
 }
 
+.MuiPaper-root {
+    box-shadow: 0px 2px 1px -1px rgba(28,86,121,0.2), 0px 0px 1px 1px rgba(28,86,121,0.14), 0px 0px 3px 1px rgba(28,86,121,0.12) !important;
+}
+
+.Mui-expanded.MuiButtonBase-root {
+    border-bottom: 1px solid var(--primary-color) !important;
+}
+
 .btnPrimary {
     color: var(--white) !important;
     background-color: var(--tertiary-color) !important;
@@ -99,6 +112,16 @@
 .headerLink {
     color: var(--white) !important;
     text-decoration: none !important;
+    text-transform: uppercase;
+}
+
+.headerLink p {
+    font-size: 14px;
+    margin-top: 3px;
+}
+
+.subHeaderLink p {
+    color: var(--primary-color) !important;
 }
 
 .googleMap {
@@ -166,4 +189,17 @@ footer {
     background-color: #1C796E !important;
     width: 100%; 
     margin-top: 5% !important;
+}
+
+.courseListCards:hover{
+    cursor: pointer;
+
+}
+
+.courseSchedule{
+    transition: all .3s;
+}
+
+.courseSchedule:hover{
+    background-color: #e3e3e3;
 }

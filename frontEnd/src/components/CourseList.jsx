@@ -63,11 +63,10 @@ export default function CourseList() {
         direction={"row"}
         flexWrap={"wrap"}
         gap={5}
-        useFlexGap
-        margin={5}
-        marginLeft={"auto"}
-        marginRight={"auto"}
-        sx={{ width: "80%" }}
+        my={5}
+        mx={"auto"}
+        width={"80%"}
+        justifyContent={"center"}
       >
         {courseList}
       </Stack>
