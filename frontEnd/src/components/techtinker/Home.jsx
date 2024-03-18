@@ -88,7 +88,7 @@ export default function Home() {
     };
 
     return (
-        <div className="bgColorPrimary">
+        <div>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle mt={2} className="fontWeight-700 fontMontserrat textPrimary">
                     Join Our Community
@@ -195,7 +195,7 @@ export default function Home() {
                     </Grid>
                 </SwiperSlide>
             </Swiper>
-            <Grid container sx={{ px: 12, pt: 12 }}>
+            <Grid container sx={{ px: 12, py: 6 }} className="bgColorPrimary">
                 <Grid item xs={12} md={6}>
                     <Typography
                         variant="h3"

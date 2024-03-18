@@ -272,7 +272,7 @@ const Register = ({ handleFormData }) => {
   return (
     <Grid container justifyContent="center">
       <Grid item xs={12} md={6}>
-        <Typography variant="h4" align="center" gutterBottom style={{ color: '#1C796E', marginTop: '20px' }}>
+        <Typography variant="h4" align="center" className="fontWeight-800 fontMontserrat textSecondary" sx={{ my: 6 }}>
           Join TechTinkers: Register Here..!
         </Typography>
         <Paper className="course_registration_form" elevation={3} p={3}>

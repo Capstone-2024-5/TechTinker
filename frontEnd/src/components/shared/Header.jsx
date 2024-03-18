@@ -6,7 +6,6 @@ import {
   Box,
   Container,
   Drawer,
-  IconButton,
   List,
   ListItemButton,
   ListItemText,
@@ -15,7 +14,6 @@ import {
   Toolbar,
   Typography,
   Button,
-  Fade,
 } from "@mui/material";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import { Adb as AdbIcon, ShoppingCart as ShoppingCartIcon, Menu as MenuIcon } from "@mui/icons-material";
@@ -36,7 +34,6 @@ const pages = [
   { name: "CourseList", link: "courselist" },
   { name: "CourseAdd", link: "courseadd" },
   { name: "Events", link: "events" },
-  { name: "Contact Us", link: "contact-us" },
   { name: "Register", link: "register" },
   { name: "About Us", link: "aboutus" }, // cab be deleted afterwards as link is inside techticke main
   { name: "Webstore", link: "webstore" },

@@ -8,18 +8,18 @@ import { Box } from "@mui/material";
 
 export default function Footer() {
     return (
-        <Box component="footer">
+        <Box component="footer" className="bgColorPrimary">
             <Container maxWidth="lg" sx={{ pt: 4 }}>
                 <Grid container spacing={5}>
                     <Grid item xs={12} sm={6}>
                         <Typography
                             variant="h6"
-                            className="textPrimary fontWeight-700"
+                            className="fontWeight-700"
                             gutterBottom
                         >
                             About Us
                         </Typography>
-                        <Typography variant="body2" className="textSecondary">
+                        <Typography variant="body2">
                             Igniting young minds with hands-on robotics
                             education, fostering creativity and STEM skills for
                             a future of innovation and collaboration. Join us in
@@ -30,25 +30,25 @@ export default function Footer() {
                     <Grid item xs={12} sm={4}>
                         <Typography
                             variant="h6"
-                            className="textPrimary fontWeight-700"
+                            className="fontWeight-700"
                             gutterBottom
                         >
                             Contact Us
                         </Typography>
-                        <Typography variant="body2" className="textSecondary">
+                        <Typography variant="body2">
                             23, ABC street, Kitchener, ON N6F 6S
                         </Typography>
-                        <Typography variant="body2" className="textSecondary">
+                        <Typography variant="body2">
                             Email: abc@gmail.com
                         </Typography>
-                        <Typography variant="body2" className="textSecondary">
+                        <Typography variant="body2">
                             Phone: +1 123 123 1234
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={2}>
                         <Typography
                             variant="h6"
-                            className="textPrimary fontWeight-700"
+                            className="fontWeight-700"
                             gutterBottom
                         >
                             Follow Us
