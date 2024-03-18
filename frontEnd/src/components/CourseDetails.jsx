@@ -49,16 +49,16 @@ export default function CourseDetails() {
           width={"70%"}
           alignItems={"center"}
           flexDirection={"column"}
-          border={"1px solid darkgrey"}
           borderRadius={2}
           gap={3}
           padding={3}
+          className="boxShadowBlue"
         >
-          <Typography variant="h4" fontWeight={"bold"}>{data.courseName}</Typography>
+          <Typography variant="h4" fontWeight={"bold"} className="fontWeight-800 fontMontserrat textSecondary" sx={{ mt: 6 }}>{data.courseName}</Typography>
           <Box width={"100%"}>{parse(data.content)}</Box>
         </Stack>
         <Stack width={"70%"}>
-          <Typography variant="h5">
+          <Typography variant="h5" className="textSecondary">
             For Ages: {data.courseAge} years old
           </Typography>
         </Stack>
@@ -75,13 +75,12 @@ export default function CourseDetails() {
             textAlign={"center"}
             alignItems={"center"}
             padding={2}
-            border={"1px solid darkgrey"}
             borderRadius={2}
-            className="courseSchedule"
+            className="courseSchedule boxShadowBlue"
           >
             <>
               <Box sx={{ flex: "1" }}>
-                <Typography fontWeight={"bold"}>
+                <Typography fontWeight={"bold"} className="textPrimary">
                   {data.slots[0].cDay}
                 </Typography>
               </Box>
@@ -95,14 +94,13 @@ export default function CourseDetails() {
             textAlign={"center"}
             alignItems={"center"}
             padding={2}
-            border={"1px solid darkgrey"}
             borderRadius={2}
-            className="courseSchedule"
+            className="courseSchedule boxShadowBlue"
 
           >
             <>
               <Box sx={{ flex: "1" }}>
-                <Typography fontWeight={"bold"}>
+                <Typography fontWeight={"bold"} className="textPrimary">
                   {data.slots[1].cDay}
                 </Typography>
               </Box>
@@ -111,14 +109,14 @@ export default function CourseDetails() {
             </>
           </Stack>
           <Stack direction={'row'} gap={3} mt={3}>
-            <Typography variant="h5" fontWeight={"bolder"}>
+            <Typography variant="h5" fontWeight={"bolder"} className="textPrimary">
               Full Fee: ${data.courseFees}.99
             </Typography>
-            <Typography variant="h5" fontWeight={"bolder"}>
+            <Typography variant="h5" fontWeight={"bolder"} className="textPrimary">
               Introductory Workshop Fee: ${data.courseIntroFees}.99
             </Typography>
           </Stack>
-          <Button variant="contained" sx={{marginTop:"1rem"}}>Register Now</Button>
+          <Button variant="contained" sx={{marginTop:"1rem"}} className="btnPrimary">Register Now</Button>
         </Stack>
       </>
     );
@@ -140,8 +138,8 @@ export default function CourseDetails() {
             src="#"
             width={400}
             height={250}
-            border={"1px solid red"}
             alt="blank"
+            className="boxShadowBlue"
           />
           {coursedata}
 
