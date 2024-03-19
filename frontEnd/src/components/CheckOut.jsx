@@ -204,7 +204,7 @@ const Checkout = ({ formData }) => {
         <Typography variant="h4" align="center" gutterBottom style={{ color: '#1C796E', marginTop: '20px' }}>
           Make The Payment
         </Typography>
-        <Paper elevation={3} style={{ padding: '20px', maxWidth: '800px', margin: 'auto', marginTop: '20px' }}>
+        <Paper elevation={3} style={{ padding: '20px', maxWidth: '1000px', margin: 'auto', marginTop: '20px' }}>
 
           <Typography variant="body1" gutterBottom>
             <strong>Registration Type:</strong> {registrationTypeLabel}
