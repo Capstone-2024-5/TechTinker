@@ -22,7 +22,7 @@ import {
 
 const Checkout = ({ formData }) => {
   const { RegistrationType, Introductory_CourseDetails, Regular_CourseDetails } = formData;
-
+ 
   const [paymentMethod, setPaymentMethod] = useState('');
   const [cardDetails, setCardDetails] = useState({
     cardHolderName: '',
@@ -38,43 +38,189 @@ const Checkout = ({ formData }) => {
     password: '',
   });
 
-  const [paymentSuccess, setPaymentSuccess] = useState(false); // State to track payment success
-  const [openDialog, setOpenDialog] = useState(false); // State to manage dialog visibility
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  
+  // State variables for field errors
+  const [paymentMethodError, setPaymentMethodError] = useState('');
+  const [cardDetailsError, setCardDetailsError] = useState({});
+  const [netbankingDetailsError, setNetbankingDetailsError] = useState({});
+  
+  const navigate = useNavigate();
 
-  const navigate = useNavigate(); // Hook for navigation
+  // Function to validate the form before submission
+  const validateForm = () => {
+    let isValid = true;
+    let cardErrors = {};
+    let netbankingErrors = {};
 
-  const registrationTypeLabels = {
-    'introductory': 'Introductory Workshop',
-    'regular': 'Regular Program'
+    // Payment method validation
+    if (!paymentMethod) {
+      setPaymentMethodError('Select payment method');
+      isValid = false;
+    } else {
+      setPaymentMethodError('');
+    }
+
+    // Credit card validation
+    if (paymentMethod === 'credit_card') {
+      if (!String(cardDetails.cardHolderName).trim()) {
+        cardErrors.cardHolderName = 'Card holder name is required';
+        isValid = false;
+      }
+      if (!String(cardDetails.cardNumber).trim()) {
+        cardErrors.cardNumber = 'Card number is required';
+        isValid = false;
+      }
+      if (!String(cardDetails.expiryMonth).trim()) {
+        cardErrors.expiryMonth = 'Expiry month is required';
+        isValid = false;
+      }
+      if (!String(cardDetails.expiryYear).trim()) {
+        cardErrors.expiryYear = 'Expiry year is required';
+        isValid = false;
+      }
+      if (!String(cardDetails.cvv).trim()) {
+        cardErrors.cvv = 'CVV is required';
+        isValid = false;
+      }
+      setCardDetailsError(cardErrors);
+    }
+
+    // Netbanking validation
+    if (paymentMethod === 'net_banking') {
+      if (!String(netbankingDetails.bankName).trim()) {
+        netbankingErrors.bankName = 'Bank name is required';
+        isValid = false;
+      }
+      if (!String(netbankingDetails.username).trim()) {
+        netbankingErrors.username = 'Username is required';
+        isValid = false;
+      }
+      if (!String(netbankingDetails.password).trim()) {
+        netbankingErrors.password = 'Password is required';
+        isValid = false;
+      }
+      setNetbankingDetailsError(netbankingErrors);
+    }
+
+    return isValid;
   };
-  const registrationTypeLabel = registrationTypeLabels[RegistrationType] || RegistrationType;
-
-  const grossAmount = RegistrationType === 'introductory' ? 24.99 : 436.95;
-  const hst = grossAmount * 0.13;
-  const total = grossAmount + hst;
 
   const handlePaymentMethodChange = (event) => {
     setPaymentMethod(event.target.value);
   };
 
+
   const handleCardDetailsChange = (event) => {
     const { name, value } = event.target;
-    setCardDetails({ ...cardDetails, [name]: value });
+    let error = '';
+  
+    if (name === 'cardNumber') {
+      // Check if the input contains non-numeric characters
+      if (!/^\d*$/.test(value)) {
+        error = 'Card number must contain only digits';
+      } else if (value.length !== 16) {
+        // Validate card number length
+        error = 'Card number must be 16 digits';
+      }
+  
+      // Update the cardDetailsError state
+      setCardDetailsError((prevErrors) => ({
+        ...prevErrors,
+        [name]: error,
+      }));
+  
+      if (!error) {
+        // Remove any non-numeric characters
+        const numericValue = value.replace(/\D/g, '');
+        // Format the card number as XXXX XXXX XXXX XXXX
+        const formattedValue = numericValue.replace(/(.{4})/g, '$1 ').trim();
+        // Update the value with the formatted card number
+        setCardDetails((prevCardDetails) => ({
+          ...prevCardDetails,
+          [name]: formattedValue,
+        }));
+      } else {
+        // Update the value without formatting if there is an error
+        setCardDetails((prevCardDetails) => ({
+          ...prevCardDetails,
+          [name]: value,
+        }));
+      }
+    } else if (name === 'cvv') {
+      // Check if the input contains non-numeric characters
+      if (!/^\d{3}$/.test(value)) {
+        error = 'CVV must be 3 digits';
+      }
+  
+      // Update the cardDetailsError state
+      setCardDetailsError((prevErrors) => ({
+        ...prevErrors,
+        [name]: error,
+      }));
+  
+      // Update the cardDetails state
+      setCardDetails((prevCardDetails) => ({
+        ...prevCardDetails,
+        [name]: value,
+      }));
+    } else {
+      // Check if value is a string before calling trim
+      const trimmedValue = typeof value === 'string' ? value.trim() : value;
+  
+      // Validate if expiry month or year is empty
+      if (name === 'expiryMonth' || name === 'expiryYear') {
+        if (!trimmedValue) {
+          error = 'This field is required';
+        }
+      } else {
+        // Validate other fields
+        if (!trimmedValue) {
+          error = 'This field is required';
+        }
+      }
+  
+      // Update the cardDetailsError state
+      setCardDetailsError((prevErrors) => ({
+        ...prevErrors,
+        [name]: error,
+      }));
+  
+      // Update the cardDetails state
+      setCardDetails((prevCardDetails) => ({
+        ...prevCardDetails,
+        [name]: value,
+      }));
+    }
   };
+  
 
+
+  
+  
+  
   const handleNetbankingDetailsChange = (event) => {
     const { name, value } = event.target;
-    setNetbankingDetails({ ...netbankingDetails, [name]: value });
+    // Update the netbankingDetails state immutably
+    setNetbankingDetails((prevNetbankingDetails) => ({
+      ...prevNetbankingDetails,
+      [name]: value,
+    }));
   };
+  
 
   const handlePaymentSubmission = () => {
-    setPaymentSuccess(true); 
-    setOpenDialog(true); 
+    const isValid = validateForm();
+    if (isValid) {
+      setPaymentSuccess(true);
+      setOpenDialog(true);
+    }
   };
 
   const handleDialogClose = () => {
-    setOpenDialog(false); 
-    navigate('/'); 
+    setOpenDialog(false);
+    navigate('/');
   };
 
   const CreditCardFields = (
@@ -87,6 +233,8 @@ const Checkout = ({ formData }) => {
         name="cardHolderName"
         value={cardDetails.cardHolderName}
         onChange={handleCardDetailsChange}
+        error={!!cardDetailsError.cardHolderName}
+        helperText={cardDetailsError.cardHolderName}
       />
       <TextField
         label="Card Number"
@@ -96,53 +244,60 @@ const Checkout = ({ formData }) => {
         name="cardNumber"
         value={cardDetails.cardNumber}
         onChange={handleCardDetailsChange}
+        error={!!cardDetailsError.cardNumber}
+        helperText={cardDetailsError.cardNumber}
       />
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <FormControl variant="outlined" fullWidth margin="normal">
             <InputLabel>Expiry Month</InputLabel>
             <Select
-              value={cardDetails.expiryMonth}
-              onChange={handleCardDetailsChange}
-              label="Expiry Month"
-              name="expiryMonth"
-            >
-            <MenuItem value="02">02</MenuItem>
-            <MenuItem value="02">03</MenuItem>
-            <MenuItem value="02">04</MenuItem>
-            <MenuItem value="02">05</MenuItem>
-            <MenuItem value="02">06</MenuItem>
-            <MenuItem value="02">07</MenuItem>
-            <MenuItem value="02">08</MenuItem>
-            <MenuItem value="02">09</MenuItem>
-            <MenuItem value="02">10</MenuItem>
-            <MenuItem value="02">11</MenuItem>
-            <MenuItem value="02">12</MenuItem>
+  value={cardDetails.expiryMonth}
+  onChange={handleCardDetailsChange}
+  label="Expiry Month"
+  name="expiryMonth"
+  error={!!cardDetailsError.expiryMonth}
+>
+  <MenuItem value="">Select</MenuItem>
+  {[...Array(12).keys()].map(month => (
+    <MenuItem key={month} value={month + 1}>{month + 1}</MenuItem>
+  ))}
+</Select>
 
-            </Select>
+{cardDetailsError.expiryMonth && (
+  <Typography variant="caption" color="error">
+    {cardDetailsError.expiryMonth}
+  </Typography>
+)}
+
+
           </FormControl>
         </Grid>
         <Grid item xs={6}>
           <FormControl variant="outlined" fullWidth margin="normal">
             <InputLabel>Expiry Year</InputLabel>
             <Select
-              value={cardDetails.expiryYear}
-              onChange={handleCardDetailsChange}
-              label="Expiry Year"
-              name="expiryYear"
-            >
-            <MenuItem value={new Date().getFullYear()}>{new Date().getFullYear()}</MenuItem>
-            <MenuItem value={new Date().getFullYear() + 1}>{new Date().getFullYear() + 1}</MenuItem>
-            <MenuItem value={new Date().getFullYear() + 2}>{new Date().getFullYear() + 2}</MenuItem>
-            <MenuItem value={new Date().getFullYear() + 3}>{new Date().getFullYear() + 3}</MenuItem>
-            <MenuItem value={new Date().getFullYear() + 4}>{new Date().getFullYear() + 4}</MenuItem>
-            <MenuItem value={new Date().getFullYear() + 5}>{new Date().getFullYear() + 5}</MenuItem>
-            <MenuItem value={new Date().getFullYear() + 6}>{new Date().getFullYear() + 6}</MenuItem>
-            <MenuItem value={new Date().getFullYear() + 7}>{new Date().getFullYear() + 7}</MenuItem>
-            <MenuItem value={new Date().getFullYear() + 8}>{new Date().getFullYear() + 8}</MenuItem>
-            <MenuItem value={new Date().getFullYear() + 9}>{new Date().getFullYear() + 9}</MenuItem>
-            <MenuItem value={new Date().getFullYear() + 10}>{new Date().getFullYear() + 10}</MenuItem>
-            </Select>
+  value={cardDetails.expiryYear}
+  onChange={handleCardDetailsChange}
+  label="Expiry Year"
+  name="expiryYear"
+  error={!!cardDetailsError.expiryYear}
+>
+  <MenuItem value="">Select</MenuItem>
+  {[...Array(10).keys()].map(year => (
+    <MenuItem key={year} value={new Date().getFullYear() + year}>{new Date().getFullYear() + year}</MenuItem>
+  ))}
+</Select>
+
+
+
+            {cardDetailsError.expiryMonth && (
+  <Typography variant="caption" color="error">
+    {cardDetailsError.expiryYear}
+  </Typography>
+)}
+
+
           </FormControl>
         </Grid>
       </Grid>
@@ -154,26 +309,26 @@ const Checkout = ({ formData }) => {
         name="cvv"
         value={cardDetails.cvv}
         onChange={handleCardDetailsChange}
+        error={!!cardDetailsError.cvv}
+        helperText={cardDetailsError.cvv}
       />
     </>
   );
   
   const NetbankingFields = (
     <>
-      <FormControl variant="outlined" fullWidth margin="normal">
+      <FormControl variant="outlined" fullWidth margin="dense">
         <InputLabel>Select Your Bank</InputLabel>
         <Select
           value={netbankingDetails.bankName}
           onChange={handleNetbankingDetailsChange}
           name="bankName"
-          margin="normal"
+          error={!!netbankingDetailsError.bankName}
         >
-          <MenuItem value="RBC">RBC</MenuItem>
-          <MenuItem value="TD">TD</MenuItem>
-          <MenuItem value="BMO">BMO</MenuItem>
-          <MenuItem value="Scotiabank">Scotiabank</MenuItem>
-          <MenuItem value="CIBC">CIBC</MenuItem>
-
+          <MenuItem value="">Select</MenuItem>
+          {['RBC', 'TD', 'BMO', 'Scotiabank', 'CIBC'].map(bank => (
+            <MenuItem key={bank} value={bank}>{bank}</MenuItem>
+          ))}
         </Select>
       </FormControl>
       <TextField
@@ -184,6 +339,8 @@ const Checkout = ({ formData }) => {
         name="username"
         value={netbankingDetails.username}
         onChange={handleNetbankingDetailsChange}
+        error={!!netbankingDetailsError.username}
+        helperText={netbankingDetailsError.username}
       />
       <TextField
         label="Password"
@@ -194,10 +351,12 @@ const Checkout = ({ formData }) => {
         type="password"
         value={netbankingDetails.password}
         onChange={handleNetbankingDetailsChange}
+        error={!!netbankingDetailsError.password}
+        helperText={netbankingDetailsError.password}
       />
     </>
   );
-  
+
   return (
     <Grid container justifyContent="center">
       <Grid item xs={12} md={6}>
@@ -207,7 +366,7 @@ const Checkout = ({ formData }) => {
         <Paper elevation={3} style={{ padding: '20px', maxWidth: '1000px', margin: 'auto', marginTop: '20px' }}>
 
           <Typography variant="body1" gutterBottom>
-            <strong>Registration Type:</strong> {registrationTypeLabel}
+            <strong>Registration Type:</strong> {RegistrationType === 'introductory' ? 'Introductory Workshop' : 'Regular Program'}
           </Typography>
 
           {RegistrationType === 'introductory' ? (
@@ -237,15 +396,15 @@ const Checkout = ({ formData }) => {
           )}
 
           <Typography variant="body1" gutterBottom>
-            <strong>Gross Amount:</strong> ${grossAmount.toFixed(2)}
+            <strong>Gross Amount:</strong> ${RegistrationType === 'introductory' ? 24.99 : 436.95}
           </Typography>
 
           <Typography variant="body1" gutterBottom>
-            <strong>HST:</strong> ${hst.toFixed(2)}
+            <strong>HST:</strong> ${RegistrationType === 'introductory' ? 24.99 * 0.13 : 436.95 * 0.13}
           </Typography>
 
           <Typography variant="body1" gutterBottom>
-            <strong>Total:</strong> ${total.toFixed(2)}
+            <strong>Total:</strong> ${RegistrationType === 'introductory' ? (24.99 + (24.99 * 0.13)).toFixed(2) : (436.95 + (436.95 * 0.13)).toFixed(2)}
           </Typography>
  
           <Box width="100%">
@@ -271,7 +430,6 @@ const Checkout = ({ formData }) => {
             </FormControl>
           </Box>
 
-
           {paymentMethod === 'credit_card' && CreditCardFields}
           {paymentMethod === 'net_banking' && NetbankingFields}
           {paymentMethod === 'offline_payment' && (
@@ -280,8 +438,7 @@ const Checkout = ({ formData }) => {
             </Typography>
           )}
 
-
-{(paymentMethod === 'credit_card' || paymentMethod === 'net_banking') && (
+          {(paymentMethod === 'credit_card' || paymentMethod === 'net_banking') && (
             <Button className="btn_course_register"  variant="contained" onClick={handlePaymentSubmission}>
               PAY NOW
             </Button>
