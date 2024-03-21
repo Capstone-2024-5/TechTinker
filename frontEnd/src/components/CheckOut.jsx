@@ -41,20 +41,20 @@ const Checkout = ({ formData }) => {
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   
-  // State variables for field errors
+
   const [paymentMethodError, setPaymentMethodError] = useState('');
   const [cardDetailsError, setCardDetailsError] = useState({});
   const [netbankingDetailsError, setNetbankingDetailsError] = useState({});
   
   const navigate = useNavigate();
 
-  // Function to validate the form before submission
+
   const validateForm = () => {
     let isValid = true;
     let cardErrors = {};
     let netbankingErrors = {};
 
-    // Payment method validation
+
     if (!paymentMethod) {
       setPaymentMethodError('Select payment method');
       isValid = false;
@@ -62,7 +62,7 @@ const Checkout = ({ formData }) => {
       setPaymentMethodError('');
     }
 
-    // Credit card validation
+//Validation for credit card/Debit card payment
     if (paymentMethod === 'credit_card') {
       if (!String(cardDetails.cardHolderName).trim()) {
         cardErrors.cardHolderName = 'Card holder name is required';
@@ -117,99 +117,104 @@ const Checkout = ({ formData }) => {
     let error = '';
   
     if (name === 'cardNumber') {
-      // Check if the input contains non-numeric characters
+      
       if (!/^\d*$/.test(value)) {
         error = 'Card number must contain only digits';
       } else if (value.length !== 16) {
-        // Validate card number length
+
         error = 'Card number must be 16 digits';
       }
   
-      // Update the cardDetailsError state
+
       setCardDetailsError((prevErrors) => ({
         ...prevErrors,
         [name]: error,
       }));
   
       if (!error) {
-        // Remove any non-numeric characters
+
         const numericValue = value.replace(/\D/g, '');
-        // Format the card number as XXXX XXXX XXXX XXXX
+
         const formattedValue = numericValue.replace(/(.{4})/g, '$1 ').trim();
-        // Update the value with the formatted card number
+      
         setCardDetails((prevCardDetails) => ({
           ...prevCardDetails,
           [name]: formattedValue,
         }));
       } else {
-        // Update the value without formatting if there is an error
+        
         setCardDetails((prevCardDetails) => ({
           ...prevCardDetails,
           [name]: value,
         }));
       }
     } else if (name === 'cvv') {
-      // Check if the input contains non-numeric characters
+
       if (!/^\d{3}$/.test(value)) {
         error = 'CVV must be 3 digits';
       }
   
-      // Update the cardDetailsError state
+
       setCardDetailsError((prevErrors) => ({
         ...prevErrors,
         [name]: error,
       }));
   
-      // Update the cardDetails state
+
       setCardDetails((prevCardDetails) => ({
         ...prevCardDetails,
         [name]: value,
       }));
     } else {
-      // Check if value is a string before calling trim
+
       const trimmedValue = typeof value === 'string' ? value.trim() : value;
   
-      // Validate if expiry month or year is empty
+
       if (name === 'expiryMonth' || name === 'expiryYear') {
         if (!trimmedValue) {
           error = 'This field is required';
         }
       } else {
-        // Validate other fields
+
         if (!trimmedValue) {
           error = 'This field is required';
         }
       }
   
-      // Update the cardDetailsError state
+
       setCardDetailsError((prevErrors) => ({
         ...prevErrors,
         [name]: error,
       }));
   
-      // Update the cardDetails state
+
       setCardDetails((prevCardDetails) => ({
         ...prevCardDetails,
         [name]: value,
       }));
     }
   };
-  
-
-
-  
-  
-  
   const handleNetbankingDetailsChange = (event) => {
     const { name, value } = event.target;
-    // Update the netbankingDetails state immutably
-    setNetbankingDetails((prevNetbankingDetails) => ({
-      ...prevNetbankingDetails,
-      [name]: value,
+    let error = '';
+  
+    if (!value.trim()) {
+      error = 'This field is required'; 
+    }
+  
+    setNetbankingDetailsError((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
     }));
-  };
   
 
+    if (!error) {
+      setNetbankingDetails((prevNetbankingDetails) => ({
+        ...prevNetbankingDetails,
+        [name]: value,
+      }));
+    }
+  };
   const handlePaymentSubmission = () => {
     const isValid = validateForm();
     if (isValid) {
@@ -317,43 +322,49 @@ const Checkout = ({ formData }) => {
   
   const NetbankingFields = (
     <>
-      <FormControl variant="outlined" fullWidth margin="dense">
-        <InputLabel>Select Your Bank</InputLabel>
-        <Select
-          value={netbankingDetails.bankName}
-          onChange={handleNetbankingDetailsChange}
-          name="bankName"
-          error={!!netbankingDetailsError.bankName}
-        >
-          <MenuItem value="">Select</MenuItem>
-          {['RBC', 'TD', 'BMO', 'Scotiabank', 'CIBC'].map(bank => (
-            <MenuItem key={bank} value={bank}>{bank}</MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <TextField
-        label="Username"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        name="username"
-        value={netbankingDetails.username}
-        onChange={handleNetbankingDetailsChange}
-        error={!!netbankingDetailsError.username}
-        helperText={netbankingDetailsError.username}
-      />
-      <TextField
-        label="Password"
-        variant="outlined"
-        fullWidth
-        margin="normal"
-        name="password"
-        type="password"
-        value={netbankingDetails.password}
-        onChange={handleNetbankingDetailsChange}
-        error={!!netbankingDetailsError.password}
-        helperText={netbankingDetailsError.password}
-      />
+<FormControl variant="outlined" fullWidth margin="dense">
+  <InputLabel>Select Your Bank</InputLabel>
+  <Select
+    value={netbankingDetails.bankName}
+    onChange={handleNetbankingDetailsChange}
+    name="bankName"
+    error={!!netbankingDetailsError.bankName} 
+    helperText={netbankingDetailsError.bankName || ' '} 
+  >
+    {['RBC', 'TD', 'BMO', 'Scotiabank', 'CIBC'].map((bank) => (
+      <MenuItem key={bank} value={bank}>
+        {bank}
+      </MenuItem>
+    ))}
+  </Select>
+</FormControl>
+
+<TextField
+  label="Username"
+  variant="outlined"
+  fullWidth
+  margin="normal"
+  name="username" 
+  value={netbankingDetails.username}
+  onChange={handleNetbankingDetailsChange} 
+  error={!!netbankingDetailsError.username}
+  helperText={netbankingDetailsError.username}
+/>
+
+<TextField
+  label="Password"
+  variant="outlined"
+  fullWidth
+  margin="normal"
+  name="password" 
+  type="password"
+  value={netbankingDetails.password}
+  onChange={handleNetbankingDetailsChange} 
+  error={!!netbankingDetailsError.password}
+  helperText={netbankingDetailsError.password}
+/>
+
+
     </>
   );
 
