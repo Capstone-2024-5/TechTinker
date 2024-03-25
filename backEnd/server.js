@@ -53,6 +53,27 @@ app.get('/singlecoursedetails', (req, res) =>{
     .catch(err => res.json(err))
 })
 
+app.get('/getCoursecrud', (req, res) => {
+    CourseModel.find()
+    .then(courseList => res.json(courseList))
+    .catch(err => res.json(err))
+})
+
+app.get('/getCourse/:id', (req, res) =>{
+    const id = req.params.id;
+    CourseModel.findById({_id:id})
+    .then(result => res.json(result))
+    .catch(err => res.json(err))
+
+})
+
+app.delete('/deletecourse/:id', (req, res) =>{
+    const id = req.params.id;
+    CourseModel.findByIdAndDelete({_id: id})
+    .then(res => res.json(res))
+    .catch(err => res.json(err))
+})
+
 app.get("/admin_login", cors(), (req, res) => {
 
 })

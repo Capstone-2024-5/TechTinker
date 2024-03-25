@@ -32,6 +32,7 @@ const pages = [
     ],
   },
   { name: "CourseList", link: "courselist" },
+  { name: "CourseCRUD", link: "courseupdate" },
   { name: "CourseAdd", link: "courseadd" },
   { name: "Events", link: "events" },
   { name: "Register", link: "register" },
@@ -71,6 +72,7 @@ export default function Header() {
   const isCourseDetails = new RegExp("/courselist/.*").test(location.pathname);
   const isRegisterPage = location.pathname === "/register";
   const isCourseAdd = location.pathname === "/courseadd";
+  const isCourseUpdate = location.pathname === "/courseupdate";
   const isEventPage = location.pathname === "/events";
   const isContactUsPage = location.pathname === "/contact-us";
   const isWebstorePage = location.pathname === "/webstore";
@@ -225,6 +227,7 @@ export default function Header() {
           !isEventPage &&
           !isContactUsPage &&
           !isCourseDetails &&
+          !isCourseUpdate &&
           !isCourseAdd && (
             <Box
               sx={{
