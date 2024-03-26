@@ -16,6 +16,7 @@ const registrationRouter = require("./routes/registration_route");
 const { registerUser } = require("./controllers/registration_controller");
 const productRouter= require("./routes/products_route");
 const eventRouter = require("./routes/events_route");
+const studentManagementRouter = require("./routes/student_management_route");
 const adminModel = require("./models/adminLogin_model");
 // const adminRoute = require("./routes/adminLogin_route");
 
@@ -27,6 +28,7 @@ app.use("", techTinkerRouter);
 app.use("/user", userRouter);
 app.use("/api", registrationRouter);
 app.post("/api/register", registerUser);
+app.use("/students", studentManagementRouter);
 app.post("/addcourse", (req, res) =>{
     CourseModel.create(req.body)
     .then(courses => res.json(courses))

@@ -34,9 +34,12 @@ const pages = [
   { name: "CourseList", link: "courselist" },
   { name: "CourseAdd", link: "courseadd" },
   { name: "Events", link: "events" },
-  { name: "Register", link: "register" },
-  { name: "About Us", link: "aboutus" }, // cab be deleted afterwards as link is inside techticke main
+ // { name: "Register", link: "register", submenus: [{ name: "Student Management", link: "studentmanagement" }] },
+ { name: "Register", link: "register" },
+ {name: "Student Management", link:"studentmanagement"},
+  { name: "About Us", link: "aboutus" },
   { name: "Webstore", link: "webstore" },
+ 
 ];
 
 const webpages = [
@@ -70,6 +73,7 @@ export default function Header() {
   const isCourseList = location.pathname === "/courselist";
   const isCourseDetails = new RegExp("/courselist/.*").test(location.pathname);
   const isRegisterPage = location.pathname === "/register";
+  const isStudentManagementPage = location.pathname === "/studentmanagement"
   const isCourseAdd = location.pathname === "/courseadd";
   const isEventPage = location.pathname === "/events";
   const isContactUsPage = location.pathname === "/contact-us";
@@ -225,6 +229,7 @@ export default function Header() {
           !isEventPage &&
           !isContactUsPage &&
           !isCourseDetails &&
+          !isStudentManagementPage &&
           !isCourseAdd && (
             <Box
               sx={{

@@ -33,7 +33,7 @@ const Checkout = ({ formData }) => {
   });
 
   const [netbankingDetails, setNetbankingDetails] = useState({
-    bankName: '',
+  //  bankName: '',
     username: '',
     password: '',
   });
@@ -89,10 +89,10 @@ const Checkout = ({ formData }) => {
 
     // Netbanking validation
     if (paymentMethod === 'net_banking') {
-      if (!String(netbankingDetails.bankName).trim()) {
-        netbankingErrors.bankName = 'Bank name is required';
-        isValid = false;
-      }
+      //  if (!String(netbankingDetails.bankName).trim()) {
+      //   netbankingErrors.bankName = 'Bank name is required';
+      //   isValid = false;
+      // } 
       if (!String(netbankingDetails.username).trim()) {
         netbankingErrors.username = 'Username is required';
         isValid = false;
@@ -194,27 +194,31 @@ const Checkout = ({ formData }) => {
       }));
     }
   };
-  const handleNetbankingDetailsChange = (event) => {
-    const { name, value } = event.target;
-    let error = '';
+const handleNetbankingDetailsChange = (event) => {
+  const { name, value } = event.target;
+  let error = '';
   
-    if (!value.trim()) {
-      error = 'This field is required'; 
-    }
-  
-    setNetbankingDetailsError((prevErrors) => ({
-      ...prevErrors,
-      [name]: error,
-    }));
+/*   // Check if the bank name is not selected
+  if (!value.trim()) {
+    error = 'Select your bank';
+  }
+   */
+
+  setNetbankingDetailsError((prevErrors) => ({
+    ...prevErrors,
+    [name]: error,
+  }));
   
 
-    if (!error) {
-      setNetbankingDetails((prevNetbankingDetails) => ({
-        ...prevNetbankingDetails,
-        [name]: value,
-      }));
-    }
-  };
+  if (!error) {
+    setNetbankingDetails((prevNetbankingDetails) => ({
+      ...prevNetbankingDetails,
+      [name]: value,
+    }));
+  }
+};
+
+  
   const handlePaymentSubmission = () => {
     const isValid = validateForm();
     if (isValid) {
@@ -322,7 +326,7 @@ const Checkout = ({ formData }) => {
   
   const NetbankingFields = (
     <>
-<FormControl variant="outlined" fullWidth margin="dense">
+{/*  <FormControl variant="outlined" fullWidth margin="dense">
   <InputLabel>Select Your Bank</InputLabel>
   <Select
     value={netbankingDetails.bankName}
@@ -337,7 +341,7 @@ const Checkout = ({ formData }) => {
       </MenuItem>
     ))}
   </Select>
-</FormControl>
+</FormControl>  */}
 
 <TextField
   label="Username"
@@ -374,7 +378,7 @@ const Checkout = ({ formData }) => {
         <Typography variant="h4" align="center" gutterBottom style={{ color: '#1C796E', marginTop: '20px' }}>
           Make The Payment
         </Typography>
-        <Paper elevation={3} style={{ padding: '20px', maxWidth: '1000px', margin: 'auto', marginTop: '20px' }}>
+        <Paper elevation={3} style={{ padding: '20px', maxWidth: '1000px', margin: 'auto', marginTop: '20px' , marginBottom:'30px'}}>
 
           <Typography variant="body1" gutterBottom>
             <strong>Registration Type:</strong> {RegistrationType === 'introductory' ? 'Introductory Workshop' : 'Regular Program'}

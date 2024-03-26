@@ -22,7 +22,7 @@ const Register = ({ handleFormData }) => {
     LastName: '',
     PhoneNumber: '',
     Email: '',
-    Age: '', // Need to add an initial state for Age
+    Age: '', 
     Address: {
       Line1: '',
       Line2: '',
@@ -81,6 +81,22 @@ const Register = ({ handleFormData }) => {
   const handleInputChange = event => {
     const { name, value } = event.target;
   
+    setFormErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: '',
+    }));
+
+    if (name.startsWith('Introductory_CourseDetails.') || name.startsWith('Regular_CourseDetails.')) {
+      const [section, field] = name.split('.');
+      setFormErrors(prevErrors => ({
+        ...prevErrors,
+        [section]: {
+          ...prevErrors[section],
+          [field]: '',
+        },
+      }));
+    }
+  
     if (name === 'Age') {
       setFormData(prevData => ({
         ...prevData,
@@ -95,6 +111,14 @@ const Register = ({ handleFormData }) => {
           [addressField]: value,
         },
       }));
+  
+      setFormErrors(prevErrors => ({
+        ...prevErrors,
+        Address: {
+          ...prevErrors.Address,
+          [addressField]: '',
+        },
+      }));
     } else if (name.startsWith('Introductory_CourseDetails.') || name.startsWith('Regular_CourseDetails.')) {
       const [section, field] = name.split('.');
       setFormData(prevData => ({
@@ -104,6 +128,14 @@ const Register = ({ handleFormData }) => {
           [field]: value,
         },
       }));
+  
+      setFormErrors(prevErrors => ({
+        ...prevErrors,
+        [section]: {
+          ...prevErrors[section],
+          [field]: '',
+        },
+      }));
     } else {
       setFormData(prevData => ({
         ...prevData,
@@ -111,11 +143,11 @@ const Register = ({ handleFormData }) => {
       }));
     }
   };
-
+  
   const handleSubmit = e => {
     e.preventDefault();
-    const isValid = validateForm(); // Validate the form
-    if (!isValid) return; // If not valid, return early
+    const isValid = validateForm(); 
+    if (!isValid) return; 
 
     const requestData = {
       FirstName: formData.FirstName,
@@ -127,7 +159,6 @@ const Register = ({ handleFormData }) => {
       RegistrationType: formData.RegistrationType === 'introductory' ? 'Introductory Workshop' : 'Regular Program',
     };
 
-    // Set course details based on the selected registration type
     if (formData.RegistrationType === 'introductory') {
       requestData.Introductory_CourseDetails = {
         CourseName: formData.Introductory_CourseDetails.CourseName,
@@ -146,8 +177,8 @@ const Register = ({ handleFormData }) => {
     .then(response => {
       console.log('Registration successful:', response.data);
       setRegistrationSuccess(true);
-      handleFormData(formData); // Move this line here
-      navigate('/checkout'); // Use navigate function to redirect to '/checkout'
+      handleFormData(formData); 
+      navigate('/checkout'); 
     })
     .catch(error => {
       console.error('Error registering:', error);
@@ -241,25 +272,25 @@ const Register = ({ handleFormData }) => {
       errors.CourseName = 'Course Name is required';
     }
   
-    // Start date validation
+
     if (formData.RegistrationType === 'regular' && !formData.Regular_CourseDetails.StartDate) {
       formIsValid = false;
       errors.StartDate = 'Start Date is required';
     }
   
-    // Selected date validation
+
     if (formData.RegistrationType === 'introductory' && !formData.Introductory_CourseDetails.SelectedDate) {
       formIsValid = false;
       errors.SelectedDate = 'Select Date is required';
     }
 
-      // Class timings validation
+
   if (formData.RegistrationType === 'regular' && !formData.Regular_CourseDetails.ClassTimings) {
     formIsValid = false;
     errors.ClassTimings = 'Class Timings are required';
   }
 
-  // Selected time validation
+
   if (formData.RegistrationType === 'introductory' && !formData.Introductory_CourseDetails.SelectedTime) {
     formIsValid = false;
     errors.SelectedTime = 'Select Time is required';
@@ -282,7 +313,7 @@ const Register = ({ handleFormData }) => {
             </Typography>
           ) : (
             <form onSubmit={handleSubmit}>
-              {/* Personal Information */}
+
               <TextField
                 fullWidth
                 label="First Name"
