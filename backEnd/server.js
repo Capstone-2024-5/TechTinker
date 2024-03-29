@@ -5,11 +5,6 @@ require("./common/db")();
 const mongoose = require('mongoose');
 const CourseListModel = require('./models/courseList')
 const CourseModel = require('./models/course')
-
-app.use(cors({ origin: "*" }));
-
-app.use(express.json());
-
 const userRouter = require("./routes/users_route");
 const techTinkerRouter = require("./routes/tech_Tinker_route");
 const registrationRouter = require("./routes/registration_route");
@@ -18,13 +13,18 @@ const productRouter= require("./routes/products_route");
 const eventRouter = require("./routes/events_route");
 const studentManagementRouter = require("./routes/student_management_route");
 const adminModel = require("./models/adminLogin_model");
-// const adminRoute = require("./routes/adminLogin_route");
+const postUploadProduct = require("./routes/adminProduct_route");
+
+app.use(cors({ origin: "*" }));
+
+app.use(express.json());
 
 const PORT = process.env.API_SERVER_PORT || 5000;
 
 // app.use(adminRoute);
 app.use("/user", userRouter);
 app.use("", techTinkerRouter);
+app.use("", postUploadProduct);
 app.use("/user", userRouter);
 app.use("/api", registrationRouter);
 app.post("/api/register", registerUser);
@@ -37,7 +37,6 @@ app.post("/addcourse", (req, res) =>{
 
 app.use("/products", productRouter);
 app.use("/events", eventRouter);
-
 
 
 const loadMoreRouter = require("./routes/products_route");
