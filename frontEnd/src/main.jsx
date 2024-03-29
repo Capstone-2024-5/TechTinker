@@ -18,6 +18,7 @@ import AdminMain from "./components/techtinker/AdminMain.jsx";
 import CheckOut from "./components/CheckOut.jsx";
 import CourseDetails from "./components/CourseDetails.jsx";
 import CourseAdd from "./components/CourseAdd.jsx";
+import StudentManagement from "./components/StudentManagement.jsx";
 
 const App = () => {
     // Define state to store form data
@@ -47,17 +48,14 @@ const App = () => {
                 <Route path="/courselist/:courseid" element={<CourseDetails />} />
                 <Route path="/courseadd" element={<CourseAdd />} />
                 <Route path="/contact-us" element={<Contact />} />
-                {/* Pass handleFormData as a prop to Register component */}
                 <Route path="/register" element={<Register handleFormData={handleFormData} />} />
                 <Route path="/faqs" element={<Faqs />} />
                 <Route path="/aboutus" element={<AboutUs />} />
                 <Route path="/webstore" element={<Webstore handleAddToCart={handleAddToCart} />} />
                 <Route path="/admin_login" element={<AdminLogin/> } />
                 <Route path="/admin_main" element={<AdminMain/>} />
-
-                {/* Pass formData as a prop to CheckOut component */}
-              
-        <Route path="/checkout" element={<CheckOut formData={formData} />} />
+                <Route path="/checkout" element={<CheckOut formData={formData} />} />
+                <Route path="/StudentManagement" element={<StudentManagement/> } />
             </Routes>
             <Footer />
         </Router>
