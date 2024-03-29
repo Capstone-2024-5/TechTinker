@@ -39,15 +39,24 @@ const Events = () => {
     };
 
     return (
-        <Box m={4}>
+        <>
+        <Typography
+                variant="h3"
+                align="center"
+                className="fontWeight-800 fontMontserrat textSecondary"
+                sx={{ m: 6 }}
+            >
+                Events
+            </Typography>
+        <Box m={4} sx={{ mx: 20 }}>
             {loading ? (
                 <Typography variant="h5" align="center">Loading...</Typography>
             ) : (
                 <Grid container spacing={3}>
                     {events.map((event, index) => (
-                        <Grid item xs={12} md={6} key={index}>
-                            <Card>
-                                <Typography variant="h4" align="center">{event.EventName}</Typography>
+                        <Grid item xs={12} md={6} key={index} sx={{ p: 4 }}>
+                            <Card sx={{ p: 4 }}>
+                                <Typography variant="h5" align="center" className='fontMontserrat textPrimary fontWeight-800' sx={{ pb: 4 }}>{event.EventName}</Typography>
                                 <CardMedia
                                     component="img"
                                     height="350"
@@ -55,8 +64,8 @@ const Events = () => {
                                     alt={event.EventName}
                                 />
                                 <CardContent sx={{textAlign: 'center'}} >
-                                    <Typography variant="h5">{event.EventName}</Typography>
-                                    <Button variant="contained" color="primary" onClick={() => handleEventSelection(event)}>Select Event</Button>
+                                <Typography variant="h5" align="center" className='fontMontserrat textPrimary fontWeight-800' sx={{ py: 4 }}>{event.EventName}</Typography>
+                                    <Button onClick={() => handleEventSelection(event)} className="btnPrimary">Select Event</Button>
                                 </CardContent>
                             </Card>
                         </Grid>
@@ -69,6 +78,7 @@ const Events = () => {
                 </Box>
             )}
         </Box>
+        </>
     );
 }
 

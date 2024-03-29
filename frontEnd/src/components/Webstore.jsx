@@ -29,9 +29,9 @@ const Webstore = () => {
     fetchData();
   }, [page]);
 
-  const loadMore = () => {
-    setPage(prevPage => prevPage + 1); // Increment the page number
-  };
+    const loadMore = () => {
+        setPage((prevPage) => prevPage + 1); // Increment the page number
+    };
 
   const handleProductClick = (product) => {
     setSelectedProduct(product);
