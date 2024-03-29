@@ -22,32 +22,6 @@ import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import { ShoppingCart as ShoppingCartIcon } from "@mui/icons-material"; // Import the ShoppingCart icon
 
 const pages = [
-=======
-  {
-    name: "Techtinker",
-    link: "",
-    submenus: [
-      { name: "Home", link: "" },
-      { name: "About Us", link: "aboutus" },
-      { name: "Data privacy", link: "data-privacy" },
-      { name: "FAQ's", link: "faqs" },
-      { name: "Contact Us", link: "contact-us" },
-      { name: "Admin Login", link: "admin_login" },
-    ],
-  },
-  { name: "CourseList", link: "courselist" },
-  { name: "CourseAdd", link: "courseadd" },
-  { name: "Events", link: "events" },
- // { name: "Register", link: "register", submenus: [{ name: "Student Management", link: "studentmanagement" }] },
- { name: "Register", link: "register" },
- {name: "Student Management", link:"studentmanagement"},
-  { name: "About Us", link: "aboutus" },
-  { name: "Webstore", link: "webstore" },
- 
-];
-
-const webpages = [
-    { name: "Home", link: "" },
     {
         name: "Techtinker",
         link: "",
@@ -68,26 +42,9 @@ const webpages = [
     { name: "Webstore", link: "webstore" },
 ];
 
-
 const Header = ({ cartCount, handleAddToCart }) => { // Receive cartCount as props
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [drawerOpen, setDrawerOpen] = useState(false);
-=======
-export default function Header() {
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [drawerOpen, setDrawerOpen] = useState(false);
-
-  const location = useLocation();
-
-  const isHomePage = location.pathname === "/";
-  const isCourseList = location.pathname === "/courselist";
-  const isCourseDetails = new RegExp("/courselist/.*").test(location.pathname);
-  const isRegisterPage = location.pathname === "/register";
-  const isStudentManagementPage = location.pathname === "/studentmanagement"
-  const isCourseAdd = location.pathname === "/courseadd";
-  const isEventPage = location.pathname === "/events";
-  const isContactUsPage = location.pathname === "/contact-us";
-  const isWebstorePage = location.pathname === "/webstore";
 
     const location = useLocation();
 
@@ -106,49 +63,9 @@ export default function Header() {
         setAnchorElNav(null);
     };
 
-
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
-=======
-        {!isHomePage &&
-          !isCourseList &&
-          !isRegisterPage &&
-          !isEventPage &&
-          !isContactUsPage &&
-          !isCourseDetails &&
-          !isStudentManagementPage &&
-          !isCourseAdd && (
-            <Box
-              sx={{
-                flexGrow: 1,
-                display: { xs: "none", md: "flex" },
-              }}
-            >
-              {webpages.map((webpage) => (
-                <Link
-                  key={webpage.name}
-                  component={RouterLink}
-                  to={webpage.link}
-                  className="headerLink"
-                >
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{ color: "white", display: "block" }}
-                    className="headerLink fontWeight-800"
-                  >
-                    {webpage.name}
-                  </Button>
-                </Link>
-              ))}
-
-              <Box sx={{ display: "flex", marginLeft: "auto" }}>
-                <Box>
-                  <Button sx={{ color: "white", display: "block" }}>
-                    <ShoppingCartIcon />
-                  </Button>
-                </Box>
-
                 <Box>
                     <Toolbar disableGutters>
                         <Box
