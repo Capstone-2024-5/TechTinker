@@ -74,6 +74,23 @@ app.delete('/deletecourse/:id', (req, res) =>{
     .catch(err => res.json(err))
 })
 
+app.put('/updateCourse/:id', (req, res) =>{
+    const id = req.params.id;
+    CourseModel.findByIdAndUpdate({_id:id},
+        {
+            courseName: req.body.courseName,
+            courseCode: req.body.courseCode,
+            content: req.body.content,
+            courseAge:req.body.courseAge,
+            courseFees:req.body.courseFees,
+            courseIntroFees: req.body.courseIntroFees,
+            slots: req.body.slots,
+            courseDuration: req.body.courseDuration,
+        }).then(res => res.json(res))
+        .catch(err => res.json(err))
+    
+})
+
 app.get("/admin_login", cors(), (req, res) => {
 
 })

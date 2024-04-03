@@ -20,7 +20,7 @@ export default function CourseDetails() {
 
   console.log(courseData);
 
-  let coursedata = courseData.map((data) => {
+  let coursedata = courseData.map((data, i) => {
     return (
       <>
         <Stack
@@ -31,6 +31,7 @@ export default function CourseDetails() {
           gap={3}
           padding={3}
           className="boxShadowBlue"
+          key={i}
         >
           <Typography variant="h4" fontWeight={"bold"} className="fontWeight-800 fontMontserrat textSecondary" sx={{ mt: 6 }}>{data.courseName}</Typography>
           <Box width={"100%"}>{parse(data.content)}</Box>

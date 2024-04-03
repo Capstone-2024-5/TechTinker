@@ -4,11 +4,6 @@ import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import IconButton from '@mui/material/IconButton';
 
@@ -35,21 +30,20 @@ export default function CourseCRUD() {
   });
 
   return (
-    <>
-      <TableContainer component={Paper}>
-        <Table sx={{ width: 650, margin: "auto" }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="center">Course Name</TableCell>
-              <TableCell align="center">Action</TableCell>
-            </TableRow>
-          </TableHead>
+    <div style={{padding:"20px"}}>
+        <table style={{margin:"auto", width:"40%"}} border={1}>
+          <thead>
+            <tr>
+              <th align="center">Course Name</th>
+              <th align="center">Action</th>
+            </tr>
+          </thead>
           <tbody>
-            {courseList.map((courseNames) => {
+            {courseList.map((courseNames, i) => {
               return (
-                <TableRow>
-                  <TableCell align="center">{courseNames.courseName}</TableCell>
-                  <TableCell align="center">
+                <tr key={i}>
+                  <td align="center">{courseNames.courseName}</td>
+                  <td align="center">
                     <Link to={`/courseUpdate/${courseNames._id}`}>Update</Link>
                     <Button
                       onClick={(e) => handleDelete(courseNames._id)}
@@ -58,13 +52,12 @@ export default function CourseCRUD() {
                         <DeleteIcon />
                       </IconButton>
                     </Button>
-                  </TableCell>
-                </TableRow>
+                  </td>
+                </tr>
               );
             })}
           </tbody>
-        </Table>
-      </TableContainer>
-    </>
+        </table>
+    </div>
   );
 }

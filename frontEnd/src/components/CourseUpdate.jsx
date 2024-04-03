@@ -55,6 +55,34 @@ export default function CourseUpdate() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const Update = (event) =>{
+        event.preventDefault();
+        console.log(
+            courseName,
+            courseCode,
+            content,
+            courseAge,
+            courseFees,
+            courseIntroFees,
+            slots,
+            courseDuration
+        );
+        axios
+            .put(`http://localhost:4000/updateCourse/${id}`, {
+                courseName,
+                courseCode,
+                content,
+                courseAge,
+                courseFees,
+                courseIntroFees,
+                slots,
+                courseDuration,
+            })
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+        setSubmissionStatus("Updated successfully!");        
+    }
+
     useEffect(() => {
         axios
           .get(`http://localhost:4000/getCourse/${id}`)
@@ -130,7 +158,7 @@ export default function CourseUpdate() {
                     Update Course
                 </Typography>
             </Box>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={Update}>
                 <Stack
                     margin={"auto"}
                     direction={"column"}
