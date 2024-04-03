@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 
 export default function CourseDetails() {
   const { courseid } = useParams();
-
+  const [image, setImage] = useState();
   const [courseData, setCourseData] = useState([]);
 
   useEffect(() => {
@@ -23,6 +23,13 @@ export default function CourseDetails() {
   let coursedata = courseData.map((data, i) => {
     return (
       <>
+        <img
+          src={`http://localhost:4000/images/${data.image}`}
+          width={"25%"}
+          height={"25%"}
+          alt="blank"
+          className="boxShadowBlue"
+        />
         <Stack
           width={"70%"}
           alignItems={"center"}
@@ -33,7 +40,14 @@ export default function CourseDetails() {
           className="boxShadowBlue"
           key={i}
         >
-          <Typography variant="h4" fontWeight={"bold"} className="fontWeight-800 fontMontserrat textSecondary" sx={{ mt: 6 }}>{data.courseName}</Typography>
+          <Typography
+            variant="h4"
+            fontWeight={"bold"}
+            className="fontWeight-800 fontMontserrat textSecondary"
+            sx={{ mt: 6 }}
+          >
+            {data.courseName}
+          </Typography>
           <Box width={"100%"}>{parse(data.content)}</Box>
         </Stack>
         <Stack width={"70%"}>
@@ -75,11 +89,21 @@ export default function CourseDetails() {
             <Typography variant="h5" fontWeight={"bolder"}>
               Full Fee: ${data.courseFees}.99
             </Typography>
-            <Typography variant="h5" fontWeight={"bolder"} className="textPrimary">
+            <Typography
+              variant="h5"
+              fontWeight={"bolder"}
+              className="textPrimary"
+            >
               Introductory Workshop Fee: ${data.courseIntroFees}.99
             </Typography>
           </Stack>
-          <Button variant="contained" sx={{marginTop:"1rem"}} className="btnPrimary">Register Now</Button>
+          <Button
+            variant="contained"
+            sx={{ marginTop: "1rem" }}
+            className="btnPrimary"
+          >
+            Register Now
+          </Button>
         </Stack>
       </>
     );
@@ -97,18 +121,14 @@ export default function CourseDetails() {
           width={"90%"}
           padding={3}
         >
-          <img
-            src="#"
+          {/* <img
+            src={`http://localhost:4000/images/${coursedata.image}`}
             width={400}
             height={250}
             alt="blank"
             className="boxShadowBlue"
-          />
+          /> */}
           {coursedata}
-
-          {/* <Stack width={"70%"} border={"1px solid blue"}>
-            <Typography variant="h4">Course:</Typography>
-          </Stack> */}
         </Stack>
       </Box>
     </>

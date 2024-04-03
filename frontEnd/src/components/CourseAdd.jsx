@@ -47,6 +47,7 @@ export default function CourseAdd() {
     const [courseDuration, setCourseDuration] = useState("");
     const [slots, setSlots] = useState([]);
     const [submissionStatus, setSubmissionStatus] = useState("");
+    const [file, setFile] = useState();
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -71,10 +72,24 @@ export default function CourseAdd() {
 
     function handleSubmit(event) {
         event.preventDefault();
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('courseName', courseName); // Append other form fields
+        formData.append('courseCode', courseCode);
+        formData.append('content', content);
+        formData.append('courseAge', courseAge);
+        formData.append('courseFees', courseFees);
+        formData.append('courseIntroFees', courseIntroFees);
+        formData.append('slots', JSON.stringify(slots)); // Convert slots to string
+        formData.append('courseDuration', courseDuration);
+        formData.forEach((value, key) => {
+            console.log(key + ': ' + value);
+        });    
         console.log(
             courseName,
             courseCode,
             content,
+            formData,
             courseAge,
             courseFees,
             courseIntroFees,
@@ -83,16 +98,20 @@ export default function CourseAdd() {
         );
 
         axios
-            .post("http://localhost:4000/addcourse", {
-                courseName,
-                courseCode,
-                content,
-                courseAge,
-                courseFees,
-                courseIntroFees,
-                slots,
-                courseDuration,
-            })
+            .post("http://localhost:4000/addcourse", 
+            // {
+            //     courseName,
+            //     courseCode,
+            //     formData,
+            //     content,
+            //     courseAge,
+            //     courseFees,
+            //     courseIntroFees,
+            //     slots,
+            //     courseDuration,
+            // } 
+            formData
+            )
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
         setSubmissionStatus("Course Added successfully!");
@@ -155,6 +174,18 @@ export default function CourseAdd() {
                                 sx={{ flex: "1" }}
                                 onChange={(e) => setCourseCode(e.target.value)}
                             ></TextField>
+                        </Stack>
+
+                        <Stack
+                            direction={"row"}
+                            flexWrap={"wrap"}
+                            alignItems={"center"}
+                            marginBottom={3}
+                        >
+                            <FormLabel sx={{ flex: "1" }}>
+                                Upload an Image
+                            </FormLabel>
+                            <input type="file" onChange={e => setFile(e.target.files[0])}></input>
                         </Stack>
 
                         <Stack direction={"column"} marginBottom={3} gap={1}>
