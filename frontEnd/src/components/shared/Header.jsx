@@ -36,6 +36,7 @@ const pages = [
   { name: "CourseAdd", link: "courseadd" },
   { name: "Events", link: "events" },
   { name: "Register", link: "register" },
+  {name: "Student Management", link:"studentmanagement"},
   { name: "About Us", link: "aboutus" }, // cab be deleted afterwards as link is inside techticke main
   { name: "Webstore", link: "webstore" },
 ];
@@ -73,6 +74,7 @@ export default function Header() {
   const isRegisterPage = location.pathname === "/register";
   const isCourseAdd = location.pathname === "/courseadd";
   const isCourseUpdate = location.pathname === "/courseupdate";
+  const isStudentManagementPage = location.pathname === "/studentmanagement"
   const isEventPage = location.pathname === "/events";
   const isContactUsPage = location.pathname === "/contact-us";
   const isWebstorePage = location.pathname === "/webstore";
@@ -228,6 +230,7 @@ export default function Header() {
           !isContactUsPage &&
           !isCourseDetails &&
           !isCourseUpdate &&
+          !isStudentManagementPage &&
           !isCourseAdd && (
             <Box
               sx={{

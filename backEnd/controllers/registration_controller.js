@@ -7,15 +7,11 @@ exports.fetchCourseDetails = async (req, res) => {
   try {
     const { Age } = req.query;
     let courseDetails;
-
-    // Convert age to a number
     const userAge = parseInt(Age);
 
     if (userAge <= 8) {
-      // Fetch course details from junior_courses collection
       courseDetails = await JuniorCourse.find({}, { CourseName: 1, _id: 0 });
     } else {
-      // Fetch course details from senior_courses collection
       courseDetails = await SeniorCourse.find({}, { CourseName: 1, _id: 0 });
     }
 
@@ -32,7 +28,6 @@ exports.fetchCourseDetails = async (req, res) => {
 
 exports.registerUser = async (req, res) => {
   try {
-    // Extract user registration data from request body
     const registrationData = req.body;
     const newRegistration = new Registration(registrationData);
     await newRegistration.save();

@@ -35,14 +35,20 @@ const registrationRouter = require("./routes/registration_route");
 const { registerUser } = require("./controllers/registration_controller");
 const productRouter = require("./routes/products_route");
 const eventRouter = require("./routes/events_route");
+const studentManagementRouter = require("./routes/student_management_route");
 const adminModel = require("./models/adminLogin_model");
-// const adminRoute = require("./routes/adminLogin_route");
+const postUploadProduct = require("./routes/adminProduct_route");
+
+app.use(cors({ origin: "*" }));
+
+app.use(express.json());
 
 const PORT = process.env.API_SERVER_PORT || 5000;
 
 // app.use(adminRoute);
 app.use("/user", userRouter);
 app.use("", techTinkerRouter);
+app.use("", postUploadProduct);
 app.use("/user", userRouter);
 app.use("/api", registrationRouter);
 app.post("/api/register", registerUser);
@@ -62,6 +68,8 @@ app.post("/addcourse", upload.single("file"), (req, res) => {
     .then((courses) => res.json(courses))
     .catch((err) => res.json(err));
 });
+app.use("/students", studentManagementRouter);
+
 
 app.use("/products", productRouter);
 app.use("/events", eventRouter);
