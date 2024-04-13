@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Box, IconButton, Stack, Typography } from "@mui/material";
 import parse from "html-react-parser";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
@@ -10,6 +11,7 @@ export default function CourseDetails() {
   const { courseid } = useParams();
   const [image, setImage] = useState();
   const [courseData, setCourseData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -101,6 +103,7 @@ export default function CourseDetails() {
             variant="contained"
             sx={{ marginTop: "1rem" }}
             className="btnPrimary"
+            onClick={() => {navigate('/register')}}
           >
             Register Now
           </Button>
