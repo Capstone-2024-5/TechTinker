@@ -18,6 +18,8 @@ import AdminMain from "./components/techtinker/AdminMain.jsx";
 import CheckOut from "./components/CheckOut.jsx";
 import CourseDetails from "./components/CourseDetails.jsx";
 import CourseAdd from "./components/CourseAdd.jsx";
+import CourseCRUD from "./components/CourseCRUD.jsx";
+import CourseUpdate from "./components/CourseUpdate.jsx";
 import StudentManagement from "./components/StudentManagement.jsx";
 
 const App = () => {
@@ -44,6 +46,8 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/courselist" element={<CourseList />} />
+                <Route path="/courseupdate" element={<CourseCRUD />} />
+                <Route path="/courseUpdate/:id" element={<CourseUpdate />} />
                 <Route path="/events" element={<Events />} />
                 <Route path="/courselist/:courseid" element={<CourseDetails />} />
                 <Route path="/courseadd" element={<CourseAdd />} />
