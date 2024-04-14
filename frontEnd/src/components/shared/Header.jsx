@@ -19,6 +19,7 @@ import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import { Adb as AdbIcon, ShoppingCart as ShoppingCartIcon, Menu as MenuIcon } from "@mui/icons-material";
 
 const pages = [
+
   {
     name: "Techtinker",
     link: "",
@@ -36,30 +37,15 @@ const pages = [
   { name: "CourseAdd", link: "courseadd" },
   { name: "Events", link: "events" },
   { name: "Register", link: "register" },
-  {name: "Student Management", link:"studentmanagement"},
+  { name: "StudentManagement", link: "studentmanagement" },
   { name: "About Us", link: "aboutus" }, // cab be deleted afterwards as link is inside techticke main
   { name: "Webstore", link: "webstore" },
 ];
 
-const webpages = [
-    { name: "Home", link: "" },
-    {
-        name: "Science",
-        link: "science",
-        sublinks: [
-            "Elementary School Science",
-            "Middle School Science",
-            "High Scool Science",
-            "Activity Books",
-            "Experiments",
-            "Lab Equipment",
-        ],
-    },
-    { name: "Technology", link: "technology" },
-    { name: "Engineering", link: "engineering" },
-    { name: "Mathematics", link: "mathematics" },
-    { name: "Robotics", link: "robotics" },
-    { name: "Contact Us", link: "contact-us" },
+
+const Header = ({ cartCount, handleAddToCart }) => { // Receive cartCount as props
+    const [anchorElNav, setAnchorElNav] = useState(null);
+    const [drawerOpen, setDrawerOpen] = useState(false);
 ];
 
 export default function Header() {
@@ -78,6 +64,7 @@ export default function Header() {
   const isEventPage = location.pathname === "/events";
   const isContactUsPage = location.pathname === "/contact-us";
   const isWebstorePage = location.pathname === "/webstore";
+
 
   const isSciencePage = location.pathname === "/science";
   const isTechnologyPage = location.pathname === "/technology";
@@ -172,6 +159,9 @@ export default function Header() {
           </Toolbar>
         </Box>
 
+    return (
+        <AppBar position="static">
+            <Container maxWidth="xl">
         <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
         <Typography
           variant="h5"
@@ -261,6 +251,7 @@ export default function Header() {
                     <ShoppingCartIcon />
                   </Button>
                 </Box>
+
                 <Box>
                   <Button sx={{ color: "white", display: "block", ml: 1 }}>
                     <MenuIcon onClick={() => setDrawerOpen(true)} />
@@ -272,6 +263,8 @@ export default function Header() {
       </Container>
 
       {/* Side Navigation Bar */}
+
+export default Header;
 
       <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer}>
         <List>

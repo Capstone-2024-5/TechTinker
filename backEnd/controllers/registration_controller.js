@@ -1,19 +1,16 @@
 // registration_controller.js
-const JuniorCourse = require("../models/juniorCourse");
-const SeniorCourse = require("../models/seniorCourse");
+
+
+const CourseModel = require("../models/course");
 const Registration = require("../models/registration");
 
 exports.fetchCourseDetails = async (req, res) => {
   try {
     const { Age } = req.query;
-    let courseDetails;
     const userAge = parseInt(Age);
+    const courseAgeGroup = userAge <= 8 ? "4-8" : "9-14";
 
-    if (userAge <= 8) {
-      courseDetails = await JuniorCourse.find({}, { CourseName: 1, _id: 0 });
-    } else {
-      courseDetails = await SeniorCourse.find({}, { CourseName: 1, _id: 0 });
-    }
+    const courseDetails = await CourseModel.find({ courseAge: courseAgeGroup }, { courseName: 1, _id: 0 });
 
     if (courseDetails.length === 0) {
       return res.status(404).json({ success: false, message: "No courses found for the given age group." });
