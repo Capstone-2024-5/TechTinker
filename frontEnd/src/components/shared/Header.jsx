@@ -38,6 +38,7 @@ const pages = [
     { name: "Events", link: "events" },
     { name: "Contact Us", link: "contact-us" },
     { name: "Register", link: "register" },
+    { name: "StudentManagement", link: "studentmanagement" },
     { name: "About Us", link: "aboutus" }, 
     { name: "Webstore", link: "webstore" },
 ];

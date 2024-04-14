@@ -33,66 +33,61 @@ const Checkout = ({ formData }) => {
   });
 
   const [netbankingDetails, setNetbankingDetails] = useState({
-  //  bankName: '',
     username: '',
     password: '',
+    bank: '', // Add this line
   });
 
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   
-
   const [paymentMethodError, setPaymentMethodError] = useState('');
   const [cardDetailsError, setCardDetailsError] = useState({});
   const [netbankingDetailsError, setNetbankingDetailsError] = useState({});
-  
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
 
   const validateForm = () => {
     let isValid = true;
     let cardErrors = {};
     let netbankingErrors = {};
-
-
+  
     if (!paymentMethod) {
       setPaymentMethodError('Select payment method');
       isValid = false;
     } else {
       setPaymentMethodError('');
     }
-
-//Validation for credit card/Debit card payment
+  
     if (paymentMethod === 'credit_card') {
-      if (!String(cardDetails.cardHolderName).trim()) {
+      if (!cardDetails.cardHolderName.trim()) {
         cardErrors.cardHolderName = 'Card holder name is required';
         isValid = false;
       }
-      if (!String(cardDetails.cardNumber).trim()) {
+      if (!cardDetails.cardNumber.trim()) {
         cardErrors.cardNumber = 'Card number is required';
         isValid = false;
       }
-      if (!String(cardDetails.expiryMonth).trim()) {
+      if (!cardDetails.expiryMonth.trim()) {
         cardErrors.expiryMonth = 'Expiry month is required';
         isValid = false;
       }
-      if (!String(cardDetails.expiryYear).trim()) {
+      if (!cardDetails.expiryYear.trim()) {
         cardErrors.expiryYear = 'Expiry year is required';
         isValid = false;
       }
-      if (!String(cardDetails.cvv).trim()) {
+      if (!cardDetails.cvv.trim()) {
         cardErrors.cvv = 'CVV is required';
         isValid = false;
       }
       setCardDetailsError(cardErrors);
-    }
-
-    // Netbanking validation
-    if (paymentMethod === 'net_banking') {
-      //  if (!String(netbankingDetails.bankName).trim()) {
-      //   netbankingErrors.bankName = 'Bank name is required';
-      //   isValid = false;
-      // } 
+    } else if (paymentMethod === 'net_banking') {
+      if (!netbankingDetails.bank.trim()) {
+        netbankingErrors.bank = 'Please select a bank';
+        isValid = false;
+      } else {
+        netbankingErrors.bank = '';
+      }
       if (!String(netbankingDetails.username).trim()) {
         netbankingErrors.username = 'Username is required';
         isValid = false;
@@ -103,7 +98,7 @@ const Checkout = ({ formData }) => {
       }
       setNetbankingDetailsError(netbankingErrors);
     }
-
+  
     return isValid;
   };
 
@@ -111,20 +106,16 @@ const Checkout = ({ formData }) => {
     setPaymentMethod(event.target.value);
   };
 
-
   const handleCardDetailsChange = (event) => {
     const { name, value } = event.target;
     let error = '';
   
     if (name === 'cardNumber') {
-      
       if (!/^\d*$/.test(value)) {
         error = 'Card number must contain only digits';
       } else if (value.length !== 16) {
-
         error = 'Card number must be 16 digits';
       }
-  
 
       setCardDetailsError((prevErrors) => ({
         ...prevErrors,
@@ -132,9 +123,7 @@ const Checkout = ({ formData }) => {
       }));
   
       if (!error) {
-
         const numericValue = value.replace(/\D/g, '');
-
         const formattedValue = numericValue.replace(/(.{4})/g, '$1 ').trim();
       
         setCardDetails((prevCardDetails) => ({
@@ -142,83 +131,60 @@ const Checkout = ({ formData }) => {
           [name]: formattedValue,
         }));
       } else {
-        
         setCardDetails((prevCardDetails) => ({
           ...prevCardDetails,
           [name]: value,
         }));
       }
     } else if (name === 'cvv') {
-
       if (!/^\d{3}$/.test(value)) {
         error = 'CVV must be 3 digits';
       }
-  
 
       setCardDetailsError((prevErrors) => ({
         ...prevErrors,
         [name]: error,
       }));
   
-
       setCardDetails((prevCardDetails) => ({
         ...prevCardDetails,
         [name]: value,
       }));
     } else {
-
       const trimmedValue = typeof value === 'string' ? value.trim() : value;
-  
-
-      if (name === 'expiryMonth' || name === 'expiryYear') {
-        if (!trimmedValue) {
-          error = 'This field is required';
-        }
-      } else {
-
-        if (!trimmedValue) {
-          error = 'This field is required';
-        }
+      if (!trimmedValue) {
+        error = 'This field is required';
       }
-  
 
       setCardDetailsError((prevErrors) => ({
         ...prevErrors,
         [name]: error,
       }));
   
-
       setCardDetails((prevCardDetails) => ({
         ...prevCardDetails,
         [name]: value,
       }));
     }
   };
-const handleNetbankingDetailsChange = (event) => {
-  const { name, value } = event.target;
-  let error = '';
-  
-/*   // Check if the bank name is not selected
-  if (!value.trim()) {
-    error = 'Select your bank';
-  }
-   */
 
-  setNetbankingDetailsError((prevErrors) => ({
-    ...prevErrors,
-    [name]: error,
-  }));
+  const handleNetbankingDetailsChange = (event) => {
+    const { name, value } = event.target;
+    let error = '';
   
-
-  if (!error) {
-    setNetbankingDetails((prevNetbankingDetails) => ({
-      ...prevNetbankingDetails,
-      [name]: value,
+    setNetbankingDetailsError((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
     }));
-  }
-};
-
   
+    if (!error) {
+      setNetbankingDetails((prevNetbankingDetails) => ({
+        ...prevNetbankingDetails,
+        [name]: value,
+      }));
+    }
+  };
+
   const handlePaymentSubmission = () => {
     const isValid = validateForm();
     if (isValid) {
@@ -261,52 +227,44 @@ const handleNetbankingDetailsChange = (event) => {
           <FormControl variant="outlined" fullWidth margin="normal">
             <InputLabel>Expiry Month</InputLabel>
             <Select
-  value={cardDetails.expiryMonth}
-  onChange={handleCardDetailsChange}
-  label="Expiry Month"
-  name="expiryMonth"
-  error={!!cardDetailsError.expiryMonth}
->
-  <MenuItem value="">Select</MenuItem>
-  {[...Array(12).keys()].map(month => (
-    <MenuItem key={month} value={month + 1}>{month + 1}</MenuItem>
-  ))}
-</Select>
-
-{cardDetailsError.expiryMonth && (
-  <Typography variant="caption" color="error">
-    {cardDetailsError.expiryMonth}
-  </Typography>
-)}
-
-
+              value={cardDetails.expiryMonth}
+              onChange={handleCardDetailsChange}
+              label="Expiry Month"
+              name="expiryMonth"
+              error={!!cardDetailsError.expiryMonth}
+            >
+              <MenuItem value="">Select</MenuItem>
+              {[...Array(12).keys()].map(month => (
+                <MenuItem key={month} value={month + 1}>{month + 1}</MenuItem>
+              ))}
+            </Select>
+            {cardDetailsError.expiryMonth && (
+              <Typography variant="caption" color="error">
+                {cardDetailsError.expiryMonth}
+              </Typography>
+            )}
           </FormControl>
         </Grid>
         <Grid item xs={6}>
           <FormControl variant="outlined" fullWidth margin="normal">
             <InputLabel>Expiry Year</InputLabel>
             <Select
-  value={cardDetails.expiryYear}
-  onChange={handleCardDetailsChange}
-  label="Expiry Year"
-  name="expiryYear"
-  error={!!cardDetailsError.expiryYear}
->
-  <MenuItem value="">Select</MenuItem>
-  {[...Array(10).keys()].map(year => (
-    <MenuItem key={year} value={new Date().getFullYear() + year}>{new Date().getFullYear() + year}</MenuItem>
-  ))}
-</Select>
-
-
-
-            {cardDetailsError.expiryMonth && (
-  <Typography variant="caption" color="error">
-    {cardDetailsError.expiryYear}
-  </Typography>
-)}
-
-
+              value={cardDetails.expiryYear}
+              onChange={handleCardDetailsChange}
+              label="Expiry Year"
+              name="expiryYear"
+              error={!!cardDetailsError.expiryYear}
+            >
+              <MenuItem value="">Select</MenuItem>
+              {[...Array(10).keys()].map(year => (
+                <MenuItem key={year} value={new Date().getFullYear() + year}>{new Date().getFullYear() + year}</MenuItem>
+              ))}
+            </Select>
+            {cardDetailsError.expiryYear && (
+              <Typography variant="caption" color="error">
+                {cardDetailsError.expiryYear}
+              </Typography>
+            )}
           </FormControl>
         </Grid>
       </Grid>
@@ -326,49 +284,46 @@ const handleNetbankingDetailsChange = (event) => {
   
   const NetbankingFields = (
     <>
-{/*  <FormControl variant="outlined" fullWidth margin="dense">
-  <InputLabel>Select Your Bank</InputLabel>
-  <Select
-    value={netbankingDetails.bankName}
-    onChange={handleNetbankingDetailsChange}
-    name="bankName"
-    error={!!netbankingDetailsError.bankName} 
-    helperText={netbankingDetailsError.bankName || ' '} 
-  >
-    {['RBC', 'TD', 'BMO', 'Scotiabank', 'CIBC'].map((bank) => (
-      <MenuItem key={bank} value={bank}>
-        {bank}
-      </MenuItem>
-    ))}
-  </Select>
-</FormControl>  */}
-
-<TextField
-  label="Username"
-  variant="outlined"
-  fullWidth
-  margin="normal"
-  name="username" 
-  value={netbankingDetails.username}
-  onChange={handleNetbankingDetailsChange} 
-  error={!!netbankingDetailsError.username}
-  helperText={netbankingDetailsError.username}
-/>
-
-<TextField
-  label="Password"
-  variant="outlined"
-  fullWidth
-  margin="normal"
-  name="password" 
-  type="password"
-  value={netbankingDetails.password}
-  onChange={handleNetbankingDetailsChange} 
-  error={!!netbankingDetailsError.password}
-  helperText={netbankingDetailsError.password}
-/>
-
-
+      <FormControl variant="outlined" fullWidth margin="normal">
+        <InputLabel>Select Bank</InputLabel>
+        <Select
+          value={netbankingDetails.bank}
+          onChange={(e) => setNetbankingDetails((prevNetbankingDetails) => ({
+            ...prevNetbankingDetails,
+            bank: e.target.value,
+          }))}
+          label="Select Bank"
+        >
+          <MenuItem value="">Select Bank</MenuItem>
+          <MenuItem value="Bank A">Bank A</MenuItem>
+          <MenuItem value="Bank B">Bank B</MenuItem>
+          <MenuItem value="Bank C">Bank C</MenuItem>
+          {/* Add more banks as needed */}
+        </Select>
+      </FormControl>
+      <TextField
+        label="Username"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        name="username" 
+        value={netbankingDetails.username}
+        onChange={handleNetbankingDetailsChange} 
+        error={!!netbankingDetailsError.username}
+        helperText={netbankingDetailsError.username}
+      />
+      <TextField
+        label="Password"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        name="password" 
+        type="password"
+        value={netbankingDetails.password}
+        onChange={handleNetbankingDetailsChange} 
+        error={!!netbankingDetailsError.password}
+        helperText={netbankingDetailsError.password}
+      />
     </>
   );
 
@@ -415,7 +370,7 @@ const handleNetbankingDetailsChange = (event) => {
           </Typography>
 
           <Typography variant="body1" gutterBottom>
-            <strong>HST:</strong> ${RegistrationType === 'introductory' ? 24.99 * 0.13 : 436.95 * 0.13}
+            <strong>HST:</strong> ${RegistrationType === 'introductory' ? (24.99 * 0.13).toFixed(2) : (436.95 * 0.13).toFixed(2)}
           </Typography>
 
           <Typography variant="body1" gutterBottom>
