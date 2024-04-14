@@ -46,7 +46,6 @@ export default function CourseDetails() {
             variant="h4"
             fontWeight={"bold"}
             className="fontWeight-800 fontMontserrat textSecondary"
-            sx={{ mt: 6 }}
           >
             {data.courseName}
           </Typography>
@@ -103,7 +102,7 @@ export default function CourseDetails() {
             variant="contained"
             sx={{ marginTop: "1rem" }}
             className="btnPrimary"
-            onClick={() => {navigate('/register')}}
+            onClick={() => {navigate(`/register?name=${data.courseName}`)}}
           >
             Register Now
           </Button>

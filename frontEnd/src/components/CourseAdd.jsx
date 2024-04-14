@@ -5,6 +5,7 @@ import { Box, IconButton, Stack } from "@mui/material";
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 import { FormControl, FormLabel } from "@mui/material";
 import JoditEditor from "jodit-react";
 import MenuItem from "@mui/material/MenuItem";
@@ -35,6 +36,7 @@ const style = {
 
 export default function CourseAdd() {
     const editor = useRef(null);
+    const navigate = useNavigate();
     const [courseName, setCourseName] = useState("");
     const [courseCode, setCourseCode] = useState("");
     const [content, setContent] = useState("");
@@ -115,6 +117,7 @@ export default function CourseAdd() {
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
         setSubmissionStatus("Course Added successfully!");
+        navigate('/courselist');
     }
 
     return (
@@ -133,7 +136,7 @@ export default function CourseAdd() {
                 <Stack
                     margin={"auto"}
                     direction={"column"}
-                    width={700}
+                    width={"50%"}
                     padding={4}
                     sx={{ mb: 6 }}
                 >

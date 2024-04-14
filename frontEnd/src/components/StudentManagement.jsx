@@ -1,7 +1,12 @@
-// StudentManagement.jsx
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Table from "@mui/material/Table";
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+
 
 const StudentManagement = () => {
   const [students, setStudents] = useState([]);
@@ -20,7 +25,7 @@ const StudentManagement = () => {
   };
   const tableStyle = {
     border: '1px solid teal',
-    width: '100%',
+    width: '80%',
     marginBottom: '20px'
   };
 
@@ -44,8 +49,8 @@ const StudentManagement = () => {
 
   return (
     <div>
-      <h1 style={dashboardStyle}>Student Dashboard</h1>
-      <table style={tableStyle}>
+      <h1 style={dashboardStyle}>Registered Students Dashboard</h1>
+      <Table style={tableStyle} sx={{margin:"auto"}}>
         <thead>
           <tr>
             <th style={headerStyle}>First Name</th>
@@ -85,7 +90,7 @@ const StudentManagement = () => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 };

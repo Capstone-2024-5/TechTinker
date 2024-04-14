@@ -98,7 +98,7 @@ export default function Header() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" className="header">
       <Container maxWidth="xl">
         <Box>
           <Toolbar disableGutters>
@@ -118,7 +118,7 @@ export default function Header() {
                     {(popupState) => (
                       <React.Fragment>
                         <Button
-                          className="headerLink fontWeight-800"
+                          className="logobtn headerLink fontWeight-800"
                           {...bindTrigger(popupState)}
                         >
                           {page.name}
