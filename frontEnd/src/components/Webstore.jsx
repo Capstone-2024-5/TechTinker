@@ -16,7 +16,7 @@ const Webstore = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:4000/products/?page=${page}&limit=${pageSize}`);
+        const response = await axios.get(`https://techtinker-1.onrender.com/products/?page=${page}&limit=${pageSize}`);
         setProducts(response.data); // Replace existing products with newly fetched products
         setErrorMsg('');
       } catch (error) {

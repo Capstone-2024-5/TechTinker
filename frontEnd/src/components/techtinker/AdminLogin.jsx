@@ -18,7 +18,7 @@ const LoginForm = () => {
     if(!isValid) return;
   
     try {
-      const response = await axios.post("http://localhost:4000/admin", {
+      const response = await axios.post("https://techtinker-1.onrender.com/admin", {
         username,
         password
       });

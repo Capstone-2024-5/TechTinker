@@ -17,7 +17,7 @@ const StudentManagement = () => {
 
   const fetchStudents = async () => {
     try {    
-      const response = await axios.get('http://localhost:4000/students');      
+      const response = await axios.get('https://techtinker-1.onrender.com/students');      
       setStudents(response.data); 
     } catch (error) {
       

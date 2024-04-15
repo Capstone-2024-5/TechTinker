@@ -14,7 +14,7 @@ const Faqs = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:4000/faqs")
+            .get("https://techtinker-1.onrender.com/faqs")
             .then((response) => {
                 if (response.data.success) {
                     setFaqs(response.data.data);
