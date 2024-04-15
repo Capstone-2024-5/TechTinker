@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
-
 import {
   TextField,
   FormControl,
@@ -54,20 +52,24 @@ const Register = ({ handleFormData }) => {
     }
   }, [formData.Age]);
 
-  const fetchCourseNames = () => {
-    axios.get('http://localhost:4000/api/courseDetails', {
-      params: {
-        Age: formData.Age,
-      }
-    })
-      .then(response => {
-        setCourseNames(response.data.courseDetails);
-      })
-      .catch(error => {
-        console.error('Error fetching course details:', error);
+  const fetchCourseNames = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/courseDetails', {
+        params: {
+          Age: formData.Age,
+        }
       });
+      console.log('Response from backend:', response.data);
+      console.log('Course details:', response.data.courseDetails);
+      const courseNamesArray = response.data.courseDetails.map(course => course.courseName);
+      console.log('Extracted course names:', courseNamesArray);
+      setCourseNames(courseNamesArray);
+    } catch (error) {
+      console.error('Error fetching course details:', error);
+    }
   };
-
+  
+  
   const handleDateChange = (date, field) => {
     setFormData(prevData => ({
       ...prevData,
@@ -462,26 +464,33 @@ const Register = ({ handleFormData }) => {
             {formData.RegistrationType === 'introductory' && (
               <Grid container spacing={2}>
                 <Grid item xs={6}>
-                  <FormControl fullWidth margin="normal">
-                    <InputLabel>Course Name</InputLabel>
-                    <Select
+                {courseNames.length > 0 ? (
+  <FormControl fullWidth margin="normal">
+    <InputLabel>Course Name</InputLabel>
+    <Select
   label="Course Name"
   name="Introductory_CourseDetails.CourseName"
   value={formData.Introductory_CourseDetails.CourseName}
   onChange={handleInputChange}
   error={!!formErrors.CourseName} 
 >
-  {courseNames.map(course => (
-    <MenuItem key={course.CourseName} value={course.CourseName}>{course.CourseName}</MenuItem>
+  {courseNames.map((course, index) => (
+    <MenuItem key={index} value={course}>
+      {course}
+    </MenuItem>
   ))}
 </Select>
-{formErrors.CourseName && (
-    <Typography variant="caption" color="error">
-      {formErrors.CourseName}
-    </Typography>
-  )}
 
-                  </FormControl>
+    {formErrors.CourseName && (
+      <Typography variant="caption" color="error">
+        {formErrors.CourseName}
+      </Typography>
+    )}
+  </FormControl>
+) : (
+  <p>Loading...</p>
+)}
+
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
@@ -541,10 +550,13 @@ const Register = ({ handleFormData }) => {
   onChange={handleInputChange}
   error={!!formErrors.CourseName} 
 >
-  {courseNames.map(course => (
-    <MenuItem key={course.CourseName} value={course.CourseName}>{course.CourseName}</MenuItem>
+  {courseNames.map((course, index) => (
+    <MenuItem key={index} value={course}>
+      {course}
+    </MenuItem>
   ))}
 </Select>
+
 {formErrors.CourseName && (
     <Typography variant="caption" color="error">
       {formErrors.CourseName}

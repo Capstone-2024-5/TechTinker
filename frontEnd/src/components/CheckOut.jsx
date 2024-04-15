@@ -33,7 +33,7 @@ const Checkout = ({ formData }) => {
   });
 
   const [netbankingDetails, setNetbankingDetails] = useState({
-  //  bankName: '',
+    bankName: '',
     username: '',
     password: '',
   });
@@ -87,12 +87,9 @@ const Checkout = ({ formData }) => {
       setCardDetailsError(cardErrors);
     }
 
-    // Netbanking validation
+
     if (paymentMethod === 'net_banking') {
-      //  if (!String(netbankingDetails.bankName).trim()) {
-      //   netbankingErrors.bankName = 'Bank name is required';
-      //   isValid = false;
-      // } 
+
       if (!String(netbankingDetails.username).trim()) {
         netbankingErrors.username = 'Username is required';
         isValid = false;
@@ -198,11 +195,6 @@ const handleNetbankingDetailsChange = (event) => {
   const { name, value } = event.target;
   let error = '';
   
-/*   // Check if the bank name is not selected
-  if (!value.trim()) {
-    error = 'Select your bank';
-  }
-   */
 
   setNetbankingDetailsError((prevErrors) => ({
     ...prevErrors,
@@ -326,51 +318,56 @@ const handleNetbankingDetailsChange = (event) => {
   
   const NetbankingFields = (
     <>
-{/*  <FormControl variant="outlined" fullWidth margin="dense">
-  <InputLabel>Select Your Bank</InputLabel>
-  <Select
-    value={netbankingDetails.bankName}
-    onChange={handleNetbankingDetailsChange}
-    name="bankName"
-    error={!!netbankingDetailsError.bankName} 
-    helperText={netbankingDetailsError.bankName || ' '} 
-  >
-    {['RBC', 'TD', 'BMO', 'Scotiabank', 'CIBC'].map((bank) => (
-      <MenuItem key={bank} value={bank}>
-        {bank}
-      </MenuItem>
-    ))}
-  </Select>
-</FormControl>  */}
-
-<TextField
-  label="Username"
-  variant="outlined"
-  fullWidth
-  margin="normal"
-  name="username" 
-  value={netbankingDetails.username}
-  onChange={handleNetbankingDetailsChange} 
-  error={!!netbankingDetailsError.username}
-  helperText={netbankingDetailsError.username}
-/>
-
-<TextField
-  label="Password"
-  variant="outlined"
-  fullWidth
-  margin="normal"
-  name="password" 
-  type="password"
-  value={netbankingDetails.password}
-  onChange={handleNetbankingDetailsChange} 
-  error={!!netbankingDetailsError.password}
-  helperText={netbankingDetailsError.password}
-/>
-
-
+      <FormControl variant="outlined" fullWidth margin="normal">
+        <InputLabel>Select Bank</InputLabel>
+        <Select
+          value={netbankingDetails.bankName}
+          onChange={handleNetbankingDetailsChange}
+          label="Select Bank"
+          name="bankName"
+          error={!!netbankingDetailsError.bankName}
+        >
+          <MenuItem value="">Select Bank</MenuItem>
+          <MenuItem value="TD">TD</MenuItem>
+          <MenuItem value="RBC">RBC</MenuItem>
+          <MenuItem value="Scotiabank">Scotiabank</MenuItem>
+          <MenuItem value="CIB">CIBC</MenuItem>
+          <MenuItem value="Others">Others</MenuItem>
+        </Select>
+        {netbankingDetailsError.bankName && (
+          <Typography variant="caption" color="error">
+            {netbankingDetailsError.bankName}
+          </Typography>
+        )}
+      </FormControl>
+  
+      <TextField
+        label="Username"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        name="username" 
+        value={netbankingDetails.username}
+        onChange={handleNetbankingDetailsChange} 
+        error={!!netbankingDetailsError.username}
+        helperText={netbankingDetailsError.username}
+      />
+  
+      <TextField
+        label="Password"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        name="password" 
+        type="password"
+        value={netbankingDetails.password}
+        onChange={handleNetbankingDetailsChange} 
+        error={!!netbankingDetailsError.password}
+        helperText={netbankingDetailsError.password}
+      />
     </>
   );
+  
 
   return (
     <Grid container justifyContent="center">

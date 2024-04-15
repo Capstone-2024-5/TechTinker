@@ -116,6 +116,17 @@ body{
     color : var(--tertiary-color) !important;
 }
 
+.header{
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logobtn{
+    font-size: 16px !important;
+}
+
 .headerLink {
     color: var(--white) !important;
     text-decoration: none !important;
@@ -123,8 +134,8 @@ body{
 }
 
 .headerLink p {
-    font-size: 14px;
-    margin-top: 3px;
+    font-size: 1rem;
+    margin-top: 1px;
 }
 
 .subHeaderLink p {
@@ -184,7 +195,6 @@ footer {
     margin-bottom: 50px; */
     margin: auto;
     align-content: center;
-    margin-top: 50px;
     margin-bottom: 50px;
     padding: 35px;
     flex: 1;

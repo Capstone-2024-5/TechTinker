@@ -1,11 +1,11 @@
 import React, { useId } from "react";
-import { useState, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { Box, IconButton, Stack } from "@mui/material";
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
 import { FormControl, FormLabel } from "@mui/material";
 import JoditEditor from "jodit-react";
 import MenuItem from "@mui/material/MenuItem";
@@ -34,9 +34,10 @@ const style = {
     p: 4,
 };
 
-export default function CourseAdd() {
-    const editor = useRef(null);
+export default function CourseUpdate() {
+    const {id} = useParams();
     const navigate = useNavigate();
+    const editor = useRef(null);
     const [courseName, setCourseName] = useState("");
     const [courseCode, setCourseCode] = useState("");
     const [content, setContent] = useState("");
@@ -49,11 +50,55 @@ export default function CourseAdd() {
     const [courseDuration, setCourseDuration] = useState("");
     const [slots, setSlots] = useState([]);
     const [submissionStatus, setSubmissionStatus] = useState("");
-    const [file, setFile] = useState();
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const Update = (event) =>{
+        event.preventDefault();
+        console.log(
+            courseName,
+            courseCode,
+            content,
+            courseAge,
+            courseFees,
+            courseIntroFees,
+            slots,
+            courseDuration
+        );
+        axios
+            .put(`http://localhost:4000/updateCourse/${id}`, {
+                courseName,
+                courseCode,
+                content,
+                courseAge,
+                courseFees,
+                courseIntroFees,
+                slots,
+                courseDuration,
+            })
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+        setSubmissionStatus("Updated successfully!");        
+    }
+
+    useEffect(() => {
+        axios
+          .get(`http://localhost:4000/getCourse/${id}`)
+          .then((result) => {
+            console.log(result.data.courseName)
+            setCourseName(result.data.courseName)
+            setCourseCode(result.data.courseCode)
+            setContent(result.data.content)
+            setCourseAge(result.data.courseAge)
+            setCourseFees(result.data.courseFees)
+            setCourseIntroFees(result.data.courseIntroFees)
+            setSlots(result.data.slots)
+            setCourseDuration(result.data.courseDuration)
+          })
+          .catch((err) => console.log(err));
+      }, []);
 
     const addSlot = () => {
         setSlots([
@@ -74,24 +119,10 @@ export default function CourseAdd() {
 
     function handleSubmit(event) {
         event.preventDefault();
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('courseName', courseName); // Append other form fields
-        formData.append('courseCode', courseCode);
-        formData.append('content', content);
-        formData.append('courseAge', courseAge);
-        formData.append('courseFees', courseFees);
-        formData.append('courseIntroFees', courseIntroFees);
-        formData.append('slots', JSON.stringify(slots)); // Convert slots to string
-        formData.append('courseDuration', courseDuration);
-        formData.forEach((value, key) => {
-            console.log(key + ': ' + value);
-        });    
         console.log(
             courseName,
             courseCode,
             content,
-            formData,
             courseAge,
             courseFees,
             courseIntroFees,
@@ -100,24 +131,19 @@ export default function CourseAdd() {
         );
 
         axios
-            .post("http://localhost:4000/addcourse", 
-            // {
-            //     courseName,
-            //     courseCode,
-            //     formData,
-            //     content,
-            //     courseAge,
-            //     courseFees,
-            //     courseIntroFees,
-            //     slots,
-            //     courseDuration,
-            // } 
-            formData
-            )
+            .post("http://localhost:4000/addcourse", {
+                courseName,
+                courseCode,
+                content,
+                courseAge,
+                courseFees,
+                courseIntroFees,
+                slots,
+                courseDuration,
+            })
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
         setSubmissionStatus("Course Added successfully!");
-        navigate('/courselist');
     }
 
     return (
@@ -129,14 +155,14 @@ export default function CourseAdd() {
                     className="fontWeight-800 fontMontserrat textSecondary"
                     sx={{ my: 6 }}
                 >
-                    Add a Course
+                    Update Course
                 </Typography>
             </Box>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={Update}>
                 <Stack
                     margin={"auto"}
                     direction={"column"}
-                    width={"50%"}
+                    width={700}
                     padding={4}
                     sx={{ mb: 6 }}
                 >
@@ -156,6 +182,7 @@ export default function CourseAdd() {
                                 color="primary"
                                 required
                                 sx={{ flex: "1" }}
+                                value={courseName}
                                 onChange={(e) => setCourseName(e.target.value)}
                             ></TextField>
                         </Stack>
@@ -175,20 +202,9 @@ export default function CourseAdd() {
                                 color="primary"
                                 required
                                 sx={{ flex: "1" }}
+                                value={courseCode}
                                 onChange={(e) => setCourseCode(e.target.value)}
                             ></TextField>
-                        </Stack>
-
-                        <Stack
-                            direction={"row"}
-                            flexWrap={"wrap"}
-                            alignItems={"center"}
-                            marginBottom={3}
-                        >
-                            <FormLabel sx={{ flex: "1" }}>
-                                Upload an Image
-                            </FormLabel>
-                            <input type="file" onChange={e => setFile(e.target.files[0])}></input>
                         </Stack>
 
                         <Stack direction={"column"} marginBottom={3} gap={1}>
@@ -243,6 +259,7 @@ export default function CourseAdd() {
                                 color="primary"
                                 required
                                 sx={{ flex: "1" }}
+                                value={courseFees}
                                 onChange={(e) => setCourseFees(e.target.value)}
                             ></TextField>
                         </Stack>
@@ -260,6 +277,7 @@ export default function CourseAdd() {
                                 variant="outlined"
                                 color="primary"
                                 sx={{ flex: "1" }}
+                                value={courseIntroFees}
                                 onChange={(e) =>
                                     setCourseIntroFees(e.target.value)
                                 }
@@ -432,6 +450,7 @@ export default function CourseAdd() {
                                 color="primary"
                                 required
                                 sx={{ flex: "1" }}
+                                value={courseDuration}
                                 onChange={(e) =>
                                     setCourseDuration(e.target.value)
                                 }
