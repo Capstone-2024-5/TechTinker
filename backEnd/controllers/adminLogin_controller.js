@@ -1,32 +1,44 @@
-const bcrypt = require('bcrypt');
+// const adminModel = require('../models/adminLogin_model');
+
+// const adminlogin = async (req, res) => {
+//   try {
+//     // Check if the username already exists
+//     const existingAdmin = await adminModel.findOne({ username: req.body.username });
+//     if (existingAdmin) {
+//       return res.status(400).json({ message: 'Username already exists' });
+//     } else {
+//       // If the username does not exist, throw a validation message
+//       return res.status(400).json({ message: 'Username not found' });
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// };
+
+// module.exports = adminlogin;
+
 const adminModel = require('../models/adminLogin_model');
-const express = require("express");
-const app = express();
 
-const adminlogin = app.post(async (req, res) => {
-  const { username, password } = req.body;
-
+const adminlogin = async (req, res) => {
   try {
-    const admin = await adminModel.findOne({ username });
+    console.log('Request Body:', req.body);
 
-    if (!admin) {
-      // return res.status(401).json({ message: 'Invalid credentials' });
-      return res.status(401).json('notexist');
+    // Check if the username already exists
+    const existingAdmin = await adminModel.findOne({ username: req.body.username });
+    console.log('Existing Admin:', existingAdmin);
+
+    if (existingAdmin) {
+      return res.status(200).json({ message: 'Username already exists' });
+    } else {
+      // If the username does not exist, throw a validation message
+      return res.status(400).json({ message: 'Username not found' });
     }
-
-    const validPassword = await bcrypt.compare(password, adminModel.password);
-
-    if (!validPassword) {
-      // return res.status(401).json({ message: 'Invalid credentials' });
-      return res.status(401).json('notexist');
-    }
-
-    // res.json({ message: 'Login successful' });
-    res.json('exist');
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
-});
+};
 
 module.exports = adminlogin;
+

@@ -77,7 +77,9 @@ export default function Footer() {
                     >
                         {"Copyright © "}
                         <Link color="inherit" href="https://your-website.com/">
-                            Your Website
+                        
+                            <span style={{color: '#ff4500'}}>TECH</span><span style={{ color: '#4b0082' }}>TINKER</span>
+                        
                         </Link>{" "}
                         {new Date().getFullYear()}
                         {"."}

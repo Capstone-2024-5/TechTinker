@@ -21,6 +21,7 @@ import CourseAdd from "./components/CourseAdd.jsx";
 import CourseCRUD from "./components/CourseCRUD.jsx";
 import CourseUpdate from "./components/CourseUpdate.jsx";
 import StudentManagement from "./components/StudentManagement.jsx";
+import AdminDashboard from "./components/techtinker/AdminDashBoard.jsx";
 
 const App = () => {
     // Define state to store form data
@@ -60,6 +61,7 @@ const App = () => {
                 <Route path="/admin_main" element={<AdminMain/>} />
                 <Route path="/checkout" element={<CheckOut formData={formData} />} />
                 <Route path="/StudentManagement" element={<StudentManagement/> } />
+                <Route path="/admin_dashboard" element={<AdminDashboard/>}/>
             </Routes>
             <Footer />
         </Router>
