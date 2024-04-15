@@ -1,22 +1,12 @@
-const UploadProduct = require("../models/adminProduct_model");
+const UploadProduct = require("../models/products"); 
 
-exports.postUploadProduct = async (req, res) => {
-  // console.log(req);
-
-  try {
+const postUploadProduct = async (req, res) => {
+  console.log(req);
     const getUploadProduct = req.body;
-    const newUploadProduct = new UploadProduct(getUploadProduct
-    //   {
-    //   Name: req.body.Name,
-    //   Price: req.body.Price,
-    //   CategoryName: req.body.CategoryName,
-    //   Description: req.body.Description,
-    //   ImageUrl: req.body.ImageUrl
-    // }
-    );
-
+  try {
+    
+    const newUploadProduct = new UploadProduct(getUploadProduct);
     await newUploadProduct.save();
-    // return res.send(newUploadProduct);
     res.status(201).json({success: true, data: newUploadProduct});
     
   } catch (error) {
@@ -25,4 +15,4 @@ exports.postUploadProduct = async (req, res) => {
   }
 };
 
-// module.exports = { postUploadProduct };
+module.exports = { postUploadProduct };

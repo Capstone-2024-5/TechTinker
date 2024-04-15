@@ -1,115 +1,7 @@
-// import React, {useRef, useState, useEffect } from "react";
-// import axios from "axios";
-// import { useLocation, useNavigate } from "react-router-dom";
-// import { TextField, Button, Typography, Container, Grid } from "@mui/material";
-
-// const AdminDashboardForm = () => {
-//   const [imageFile, setImageFile] = useState(null);
-//   const [productName, setProductName] = useState("");
-//   const [description, setDescription] = useState("");
- 
-//   const [price, setPrice] = useState(0);
-//   const location = useLocation();
-//   const history = useNavigate();
-//   const formRef = useRef(null);
-
-
-//   const handleImageChange = (e) => {
-//     setImageFile(e.target.files[0]);
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     const formData = new FormData(formRef.current);
-//     const data = {};
-//       formData.forEach((value, key) => {
-//           data[key] = value;
-//       });
-//     try {
-           
-//       // Send product data to backend API
-//       const response = await axios.post(
-//         "http://localhost:4000/products", 
-//         data
-//       );
-
-//       // Handle success or display error message
-//       console.log(response.data);
-//       if (response.data.success) {
-//         // Handle success, maybe navigate to a new page or show a success message
-//         console.log("Product added successfully with ID:", response.data.data._id);
-//       } else {
-//         // Handle failure, maybe show an error message
-//         console.error("Failed to add product");
-//       }
-//     } catch (error) {
-//       console.error("Error:", error);
-//     }
-//   };
-
-//   const handleSignOut = () => {
-//     // Implement sign-out functionality, e.g., clear session, redirect to login page
-//     history("/admin_login");
-//   };
-
-//   return (
-//     <Container maxWidth="sm">
-//       <Typography variant="h5">Welcome {location.state.id}</Typography>
-//       <form ref={formRef} onSubmit={handleSubmit}>
-//         <Grid container spacing={2}>
-//           <Grid item xs={12}>
-//             <input
-//               type="file"
-//               accept="image/*"
-//               onChange={handleImageChange}
-//             />
-//           </Grid>
-//           <Grid item xs={12}>
-//             <TextField
-//               fullWidth
-//               label="Product Name"
-//               value={productName}
-//               onChange={(e) => setProductName(e.target.value)}
-//             />
-//           </Grid>
-//           <Grid item xs={12}>
-//             <TextField
-//               fullWidth
-//               label="Description"
-//               multiline
-//               rows={4}
-//               value={description}
-//               onChange={(e) => setDescription(e.target.value)}
-//             />
-//           </Grid>
-      
-//           <Grid item xs={6}>
-//             <TextField
-//               fullWidth
-//               label="Price"
-//               type="number"
-//               value={price}
-//               onChange={(e) => setPrice(parseFloat(e.target.value))}
-//             />
-//           </Grid>
-//           <Grid item xs={12}>
-//             <Button type="submit" variant="contained" color="primary">
-//               Add Product
-//             </Button>
-//           </Grid>
-//         </Grid>
-//       </form>
-//       <Button onClick={handleSignOut} variant="outlined" color="primary">Sign Out</Button>
-//     </Container>
-//   );
-// };
-
-// export default AdminDashboardForm;
-
-
 import React, { useRef, useState } from "react";
 import axios from "axios";
 import { TextField, Button, Typography, Container, Grid } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const AdminDashboardForm = () => {
   const [product, setProduct] = useState({
@@ -120,7 +12,8 @@ const AdminDashboardForm = () => {
     ImageUrl: ""
   });
 
-  const formRef = useRef(null);
+  const [formErrors, setFormErrors] = useState({}); // State for form errors
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -130,12 +23,11 @@ const AdminDashboardForm = () => {
     }));
   };
 
-  const handleImageChange = (e) => {
-    // Handle image upload here if needed
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const isValid = validateForm(); // Validate form before submission
+    if (!isValid) return;
+
     try {
       // Send product data to backend API
       const response = await axios.post(
@@ -144,16 +36,76 @@ const AdminDashboardForm = () => {
       );
 
       // Handle success or display error message
-      console.log(response.data);
+      // console.log(response.data);
+
+      setSuccessMessage("Product added successfully!");
+      // Clear the form
+      setProduct({
+        Name: "",
+        Price: "",
+        CategoryName: "",
+        Description: "",
+        ImageUrl: ""
+      });
+
+      // Remove success message after 3 seconds
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 5000);
+
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
+  // Function to validate form fields
+  const validateForm = () => {
+    let errors = {};
+    let formIsValid = true;
+
+    // Add validation rules for each field
+    if (!product.Name) {
+      formIsValid = false;
+      errors.Name = "Product Name is required";
+    }
+
+    if (!product.Price) {
+      formIsValid = false;
+      errors.Price = "Price is required";
+    }
+
+    if(!product.CategoryName){
+      formIsValid = false;
+      errors.CategoryName = "Category Name is required";
+    }
+
+    if(!product.Description){
+      formIsValid = false;
+      errors.Description = "Description is required";
+    }
+
+    if(!product.ImageUrl){
+      formIsValid = false;
+      errors.ImageUrl = "Image URL is required";
+    }
+
+    setFormErrors(errors); // Update state with errors
+    return formIsValid;
+  };
+
   return (
     <Container maxWidth="sm">
-      <Typography variant="h5">Add Product</Typography>
-      <form ref={formRef} onSubmit={handleSubmit}>
+      <Typography variant="h4" gutterBottom sx={{ color: '#ff4500', fontWeight: 'bold', marginBottom: '40px', paddingTop: '25px', textAlign: 'center' }}>
+        ADD<span style={{ color: '#4b0082' }}> PRODUCT</span>
+      </Typography>
+
+      {successMessage && (
+            <Grid item xs={12} textAlign="center">
+              <Typography variant="body1" style={{ color: 'Red', marginBottom: '10px' }}>{successMessage}</Typography>
+            </Grid>
+          )}
+          
+      <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -162,6 +114,8 @@ const AdminDashboardForm = () => {
               name="Name"
               value={product.Name}
               onChange={handleChange}
+              error={!!formErrors.Name} // Set error state based on validation
+              helperText={formErrors.Name} // Display error message if any
             />
           </Grid>
           <Grid item xs={12}>
@@ -172,6 +126,8 @@ const AdminDashboardForm = () => {
               type="number"
               value={product.Price}
               onChange={handleChange}
+              error={!!formErrors.Price}
+              helperText={formErrors.Price}
             />
           </Grid>
           <Grid item xs={12}>
@@ -181,6 +137,8 @@ const AdminDashboardForm = () => {
               name="CategoryName"
               value={product.CategoryName}
               onChange={handleChange}
+              error={!!formErrors.CategoryName}
+              helperText={formErrors.CategoryName}
             />
           </Grid>
           <Grid item xs={12}>
@@ -192,6 +150,8 @@ const AdminDashboardForm = () => {
               rows={4}
               value={product.Description}
               onChange={handleChange}
+              error={!!formErrors.Description}
+              helperText={formErrors.Description}
             />
           </Grid>
           <Grid item xs={12}>
@@ -201,13 +161,21 @@ const AdminDashboardForm = () => {
               name="ImageUrl"
               value={product.ImageUrl}
               onChange={handleChange}
+              error={!!formErrors.ImageUrl}
+              helperText={formErrors.ImageUrl}
             />
           </Grid>
-          <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">
+          <Grid item xs={12} textAlign="center" marginBottom={"20px"} >
+            <Button type="submit" variant="contained" color="primary" style={{ marginRight: '20px' }}>
               Add Product
             </Button>
+            <Link to={"/admin_dashboard"}>
+              <Button type="submit" variant="contained" color="primary">
+                Dashboard
+              </Button>
+            </Link>
           </Grid>
+          
         </Grid>
       </form>
     </Container>

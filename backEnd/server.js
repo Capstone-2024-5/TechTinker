@@ -12,8 +12,8 @@ const { registerUser } = require("./controllers/registration_controller");
 const productRouter= require("./routes/products_route");
 const eventRouter = require("./routes/events_route");
 const studentManagementRouter = require("./routes/student_management_route");
-const adminModel = require("./models/adminLogin_model");
 const postUploadProduct = require("./routes/adminProduct_route");
+const adminLoginRouter = require("./routes/adminLogin_route");
 
 app.use(cors({ origin: "*" }));
 
@@ -21,7 +21,8 @@ app.use(express.json());
 
 const PORT = process.env.API_SERVER_PORT || 5000;
 
-// app.use(adminRoute);
+// Use the admin login route
+app.use("", adminLoginRouter);
 app.use("/user", userRouter);
 app.use("", techTinkerRouter);
 app.use("", postUploadProduct);
@@ -48,32 +49,6 @@ app.get('/getcourseList', (req, res) =>{
     .catch(err => res.json(err))
 });
 
-// app.get('./singlecoursedetails', (req, res) =>{
-//     CourseModel.findOne('65e796eb466d66e46a408dcb')
-//     .then((singleCourse => res.json(singleCourse)))
-//     .catch(err => res.json(err))
-// })
-
-app.get("/admin_login", cors(), (req, res) => {
-
-})
-
-app.post("/admin_login", async(req, res)=>{
-    const {username, password} = req.body;
-
-    try{
-        const check = await adminModel.findOne({username:username});
-
-        if(!check){
-            res.json("notexist");
-        }else{
-
-            res.json("exist");
-        }
-    }catch (e){
-        console.log("fail");
-    }
-})
 
 
 app.listen(PORT, console.log(`Server API running on port ${PORT}`));
