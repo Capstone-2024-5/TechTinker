@@ -54,7 +54,7 @@ const Register = ({ handleFormData }) => {
 
   const fetchCourseNames = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/courseDetails', {
+      const response = await axios.get('https://techtinker-1.onrender.com/api/courseDetails', {
         params: {
           Age: formData.Age,
         }
@@ -175,7 +175,7 @@ const Register = ({ handleFormData }) => {
       };
     }
 
-    axios.post('http://localhost:4000/api/register', requestData)
+    axios.post('https://techtinker-1.onrender.com/api/register', requestData)
     .then(response => {
       console.log('Registration successful:', response.data);
       setRegistrationSuccess(true);

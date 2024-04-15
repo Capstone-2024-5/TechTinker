@@ -63,7 +63,7 @@ export default function Home() {
         });
         try {
             const response = await axios.post(
-                "http://localhost:4000/subscribe",
+                "https://techtinker-1.onrender.com/subscribe",
                 data
             );
             setOpen(false);

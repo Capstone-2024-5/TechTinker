@@ -15,7 +15,7 @@ export default function CourseDetails() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/singlecoursedetails?id=${courseid}`)
+      .get(`https://techtinker-1.onrender.com/singlecoursedetails?id=${courseid}`)
       .then((courseData) => setCourseData([courseData.data]))
       .catch((err) => console.log(err));
   }, []);
@@ -26,7 +26,7 @@ export default function CourseDetails() {
     return (
       <>
         <img
-          src={`http://localhost:4000/images/${data.image}`}
+          src={`https://techtinker-1.onrender.com/images/${data.image}`}
           width={"25%"}
           height={"25%"}
           alt="blank"
@@ -124,7 +124,7 @@ export default function CourseDetails() {
           padding={3}
         >
           {/* <img
-            src={`http://localhost:4000/images/${coursedata.image}`}
+            src={`https://techtinker-1.onrender.com/images/${coursedata.image}`}
             width={400}
             height={250}
             alt="blank"

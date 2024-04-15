@@ -11,7 +11,7 @@ export default function CourseList() {
 
     useEffect(() => {
         axios
-            .get("http://localhost:4000/getcourseList")
+            .get("https://techtinker-1.onrender.com/getcourseList")
             .then((courses) => setcourses(courses.data))
             .catch((err) => console.log(err));
     }, []);

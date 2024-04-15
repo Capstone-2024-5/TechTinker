@@ -31,7 +31,7 @@ const AdminDashboardForm = () => {
     try {
       // Send product data to backend API
       const response = await axios.post(
-        "http://localhost:4000/addproduct",
+        "https://techtinker-1.onrender.com/addproduct",
         product
       );
 

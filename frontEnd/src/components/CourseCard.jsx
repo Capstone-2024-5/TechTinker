@@ -18,7 +18,7 @@ export default function CourseCard({ course }) {
       }}
     >
       <Stack direction="column" spacing={1} useFlexGap width={300}>
-        <img src={`http://localhost:4000/images/${course.image}`} width={"100%"} height={"250px"} alt="blank" style={{objectFit:"cover"}} />
+        <img src={`https://techtinker-1.onrender.com/images/${course.image}`} width={"100%"} height={"250px"} alt="blank" style={{objectFit:"cover"}} />
         <Typography variant="h5" className="cardTitle">{course.courseName}</Typography>
         <Typography variant="body1" className="cardText">{course.courseCode}</Typography>
       </Stack>
