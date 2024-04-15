@@ -22,11 +22,14 @@ const AdminDashBoard = () => {
           <Link to="/admin_main">
             <button>Add Products</button>
           </Link>
-          <Link to="/admin/products">
-            <button>Manage Products</button>
+          <Link to="/courseadd">
+            <button>Add Courses</button>
           </Link>
-          <Link to="/admin/orders">
-            <button>Manage Orders</button>
+          <Link to="/courseupdate">
+            <button>Update Courses</button>
+          </Link>
+          <Link to="/studentmanagement">
+            <button>Student List</button>
           </Link>
         </div>
       </div>

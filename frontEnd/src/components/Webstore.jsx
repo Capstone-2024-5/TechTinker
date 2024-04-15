@@ -77,11 +77,11 @@ const Webstore = () => {
           </Grid>
         ))}
       </Grid>
-      <Box display="flex" justifyContent="center" alignItems="center" marginTop={8} marginBottom={3}>
+      {/* <Box display="flex" justifyContent="center" alignItems="center" marginTop={8} marginBottom={3}>
         <Button variant="contained" color="primary" onClick={loadMore} disabled={loading}>
           {loading ? 'Loading...' : 'Load More'}
         </Button>
-      </Box>
+      </Box> */}
 
       {/* Modal to display product details */}
       {selectedProduct && (

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Badge from '@mui/material/Badge';
 import { Link } from "react-router-dom";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import {
@@ -6,6 +7,7 @@ import {
   Box,
   Container,
   Drawer,
+  IconButton,
   List,
   ListItemButton,
   ListItemText,
@@ -31,38 +33,17 @@ const pages = [
       { name: "Admin Login", link: "admin_login" },
     ],
   },
-  { name: "CourseList", link: "courselist" },
-  { name: "CourseCRUD", link: "courseupdate" },
-  { name: "CourseAdd", link: "courseadd" },
+  { name: "Courses", link: "courselist" },
+  // { name: "CourseCRUD", link: "courseupdate" },
+  // { name: "CourseAdd", link: "courseadd" },
   { name: "Events", link: "events" },
   { name: "Register", link: "register" },
-  {name: "Student Management", link:"studentmanagement"},
+  // {name: "Student Management", link:"studentmanagement"},
   { name: "About Us", link: "aboutus" }, // cab be deleted afterwards as link is inside techticke main
   { name: "Webstore", link: "webstore" },
 ];
 
-const webpages = [
-    { name: "Home", link: "" },
-    {
-        name: "Science",
-        link: "science",
-        sublinks: [
-            "Elementary School Science",
-            "Middle School Science",
-            "High Scool Science",
-            "Activity Books",
-            "Experiments",
-            "Lab Equipment",
-        ],
-    },
-    { name: "Technology", link: "technology" },
-    { name: "Engineering", link: "engineering" },
-    { name: "Mathematics", link: "mathematics" },
-    { name: "Robotics", link: "robotics" },
-    { name: "Contact Us", link: "contact-us" },
-];
-
-export default function Header() {
+export default function Header({ cartCount, handleAddToCart }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -78,12 +59,10 @@ export default function Header() {
   const isEventPage = location.pathname === "/events";
   const isContactUsPage = location.pathname === "/contact-us";
   const isWebstorePage = location.pathname === "/webstore";
-
-  const isSciencePage = location.pathname === "/science";
-  const isTechnologyPage = location.pathname === "/technology";
-  const isEngineeringPage = location.pathname === "/engineering";
-  const isMathematicsPage = location.pathname === "/mathematics";
-  const isRoboticsPage = location.pathname === "/robotics";
+  const isAboutUs = location.pathname === "/aboutus";
+  const isAdminLogin = location.pathname === "/admin_login";
+  const isAdminDashBoard = location.pathname === "//admin_dashboard";
+  
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
@@ -180,7 +159,8 @@ export default function Header() {
                 <div style={{ width: 24, height: 24 }} />
                 </Badge>
             </div>
-        )}
+            )
+            }
           </Toolbar>
         </Box>
 
@@ -204,7 +184,8 @@ export default function Header() {
           LOGO
         </Typography>
 
-        {!isHomePage &&
+        {
+        !isHomePage &&
           !isCourseList &&
           !isRegisterPage &&
           !isEventPage &&
@@ -212,31 +193,18 @@ export default function Header() {
           !isCourseDetails &&
           !isCourseUpdate &&
           !isStudentManagementPage &&
-          !isCourseAdd && (
+          !isCourseAdd &&
+          !isWebstorePage &&
+          !isAboutUs &&
+          !isAdminLogin &&
+          isAdminDashBoard && (
             <Box
               sx={{
                 flexGrow: 1,
                 display: { xs: "none", md: "flex" },
               }}
             >
-              {webpages.map((webpage) => (
-                <Link
-                  key={webpage.name}
-                  component={RouterLink}
-                  to={webpage.link}
-                  className="headerLink"
-                >
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{ color: "white", display: "block" }}
-                    className="headerLink fontWeight-800"
-                  >
-                    {webpage.name}
-                  </Button>
-                </Link>
-              ))}
-
-              <Box sx={{ display: "flex", marginLeft: "auto" }}>
+             {/* <Box sx={{ display: "flex", marginLeft: "auto" }}>
                 <Box>
                   <Button sx={{ color: "white", display: "block" }}>
                     <ShoppingCartIcon />
@@ -247,9 +215,20 @@ export default function Header() {
                     <MenuIcon onClick={() => setDrawerOpen(true)} />
                   </Button>
                 </Box>
-              </Box>
+              </Box> */}
+
+              <div style={{ position: 'relative' }}>
+                <IconButton color="inherit" onClick={handleAddToCart}>
+                <ShoppingCartIcon />
+                </IconButton>
+                <Badge badgeContent={cartCount} color="error" style={{ position: 'absolute', top: 10, right: 5 }}>
+                {/* Empty div to maintain spacing */}
+                <div style={{ width: 24, height: 24 }} />
+                </Badge>
+            </div>
             </Box>
-          )}
+          )
+          }
       </Container>
     </AppBar>
     );
