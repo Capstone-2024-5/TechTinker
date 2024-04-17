@@ -40,6 +40,7 @@ export default function CourseUpdate() {
     const editor = useRef(null);
     const [courseName, setCourseName] = useState("");
     const [courseCode, setCourseCode] = useState("");
+    const [courseImage, setCourseImage] = useState("");
     const [content, setContent] = useState("");
     const [courseAge, setCourseAge] = useState("");
     const [courseFees, setCourseFees] = useState("");
@@ -60,6 +61,7 @@ export default function CourseUpdate() {
         console.log(
             courseName,
             courseCode,
+            courseImage,
             content,
             courseAge,
             courseFees,
@@ -71,6 +73,7 @@ export default function CourseUpdate() {
             .put(`https://techtinker-1.onrender.com/updateCourse/${id}`, {
                 courseName,
                 courseCode,
+                courseImage,
                 content,
                 courseAge,
                 courseFees,
@@ -88,10 +91,12 @@ export default function CourseUpdate() {
     useEffect(() => {
         axios
           .get(`https://techtinker-1.onrender.com/getCourse/${id}`)
+        //   .get(`http://localhost:4000/getCourse/${id}`)
           .then((result) => {
-            console.log(result.data.courseName)
+            console.log(result.data.courseImage)
             setCourseName(result.data.courseName)
             setCourseCode(result.data.courseCode)
+            setCourseImage(result.data.courseImage)
             setContent(result.data.content)
             setCourseAge(result.data.courseAge)
             setCourseFees(result.data.courseFees)
@@ -207,6 +212,26 @@ export default function CourseUpdate() {
                                 sx={{ flex: "1" }}
                                 value={courseCode}
                                 onChange={(e) => setCourseCode(e.target.value)}
+                            ></TextField>
+                        </Stack>
+
+                        <Stack
+                            direction={"row"}
+                            flexWrap={"wrap"}
+                            alignItems={"center"}
+                            marginBottom={3}
+                        >
+                            <FormLabel sx={{ flex: "1" }}>
+                                Course Image
+                            </FormLabel>
+                            <TextField
+                                type="text"
+                                variant="outlined"
+                                color="primary"
+                                required
+                                sx={{ flex: "1" }}
+                                value={courseImage}
+                                onChange={(e) => setCourseImage(e.target.value)}
                             ></TextField>
                         </Stack>
 
