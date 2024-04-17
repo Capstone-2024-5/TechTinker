@@ -56,19 +56,32 @@ const Register = ({ handleFormData }) => {
   }, [formData.Age]);
 
   const fetchCourseNames = async () => {
-    try {
-      const response = await axios.get(
-        "https://techtinker-1.onrender.com/api/courseDetails",
-        {
+    axios
+      .get("https://techtinker-1.onrender.com/getcourseList", {
         params: {
           Age: formData.Age,
         },
-        }
-      );
+      })
+      .then((response) => {
         setCourseNames(response.data);
-    } catch (error) {
+      })
+      .catch((error) => {
         console.error("Error fetching course details:", error);
-    }
+      });
+
+    // try {
+    //   const response = await axios.get(
+    //     "https://techtinker-1.onrender.com/api/courseDetails",
+    //     {
+    //       params: {
+    //         Age: formData.Age,
+    //       },
+    //     }
+    //   );
+    //   setCourseNames(response.data);
+    // } catch (error) {
+    //   console.error("Error fetching course details:", error);
+    // }
   };
   const handleDateChange = (date, field) => {
     setFormData((prevData) => ({
@@ -545,10 +558,6 @@ const Register = ({ handleFormData }) => {
                         </Typography>
                       )}
                     </FormControl>
-) : (
-  <p>Loading...</p>
-)}
-
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
