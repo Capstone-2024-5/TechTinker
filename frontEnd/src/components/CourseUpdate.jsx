@@ -80,7 +80,9 @@ export default function CourseUpdate() {
             })
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
-        setSubmissionStatus("Updated successfully!");        
+        setSubmissionStatus("Updated successfully!"); 
+        navigate('/courselist');
+
     }
 
     useEffect(() => {
@@ -144,6 +146,7 @@ export default function CourseUpdate() {
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
         setSubmissionStatus("Course Added successfully!");
+        navigate('/courselist');
     }
 
     return (
