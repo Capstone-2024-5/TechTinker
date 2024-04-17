@@ -55,21 +55,21 @@ const Register = ({ handleFormData }) => {
     }
   }, [formData.Age]);
 
-  const fetchCourseNames = () => {
-    axios
-      .get("http://localhost:4000/getcourseList", {
+  const fetchCourseNames = async () => {
+    try {
+      const response = await axios.get(
+        "https://techtinker-1.onrender.com/api/courseDetails",
+        {
         params: {
           Age: formData.Age,
         },
-      })
-      .then((response) => {
+        }
+      );
         setCourseNames(response.data);
-      })
-      .catch((error) => {
+    } catch (error) {
         console.error("Error fetching course details:", error);
-      });
+    }
   };
-
   const handleDateChange = (date, field) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -185,7 +185,7 @@ const Register = ({ handleFormData }) => {
     }
 
     axios
-      .post("http://localhost:4000/api/register", requestData)
+      .post("https://techtinker-1.onrender.com/api/register", requestData)
       .then((response) => {
         console.log("Registration successful:", response.data);
         setRegistrationSuccess(true);
@@ -545,6 +545,10 @@ const Register = ({ handleFormData }) => {
                         </Typography>
                       )}
                     </FormControl>
+) : (
+  <p>Loading...</p>
+)}
+
                   </Grid>
                   <Grid item xs={6}>
                     <TextField

@@ -16,7 +16,7 @@ const Webstore = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:4000/products/?page=${page}&limit=${pageSize}`);
+        const response = await axios.get(`https://techtinker-1.onrender.com/products/?page=${page}&limit=${pageSize}`);
         setProducts(response.data); // Replace existing products with newly fetched products
         setErrorMsg('');
       } catch (error) {
@@ -77,11 +77,11 @@ const Webstore = () => {
           </Grid>
         ))}
       </Grid>
-      <Box display="flex" justifyContent="center" alignItems="center" marginTop={8} marginBottom={3}>
+      {/* <Box display="flex" justifyContent="center" alignItems="center" marginTop={8} marginBottom={3}>
         <Button variant="contained" color="primary" onClick={loadMore} disabled={loading}>
           {loading ? 'Loading...' : 'Load More'}
         </Button>
-      </Box>
+      </Box> */}
 
       {/* Modal to display product details */}
       {selectedProduct && (

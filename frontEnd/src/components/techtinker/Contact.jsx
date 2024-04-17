@@ -61,7 +61,7 @@ const Contact = () => {
         });
         try {
             const response = await axios.post(
-                "http://localhost:4000/contact",
+                "https://techtinker-1.onrender.com/contact",
                 data
             );
             setFormSubmitted(true);

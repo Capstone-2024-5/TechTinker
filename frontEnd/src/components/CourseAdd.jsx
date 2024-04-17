@@ -100,7 +100,7 @@ export default function CourseAdd() {
         );
 
         axios
-            .post("http://localhost:4000/addcourse", 
+            .post("https://techtinker-1.onrender.com/addcourse", 
             // {
             //     courseName,
             //     courseCode,

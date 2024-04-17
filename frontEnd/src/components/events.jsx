@@ -16,7 +16,7 @@ const Events = () => {
     const fetchEventData = async () => {
         try {
           setLoading(true);
-          const response = await axios.get("http://localhost:4000/events");
+          const response = await axios.get("https://techtinker-1.onrender.com/events");
           const data = response.data; // Get the response data directly
           setEvents(data);
         } catch (error) {

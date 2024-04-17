@@ -68,7 +68,7 @@ export default function CourseUpdate() {
             courseDuration
         );
         axios
-            .put(`http://localhost:4000/updateCourse/${id}`, {
+            .put(`https://techtinker-1.onrender.com/updateCourse/${id}`, {
                 courseName,
                 courseCode,
                 content,
@@ -87,7 +87,7 @@ export default function CourseUpdate() {
 
     useEffect(() => {
         axios
-          .get(`http://localhost:4000/getCourse/${id}`)
+          .get(`https://techtinker-1.onrender.com/getCourse/${id}`)
           .then((result) => {
             console.log(result.data.courseName)
             setCourseName(result.data.courseName)
@@ -133,7 +133,7 @@ export default function CourseUpdate() {
         );
 
         axios
-            .post("http://localhost:4000/addcourse", {
+            .post("https://techtinker-1.onrender.com/addcourse", {
                 courseName,
                 courseCode,
                 content,

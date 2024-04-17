@@ -18,7 +18,7 @@ export default function CourseCRUD() {
   const navigate = useNavigate();
   const getcourses = () => {
     axios
-      .get("http://localhost:4000/getCoursecrud")
+      .get("https://techtinker-1.onrender.com/getCoursecrud")
       .then((result) => setCourseList(result.data))
       .catch((err) => console.log(err));
   };
@@ -27,7 +27,7 @@ export default function CourseCRUD() {
 
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:4000/deletecourse/${id}`)
+      .delete(`https://techtinker-1.onrender.com/deletecourse/${id}`)
       .then((res) => console.log(res))
       .then(() => getcourses())
       .catch((err) => console.log(err));
