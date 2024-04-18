@@ -202,18 +202,6 @@ export default function CourseAdd() {
                             ></TextField>
                         </Stack>
 
-                        <Stack
-                            direction={"row"}
-                            flexWrap={"wrap"}
-                            alignItems={"center"}
-                            marginBottom={3}
-                        >
-                            <FormLabel sx={{ flex: "1" }}>
-                                Upload an Image
-                            </FormLabel>
-                            <input type="file" onChange={e => setFile(e.target.files[0])}></input>
-                        </Stack>
-
                         <Stack direction={"column"} marginBottom={3} gap={1}>
                             <FormLabel sx={{ flex: "1" }}>
                                 Course Details
