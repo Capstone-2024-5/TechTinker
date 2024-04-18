@@ -56,6 +56,11 @@ export default function CourseDetails() {
             For Ages: {data.courseAge} years old
           </Typography>
         </Stack>
+        <Stack width={"70%"}>
+          <Typography variant="h5" className="textSecondary">
+            Weeks: {data.courseDuration} weeks
+          </Typography>
+        </Stack>
         <Stack
           flexDirection={"column"}
           gap={1}
