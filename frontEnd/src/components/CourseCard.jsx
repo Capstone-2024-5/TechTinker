@@ -17,8 +17,8 @@ export default function CourseCard({ course }) {
         navigate(`/courselist/${course._id}`);
       }}
     >
-      <Stack direction="column" spacing={1} useFlexGap width={300}>
-        <img src={`https://techtinker-1.onrender.com/images/${course.image}`} width={"100%"} height={"250px"} alt="blank" style={{objectFit:"cover"}} />
+      <Stack direction="column" spacing={1} useFlexGap width={300} margin={"auto"}>
+        <img src={`${course.courseImage}`} width={"100%"} height={"250px"} alt="blank" style={{objectFit:"cover"}} />
         <Typography variant="h5" className="cardTitle">{course.courseName}</Typography>
         <Typography variant="body1" className="cardText">{course.courseCode}</Typography>
       </Stack>

@@ -39,6 +39,7 @@ export default function CourseAdd() {
     const navigate = useNavigate();
     const [courseName, setCourseName] = useState("");
     const [courseCode, setCourseCode] = useState("");
+    const [courseImage, setCourseImage] = useState("");
     const [content, setContent] = useState("");
     const [courseAge, setCourseAge] = useState("");
     const [courseFees, setCourseFees] = useState("");
@@ -75,9 +76,10 @@ export default function CourseAdd() {
     function handleSubmit(event) {
         event.preventDefault();
         const formData = new FormData();
-        formData.append('file', file);
+        // formData.append('file', file);
         formData.append('courseName', courseName); // Append other form fields
         formData.append('courseCode', courseCode);
+        formData.append('courseImage', courseImage);
         formData.append('content', content);
         formData.append('courseAge', courseAge);
         formData.append('courseFees', courseFees);
@@ -89,6 +91,7 @@ export default function CourseAdd() {
         });    
         console.log(
             courseName,
+            courseImage,
             courseCode,
             content,
             formData,
@@ -101,18 +104,19 @@ export default function CourseAdd() {
 
         axios
             .post("https://techtinker-1.onrender.com/addcourse", 
-            // {
-            //     courseName,
-            //     courseCode,
-            //     formData,
-            //     content,
-            //     courseAge,
-            //     courseFees,
-            //     courseIntroFees,
-            //     slots,
-            //     courseDuration,
-            // } 
-            formData
+            {
+                courseName,
+                courseCode,
+                courseImage,
+                // formData,
+                content,
+                courseAge,
+                courseFees,
+                courseIntroFees,
+                slots,
+                courseDuration,
+            } 
+            // formData
             )
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
@@ -176,6 +180,25 @@ export default function CourseAdd() {
                                 required
                                 sx={{ flex: "1" }}
                                 onChange={(e) => setCourseCode(e.target.value)}
+                            ></TextField>
+                        </Stack>
+
+                        <Stack
+                            direction={"row"}
+                            flexWrap={"wrap"}
+                            alignItems={"center"}
+                            marginBottom={3}
+                        >
+                            <FormLabel sx={{ flex: "1" }}>
+                                Course Image URL
+                            </FormLabel>
+                            <TextField
+                                type="text"
+                                variant="outlined"
+                                color="primary"
+                                required
+                                sx={{ flex: "1" }}
+                                onChange={(e) => setCourseImage(e.target.value)}
                             ></TextField>
                         </Stack>
 

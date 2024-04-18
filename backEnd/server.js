@@ -6,28 +6,28 @@ const mongoose = require("mongoose");
 const CourseListModel = require("./models/courseList");
 const CourseModel = require("./models/course");
 const path = require("path");
-const multer = require("multer");
+// const multer = require("multer");
 
 app.use(cors({ origin: "*" }));
 
 app.use(express.json());
 app.use(express.static('public'));
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./public/images");
-  },
-  filename: (req, file, cb) => {
-    cb(
-      null,
-      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "./public/images");
+//   },
+//   filename: (req, file, cb) => {
+//     cb(
+//       null,
+//       file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+//     );
+//   },
+// });
 
-const upload = multer({
-  storage: storage,
-});
+// const upload = multer({
+//   storage: storage,
+// });
 
 const userRouter = require("./routes/users_route");
 const techTinkerRouter = require("./routes/tech_Tinker_route");
@@ -54,16 +54,18 @@ app.use("/user", userRouter);
 app.use("/api", registrationRouter);
 app.post("/api/register", registerUser);
 
-app.post("/addcourse", upload.single("file"), (req, res) => {
+// app.post("/addcourse", upload.single("file"), (req, res) => {
+  app.post("/addcourse", (req, res) => {
   CourseModel.create({
     courseName: req.body.courseName,
     courseCode: req.body.courseCode,
-    image: req.file.filename,
+    courseImage: req.body.courseImage,
+    // image: req.file.filename,
     content: req.body.content,
     courseAge: req.body.courseAge,
     courseFees: req.body.courseFees,
     courseIntroFees: req.body.courseIntroFees,
-    slots: JSON.parse(req.body.slots), 
+    slots: req.body.slots, 
     courseDuration: req.body.courseDuration,
   })
     .then((courses) => res.json(courses))
@@ -117,6 +119,7 @@ app.put("/updateCourse/:id", (req, res) => {
     {
       courseName: req.body.courseName,
       courseCode: req.body.courseCode,
+      courseImage: req.body.courseImage,
       content: req.body.content,
       courseAge: req.body.courseAge,
       courseFees: req.body.courseFees,

@@ -26,7 +26,7 @@ export default function CourseDetails() {
     return (
       <>
         <img
-          src={`https://techtinker-1.onrender.com/images/${data.image}`}
+          src={`${data.courseImage}`}
           width={"25%"}
           height={"25%"}
           alt="blank"
